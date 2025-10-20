@@ -1,4 +1,3 @@
-import crypto from "node:crypto";
 import { parse } from "csv-parse/sync";
 
 const env = (name, required = true) => {
@@ -28,16 +27,6 @@ function toJsonString(data) {
   return JSON.stringify(data, null, 2);
 }
 
-function sha256(str) {
-  return crypto.createHash("sha256").update(str).digest("hex");
-}
-
-async function getGist() {
-  const res = await fetch(`https://api.github.com/gists/${GIST_ID}`);
-  if (!res.ok) throw new Error(`Failed to read gist ${GIST_ID}`);
-  return res.json();
-}
-
 async function updateGist(files) {
   const res = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
     method: "PATCH",
@@ -62,39 +51,21 @@ async function main() {
     JOBTYPES_CSV_URL ? fetchCsv(JOBTYPES_CSV_URL) : Promise.resolve(null),
   ]);
 
-  const companiesJson = toJsonString(companiesCsv);
-  const jobsJson = toJsonString(jobsCsv);
-  const majorsJson = majorsCsv ? toJsonString(majorsCsv) : undefined;
-  const jobTypesJson = jobTypesCsv ? toJsonString(jobTypesCsv) : undefined;
+  const files = {
+    "companies.json": { content: toJsonString(companiesCsv) },
+    "jobs.json": { content: toJsonString(jobsCsv) },
+  };
 
-  const gist = await getGist();
-  const currentCompanies = gist.files["companies.json"]?.content || "";
-  const currentJobs = gist.files["jobs.json"]?.content || "";
-  const currentMajors = gist.files["majors.json"]?.content || "";
-  const currentJobTypes = gist.files["jobTypes.json"]?.content || "";
-
-  const changes = {};
-  if (sha256(currentCompanies) !== sha256(companiesJson)) {
-    changes["companies.json"] = { content: companiesJson };
+  if (majorsCsv) {
+    files["majors.json"] = { content: toJsonString(majorsCsv) };
   }
-  if (sha256(currentJobs) !== sha256(jobsJson)) {
-    changes["jobs.json"] = { content: jobsJson };
-  }
-  if (majorsJson && sha256(currentMajors) !== sha256(majorsJson)) {
-    changes["majors.json"] = { content: majorsJson };
-  }
-  if (jobTypesJson && sha256(currentJobTypes) !== sha256(jobTypesJson)) {
-    changes["jobTypes.json"] = { content: jobTypesJson };
+  if (jobTypesCsv) {
+    files["jobTypes.json"] = { content: toJsonString(jobTypesCsv) };
   }
 
-  if (Object.keys(changes).length === 0) {
-    console.log("No changes detected. Exiting.");
-    return;
-  }
-
-  await updateGist(changes);
+  await updateGist(files);
   console.log(
-    `Updated gist ${GIST_ID} with ${Object.keys(changes).join(", ")}`
+    `Updated gist ${GIST_ID} with ${Object.keys(files).join(", ")}`
   );
 }
 
