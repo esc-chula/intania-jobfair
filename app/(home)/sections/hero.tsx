@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <section aria-labelledby="home-hero-title" className="text-center">
-      <h1 id="home-hero-title" className="text-2xl md:text-4xl font-bold tracking-tight">
+      <h1 id="home-hero-title" className="text-2xl md:text-4xl font-bold tracking-tight text-[#102E50]">
         Intania Job Fair 2025
       </h1>
       <p className="mt-2 text-muted-foreground">
