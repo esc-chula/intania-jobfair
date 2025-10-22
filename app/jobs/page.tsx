@@ -199,13 +199,31 @@ const dummyCompanies: Company[] = [
   },
 ];
 
+const generatedJobs: Job[] = Array.from({ length: 100 }, (_, i) => {
+  const base = dummyJobs[i % dummyJobs.length]; // reuse one of the 5 base jobs
+  const company = dummyCompanies[i % dummyCompanies.length];
+
+  const jobNumber = (i + 1).toString().padStart(3, "0");
+
+  return {
+    ...base,
+    jobId: `job-${jobNumber}`,
+    companyId: company.companyId,
+    jobTitle: `${base.jobTitle} (${i + 1})`,
+    applicationStartDate: `2025-10-${String((i % 28) + 1).padStart(2, "0")}`,
+    applicationEndDate: `2025-11-${String(((i + 10) % 28) + 1).padStart(2, "0")}`,
+    openingsCount: (i % 3) + 1,
+    applicationLink: `${base.applicationLink}?id=${jobNumber}`,
+  };
+});
+
 export default async function JobsPage() {
   const jobs = await fetchJobs();
 
   return (
     <div className="flex flex-col gap-4">
       <div className="h-9 w-full bg-gray-200"></div>
-      <JobsListClient initialJobs={dummyJobs} initialCompanies={dummyCompanies} />
+      <JobsListClient initialJobs={generatedJobs} initialCompanies={dummyCompanies} />
     </div>
   );
 }
