@@ -12,17 +12,21 @@ import {
 import Image from "next/image";
 import { LucideCalendarRange, LucideClock, LucideMapPin } from "lucide-react";
 import type { Job, Company } from "@/types/schema";
+import PaginationControls from "./pagination";
 
 export default function JobsListClient({
   initialJobs,
   initialCompanies,
+  cardsPerPage = 10,
 }: {
   initialJobs: Job[];
   initialCompanies: Company[];
+  cardsPerPage?: number;
 }) {
   const [sortOption, setSortOption] = useState<
     "position" | "open-date" | "close-date"
   >("position");
+  const [page, setPage] = useState(1);
 
   const sortedJobs = useMemo(() => {
     const arr = [...initialJobs];
@@ -46,28 +50,35 @@ export default function JobsListClient({
     return arr;
   }, [initialJobs, sortOption]);
 
+  const totalPages = Math.max(1, Math.ceil(sortedJobs.length / cardsPerPage));
+  if (page > totalPages) setPage(totalPages);
+
+  const paginatedJobs = useMemo(() => {
+    const startIndex = (page - 1) * cardsPerPage;
+    return sortedJobs.slice(startIndex, startIndex + cardsPerPage);
+  }, [sortedJobs, page, cardsPerPage]);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-end items-center flex-row gap-2">
         <p>เรียงตาม</p>
-        <Select.Select value={sortOption} onValueChange={(v) => setSortOption(v as "position" | "open-date" | "close-date")}>
+        <Select.Select
+          value={sortOption}
+          onValueChange={(v) =>
+            setSortOption(v as "position" | "open-date" | "close-date")
+          }
+        >
           <Select.SelectTrigger>
             <Select.SelectValue placeholder="ชื่อตำแหน่งงาน" />
           </Select.SelectTrigger>
           <Select.SelectContent>
-            <Select.SelectItem
-              value="position"
-            >
+            <Select.SelectItem value="position">
               ชื่อตำแหน่งงาน
             </Select.SelectItem>
-            <Select.SelectItem
-              value="open-date"
-            >
+            <Select.SelectItem value="open-date">
               วันเปิดรับสมัคร
             </Select.SelectItem>
-            <Select.SelectItem
-              value="close-date"
-            >
+            <Select.SelectItem value="close-date">
               วันปิดรับสมัคร
             </Select.SelectItem>
           </Select.SelectContent>
@@ -76,7 +87,7 @@ export default function JobsListClient({
 
       <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
 
-      {sortedJobs.map((job) => {
+      {paginatedJobs.map((job) => {
         const company =
           initialCompanies.find((c) => c.companyId === job.companyId) ?? null;
 
@@ -139,6 +150,11 @@ export default function JobsListClient({
           </Card>
         );
       })}
+
+      <PaginationControls currentPage={page} totalPages={totalPages} onPageChange={(page) => setPage(page)}/>
+
+
+
     </div>
   );
 }
