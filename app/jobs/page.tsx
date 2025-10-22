@@ -1,6 +1,6 @@
 import { fetchJobs } from "@/lib/data";
 import { Job, Company } from "@/types/schema";
-import JobsListClient from "@/components/jobs/joblist";
+import JobsListClient from "@/components/jobs/job-list";
 
 const dummyJobs: Job[] = [
   {
@@ -222,7 +222,6 @@ export default async function JobsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="h-9 w-full bg-gray-200"></div>
       <JobsListClient initialJobs={generatedJobs} initialCompanies={dummyCompanies} />
     </div>
   );
