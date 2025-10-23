@@ -8,6 +8,7 @@ import {
   Manrope,
   IBM_Plex_Sans_Thai_Looped,
   Anuphan,
+  Inter,
 } from "next/font/google";
 
 /* === 1. Font Setup === */
@@ -22,6 +23,13 @@ const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-body-en",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-body-en-2",
   display: "swap",
 });
 
@@ -57,6 +65,7 @@ export default function RootLayout({
           ${manrope.variable}
           ${plexThai.variable}
           ${anuphan.variable}
+          ${inter.variable}
           antialiased
           bg-background text-foreground
         `}
