@@ -1,5 +1,5 @@
-import Section from "../components/section";
-import SkeletonCard from "../components/skeleton-card";
+import Section from "@/components/common/Section";
+import SkeletonCard from "@/components/common/SkeletonCard";
 
 export default function FeaturedJobs() {
   return (
