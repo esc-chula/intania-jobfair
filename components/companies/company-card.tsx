@@ -59,7 +59,7 @@ export default function CompanyCard({
                                 height={16}
                             />
                             <p className="text-xs font-bodyTH text-primary-blue">
-                                {(company?.officeLocation_district ?? "N/A") +
+                                {(company?.officeLocation_district ?? "N/A") + " " + 
                                     (company?.officeLocation_province ?? "N/A")}
                             </p>
                         </div>
