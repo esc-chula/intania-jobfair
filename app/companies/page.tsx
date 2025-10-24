@@ -1,33 +1,21 @@
-import { fetchCompanies } from "@/lib/data";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardContent,
-    CardAction,
-} from "@/components/ui/card";
+import { fetchCompanies, fetchJobs } from "@/lib/data";
 import { Company } from "@/types/schema";
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { countJobs } from "@/lib/helper";
-import CompanyCard from "@/components/companies/company-card";
+import CompanyListClient from "@/components/companies/company-list";
 
 export default async function CompaniesPage() {
     const companies = await fetchCompanies();
-
-    const jobCounts = await Promise.all(companies.map((c) => countJobs(c[""])));
-
+    const jobs = await fetchJobs();
     return (
         <div>
             <h1 className="text-2xl font-semibold mb-4 font-headTH text-primary-blue">
                 บริษัททั้งหมด
             </h1>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {companies.map((c: Company, index: number) => (
-                    <CompanyCard key={c[""]} company={c}/>
-                ))}
+            <div className="flex flex-col gap-4">
+                <CompanyListClient
+                    initialJobs={jobs}
+                    initialCompanies={companies}
+                />
             </div>
             <p className="text-sm text-muted-foreground mt-4">
                 รายการ {companies.length} บริษัท

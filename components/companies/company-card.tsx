@@ -15,8 +15,13 @@ import {
 import { countJobs } from "@/lib/helper";
 import CompanyTags from "@/components/companies/company-tags";
 
-export default async function CompanyCard({ company }: { company: Company }) {
-    const jobCount = await countJobs(company[""]);
+export default function CompanyCard({
+    company,
+    jobCount,
+}: {
+    company: Company;
+    jobCount: number;
+}) {
     return (
         <Card className="p-4">
             <CardHeader>
