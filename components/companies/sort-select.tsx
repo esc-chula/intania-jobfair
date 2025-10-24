@@ -4,8 +4,8 @@ export default function SortSelector({
     sortOption,
     setSortOption,
 }: {
-    sortOption: "name" | "open-date" | "close-date";
-    setSortOption: (v: "name" | "open-date" | "close-date") => void;
+    sortOption: "name" | "job-count" | "open-date" | "close-date";
+    setSortOption: (v: "name" | "job-count" | "open-date" | "close-date") => void;
 }) {
     return (
         <div className="flex justify-end items-center gap-2">
@@ -13,7 +13,7 @@ export default function SortSelector({
             <Select.Select
                 value={sortOption}
                 onValueChange={(v) =>
-                    setSortOption(v as "name" | "open-date" | "close-date")
+                    setSortOption(v as "name" | "job-count" | "open-date" | "close-date")
                 }
             >
                 <Select.SelectTrigger className="bg-white">
@@ -22,6 +22,9 @@ export default function SortSelector({
                 <Select.SelectContent>
                     <Select.SelectItem value="name">
                         <p className="font-bodyTH">ชื่อบริษัท (ค่าเริ่มต้น)</p>
+                    </Select.SelectItem>
+                    <Select.SelectItem value="job-count">
+                        <p className="font-bodyTH">จำนวนงานที่รับ</p>
                     </Select.SelectItem>
                     <Select.SelectItem value="open-date">
                         <p className="font-bodyTH">วันเปิดรับสมัคร</p>

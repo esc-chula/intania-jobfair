@@ -17,7 +17,7 @@ export default function CompanyListClient({
     cardsPerPage?: number;
 }) {
     const [sortOption, setSortOption] = useState<
-        "name" | "open-date" | "close-date"
+        "name" | "job-count" | "open-date" | "close-date"
     >("name");
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
@@ -98,6 +98,14 @@ export default function CompanyListClient({
                     companyJobDates.get(b[""])?.latestEnd ?? -Infinity;
                 return closeB - closeA; // Latest first
             });
+        if (sortOption === "job-count")
+            return arr.sort(
+                (a, b) =>
+                    -(
+                        (jobCountMap.get(a[""]) ?? 0) -
+                        (jobCountMap.get(b[""]) ?? 0)
+                    )
+            );
 
         return arr;
     }, [searchedCompanies, sortOption, companyJobDates]);
