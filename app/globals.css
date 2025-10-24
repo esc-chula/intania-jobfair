@@ -9,6 +9,8 @@
   --color-primary-yellow: #F5C45E;   /* Navbar/Expanded nav */
   --color-primary-blue:   #102E50;   /* Headings/Nav text */
   --color-gray-400-ci:    #99A1AF;   /* "ดูทั้งหมด" */
+  --color-secondary-white: #FBF5DE; /* background */
+
 
 
   --color-background: var(--background);
@@ -64,7 +66,7 @@
 
   --radius: 14px;
 
-  --background: #FFFDF7;
+  --background: #FBF5DE;
   --foreground: #1F2328;
 
   --card: #FFFFFF;
@@ -160,6 +162,7 @@
 .font-bodyTH { font-family: var(--font-body-th), system-ui, sans-serif; }
 .font-headEN { font-family: var(--font-head-en), system-ui, sans-serif; }
 .font-bodyEN { font-family: var(--font-body-en), system-ui, sans-serif; }
+.font-bodyEN2 { font-family: var(--font-body-en-2), system-ui, sans-serif; }
 
 /* ===============================
    5) RECIPES (เขียนคลาสสั้น)
