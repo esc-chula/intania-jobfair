@@ -26,7 +26,9 @@ export default function CompanyListClient({
     const searchedCompanies = useMemo(() => {
         return initialCompanies.filter((company: Company) => {
             const matchesQuery =
-                company.companyName_en.toLowerCase().includes(query.toLowerCase()) ||
+                company.companyName_en
+                    .toLowerCase()
+                    .includes(query.toLowerCase()) ||
                 company.companyName_th.includes(query);
             // Add more filter conditions here if needed
             return matchesQuery;
@@ -124,7 +126,9 @@ export default function CompanyListClient({
                 sortOption={sortOption}
                 setSortOption={setSortOption}
             />
-            <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
+            <h2 className="text-xl font-bold font-headTH text-primary-blue">
+                {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
+            </h2>
 
             {paginatedCompanies.map((company) => {
                 const count = jobCountMap.get(company[""]) ?? 0;

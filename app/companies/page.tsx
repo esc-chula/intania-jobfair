@@ -7,10 +7,6 @@ export default async function CompaniesPage() {
     const jobs = await fetchJobs();
     return (
         <div>
-            <h1 className="text-2xl font-semibold mb-4 font-headTH text-primary-blue">
-                บริษัททั้งหมด
-            </h1>
-
             <div className="flex flex-col gap-4">
                 <CompanyListClient
                     initialJobs={jobs}
