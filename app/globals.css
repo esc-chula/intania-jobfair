@@ -37,6 +37,28 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
 
+   --color-card:       var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover:    var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,6 +71,17 @@
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  --radius-sm: 4px;     
+  --radius-md: 8px;     
+  --radius-lg: 14px;    
+  --radius-xl: 20px;   
+
+  --shadow-light: 0 4px 10px rgba(174,174,174,.10); /* input */
+  --shadow-card:  0 6px 24px rgba(0,0,0,.06);       /* card */
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -93,6 +126,36 @@
 
   --ring: #94A3B8;
 
+
+  --radius: 14px;
+
+  --background: #FBF5DE;
+  --foreground: #1F2328;
+
+  --card: #FFFFFF;
+  --card-foreground: #1F2328;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F2328;
+
+  --primary: #D62828;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #F1F5F9;
+  --secondary-foreground: #1F2328;
+
+  --muted: #F6F7F9;
+  --muted-foreground: #8A8F98;
+
+  --accent: #F7B801;
+  --accent-foreground: #1F2328;
+
+  --destructive: #EF4444;
+
+  --border: #E5E5E5;
+  --input:  #E5E5E5;
+
+  --ring: #94A3B8;
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -107,9 +170,43 @@
   --sidebar-accent-foreground: #102E50;
   --sidebar-border: #E5E5E5;
   --sidebar-ring: #94A3B8;
+
+  --sidebar: #FFFDF7;
+  --sidebar-foreground: #1F2328;
+  --sidebar-primary: #102E50;          
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F5C45E;
+  --sidebar-accent-foreground: #102E50;
+  --sidebar-border: #E5E5E5;
+  --sidebar-ring: #94A3B8;
 }
 
 .dark {
+  --background: #0B0F14;
+  --foreground: #E8EAED;
+  --card: #121821;
+  --card-foreground: #E8EAED;
+  --popover: #121821;
+  --popover-foreground: #E8EAED;
+
+  --primary: #D62828;            /* CTA แดงยังคงเดิม */
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #0F172A;
+  --secondary-foreground: #E8EAED;
+
+  --muted: #0F172A;
+  --muted-foreground: #9AA0A6;
+
+  --accent: #0F172A;
+  --accent-foreground: #E8EAED;
+
+  --destructive: #DC2626;
+
+  --border: #293241;
+  --input:  #293241;
+  --ring:   #64748B;
+
   --background: #0B0F14;
   --foreground: #E8EAED;
   --card: #121821;
@@ -151,6 +248,26 @@
 }
 
 @layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+/* ===============================
+   4) FONT HELPERS (ใช้กับ next/font)
+   =============================== */
+.font-headTH { font-family: var(--font-head-th), system-ui, sans-serif; }
+.font-bodyTH { font-family: var(--font-body-th), system-ui, sans-serif; }
+.font-headEN { font-family: var(--font-head-en), system-ui, sans-serif; }
+.font-bodyEN { font-family: var(--font-body-en), system-ui, sans-serif; }
+.font-bodyEN2 { font-family: var(--font-body-en-2), system-ui, sans-serif; }
+
+/* ===============================
+   5) RECIPES (เขียนคลาสสั้น)
+   =============================== */
+@layer components {
+  .card-base { @apply rounded-xl md:rounded-[var(--radius-xl)] border border-border bg-card shadow-card; }
+  .btn-primary { @apply rounded-lg px-4 py-2 text-sm font-medium text-white bg-primary hover:opacity-90; }
+  .btn-outline { @apply rounded-lg px-4 py-2 text-sm border border-border text-[color:var(--color-primary-blue)] hover:bg-card; }
   * { @apply border-border outline-ring/50; }
   body { @apply bg-background text-foreground; }
 }

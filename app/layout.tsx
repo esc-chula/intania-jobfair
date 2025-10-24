@@ -4,55 +4,56 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 import {
-  Nunito,
-  Manrope,
-  IBM_Plex_Sans_Thai_Looped,
-  Anuphan,
-  Inter,
+    Nunito,
+    Manrope,
+    IBM_Plex_Sans_Thai_Looped,
+    Anuphan,
+    Inter,
 } from "next/font/google";
 
 /* === 1. Font Setup === */
 const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-head-en",
-  display: "swap",
+    subsets: ["latin"],
+    weight: ["600", "700", "800"],
+    variable: "--font-head-en",
+    display: "swap",
 });
 
 const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-body-en",
-  display: "swap",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    variable: "--font-body-en",
+    display: "swap",
 });
 
 const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-body-en-2",
-  display: "swap",
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "600", "700", "800"],
+    variable: "--font-body-en-2",
+    display: "swap",
 });
 
 const plexThai = IBM_Plex_Sans_Thai_Looped({
-  subsets: ["thai"],
-  weight: ["500", "600"],
-  variable: "--font-head-th",
-  display: "swap",
+    subsets: ["thai"],
+    weight: ["500", "600", "700"],
+    variable: "--font-head-th",
+    display: "swap",
 });
 
 const anuphan = Anuphan({
-  subsets: ["latin", "thai"],
-  weight: ["400"],
-  variable: "--font-body-th",
-  display: "swap",
+    subsets: ["latin", "thai"],
+    weight: ["400"],
+    variable: "--font-body-th",
+    display: "swap",
 });
 
 /* === 2. Metadata === */
 export const metadata: Metadata = {
-  title: "Intania Jobfair",
-  description: "Intania Jobfair 2025 Website",
+    title: "Intania Jobfair",
+    description: "Intania Jobfair 2025 Website",
 };
 
+/* === 3. Root Layout === */
 /* === 3. Root Layout === */
 export default function RootLayout({
   children,
