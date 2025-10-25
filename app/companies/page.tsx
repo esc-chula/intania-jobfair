@@ -1,13 +1,21 @@
-import { fetchCompanies } from "@/lib/data";
+import { fetchCompanies, fetchJobs } from "@/lib/data";
+import { Company } from "@/types/schema";
+import CompanyListClient from "@/components/companies/company-list";
 
 export default async function CompaniesPage() {
-  const companies = await fetchCompanies();
-  return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-4">บริษัททั้งหมด</h1>
-      <p className="text-sm text-muted-foreground">
-        รายการ {companies.length} บริษัท
-      </p>
-    </div>
-  );
+    const companies = await fetchCompanies();
+    const jobs = await fetchJobs();
+    return (
+        <div>
+            <div className="flex flex-col gap-4">
+                <CompanyListClient
+                    initialJobs={jobs}
+                    initialCompanies={companies}
+                />
+            </div>
+            <p className="text-sm text-muted-foreground mt-4">
+                รายการ {companies.length} บริษัท
+            </p>
+        </div>
+    );
 }
