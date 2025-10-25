@@ -5,7 +5,7 @@ export default function ContactPage() {
     <div className="flex justify-center items-start">
       <div className="flex flex-col w-[320px] p-4 gap-4">
       {/* Contact Us Heading */}
-      <h1 className="font-headEN font-bold text-[20px] leading-[100%] text-black">
+      <h1 className="font-headEN font-bold text-[20px] leading-[100%] text-[#102E50]">
         Contact Us
       </h1>
 
