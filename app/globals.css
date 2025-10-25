@@ -9,6 +9,8 @@
   --color-primary-yellow: #F5C45E;   /* Navbar/Expanded nav */
   --color-primary-blue:   #102E50;   /* Headings/Nav text */
   --color-gray-400-ci:    #99A1AF;   /* "ดูทั้งหมด" */
+  --color-secondary-white: #FBF5DE; /* background */
+  --bg-cream: #FBF5DE;
 
 
   --color-background: var(--background);
@@ -191,4 +193,69 @@
   .card-base { @apply rounded-xl md:rounded-[var(--radius-xl)] border border-border bg-card shadow-card; }
   .btn-primary { @apply rounded-lg px-4 py-2 text-sm font-medium text-white bg-primary hover:opacity-90; }
   .btn-outline { @apply rounded-lg px-4 py-2 text-sm border border-border text-[color:var(--color-primary-blue)] hover:bg-card; }
+  .heading-1 {
+    font-size: 24px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .heading-2 {
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .heading-3 {
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .body-1 {
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .body-2 {
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .heading-th-1 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 24px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .heading-th-2 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .heading-th-3 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .body-th-1 {
+    font-family: var(--font-body-th);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .body-th-2 {
+    font-family: var(--font-body-th);
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
 }
