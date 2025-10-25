@@ -76,11 +76,13 @@ export default function JobsListClient({
       <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
       <h2 className="heading-th-2">ตำแหน่งงานทั้งหมด</h2>
 
-      {paginatedJobs.map((job) => {
-        const company =
-          initialCompanies.find((c) => c[""] === job.companyId) ?? null;
-        return <JobCard key={job.jobId} job={job} company={company} />;
-      })}
+      <div className="flex flex-col gap-4 items-center">
+        {paginatedJobs.map((job) => {
+          const company =
+            initialCompanies.find((c) => c[""] === job.companyId) ?? null;
+          return <JobCard key={job.jobId} job={job} company={company} />;
+        })}
+      </div>
 
       <PaginationControls
         currentPage={page}

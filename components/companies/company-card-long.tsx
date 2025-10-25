@@ -1,14 +1,6 @@
 import Image from "next/image";
+import type { Company } from "@/types/schema";
 import {
-    Card,
-    CardHeader,
-    CardContent,
-    CardTitle,
-    CardDescription,
-} from "@/components/ui/card";
-import type { Job, Company } from "@/types/schema";
-import {
-    LucideCalendarRange,
     LucideMapPin,
     LucideBriefcaseBusiness,
     LucideUserRound,
@@ -17,9 +9,7 @@ import {
     LucideFacebook,
     LucideInstagram,
 } from "lucide-react";
-import { countJobs } from "@/lib/helper";
 import CompanyTags from "@/components/companies/company-tags";
-import { Separator } from "@radix-ui/react-select";
 import Link from "next/link";
 
 function extractSocialHandle(url: string | undefined): string {
@@ -56,7 +46,7 @@ export default function CompanyCardLong({
                 </div>
 
                 <div className="flex flex-col gap-2 flex-1 min-w-0">
-                    <h3 className="text-base font-headTH text-primary-blue font-bold truncate">
+                    <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
                         {company?.companyName_th}
                     </h3>
                     <div className="flex gap-2 items-center flex-wrap">
@@ -68,7 +58,7 @@ export default function CompanyCardLong({
                             width={16}
                             height={16}
                         />
-                        <p className="text-xs text-primary-blue font-bodyTH truncate">
+                        <p className="body-th-3 text-primary-blue truncate">
                             {jobCount + " ตำแหน่งงาน"}
                         </p>
                     </div>
@@ -78,7 +68,7 @@ export default function CompanyCardLong({
                             width={16}
                             height={16}
                         />
-                        <p className="text-xs font-bodyTH text-primary-blue truncate">
+                        <p className="body-th-3 text-primary-blue truncate">
                             {company?.officeLocation_full ?? "N/A"}
                         </p>
                     </div>
@@ -87,10 +77,10 @@ export default function CompanyCardLong({
             <div className="border-t border-gray-200 my-4"></div>
             <div className="space-y-4">
                 <div>
-                    <h4 className="font-headTH font-bold text-base mb-3">
+                    <h4 className="heading-th-3 text-primary-blue mb-3">
                         เกี่ยวกับบริษัท
                     </h4>
-                    <p className="text-xs font-bodyEN2 text-primary-blue line-clamp-3">
+                    <p className="body-th-3 text-primary-blue line-clamp-3">
                         {company?.fullDescription ?? "N/A"}
                     </p>
                 </div>
@@ -112,7 +102,7 @@ export default function CompanyCardLong({
                 </div>
                 <div className="border-t border-gray-200 my-4"></div>
                 <div>
-                    <h4 className="font-headTH font-bold text-base mb-3">
+                    <h4 className="heading-th-3 text-primary-blue mb-3">
                         ข้อมูลการติดต่อ
                     </h4>
                     <div className="space-y-2">
@@ -122,7 +112,7 @@ export default function CompanyCardLong({
                                 height="16"
                                 className="text-primary-blue shrink-0 mt-0.5"
                             />
-                            <div className="flex flex-col text-primary-blue text-xs font-bodyTH">
+                            <div className="flex flex-col text-primary-blue body-th-3">
                                 <p className="truncate">{company.hrContactName} (HR)</p>
                                 <p className="truncate">{company.hrContactEmail}</p>
                                 <p className="truncate">{company.hrContactPhone}</p>
@@ -130,33 +120,33 @@ export default function CompanyCardLong({
                         </div>
                         <div className="flex gap-2 items-center">
                             <LucideLink width="16" height="16" className="text-primary-blue shrink-0" />
-                            <Link href={company.websiteUrl ?? ""} className="text-primary-blue text-xs font-bodyTH underline truncate">
+                            <Link href={company.websiteUrl ?? ""} className="text-primary-blue body-th-3 underline truncate">
                                 {company.websiteUrl ?? "N/A"}
                             </Link>
                         </div>
                         <div className="flex gap-2 items-center">
-                            <LucideLinkedin width="16" height="16" className="text-primary-blue shrink-0" />
+                            <LucideLinkedin width="16" height={16} className="text-primary-blue shrink-0" />
                             <Link
                                 href={company.socialMediaLinks?.linkedin ?? ""}
-                                className="text-primary-blue text-xs font-bodyTH underline truncate"
+                                className="text-primary-blue body-th-3 underline truncate"
                             >
                                 {extractSocialHandle(company.socialMediaLinks?.linkedin)}
                             </Link>
                         </div>
                         <div className="flex gap-2 items-center">
-                            <LucideFacebook width="16" height="16" className="text-primary-blue shrink-0" />
+                            <LucideFacebook width="16" height={16} className="text-primary-blue shrink-0" />
                             <Link
                                 href={company.socialMediaLinks?.facebook ?? ""}
-                                className="text-primary-blue text-xs font-bodyTH underline truncate"
+                                className="text-primary-blue body-th-3 underline truncate"
                             >
                                 {extractSocialHandle(company.socialMediaLinks?.facebook)}
                             </Link>
                         </div>
                         <div className="flex gap-2 items-center">
-                            <LucideInstagram width="16" height="16" className="text-primary-blue shrink-0" />
+                            <LucideInstagram width="16" height={16} className="text-primary-blue shrink-0" />
                             <Link
                                 href={company.socialMediaLinks?.instagram ?? ""}
-                                className="text-primary-blue text-xs font-bodyTH underline truncate"
+                                className="text-primary-blue body-th-3 underline truncate"
                             >
                                 {company.companyName_en}
                             </Link>

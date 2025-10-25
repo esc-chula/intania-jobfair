@@ -1,9 +1,5 @@
 import Image from "next/image";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+
 import type { Company } from "@/types/schema";
 import {
     LucideMapPin,
@@ -31,7 +27,7 @@ export default function CompanyCardShort({
                 </div>
 
                 <div className="flex flex-col gap-2 flex-1 min-w-0">
-                    <h3 className="text-sm font-headTH text-primary-blue font-bold truncate">
+                    <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
                         {company?.companyName_th}
                     </h3>
                     <div className="flex gap-1 flex-wrap">
@@ -43,7 +39,7 @@ export default function CompanyCardShort({
                             width={14}
                             height={14}
                         />
-                        <p className="text-xs text-primary-blue font-bodyTH truncate">
+                        <p className="body-th-3 text-primary-blue truncate">
                             {jobCount + " ตำแหน่งงาน"}
                         </p>
                     </div>
@@ -53,7 +49,7 @@ export default function CompanyCardShort({
                             width={14}
                             height={14}
                         />
-                        <p className="text-xs font-bodyTH text-primary-blue truncate">
+                        <p className="body-th-3 text-primary-blue truncate">
                             {(company?.officeLocation_district ?? "N/A") + " " + 
                                 (company?.officeLocation_province ?? "N/A")}
                         </p>

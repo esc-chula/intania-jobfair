@@ -4,59 +4,57 @@ import {
   LucideCalendarRange,
   LucideMapPin,
 } from "lucide-react";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+
 import type { Job, Company } from "@/types/schema";
 import { formatThaiDate } from "@/lib/helper";
 
 export default function JobCard({ job, company }: { job: Job; company: Company | null }) {
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-start gap-4">
-          <div className="relative shrink-0 w-16 h-16">
-            <Image
-              src={company?.companyLogo || "/default-logo.png"}
-              alt={company?.companyName_th ?? "Company Logo"}
-              fill
-              className="object-cover rounded-md"
-            />
+    <div className="long-card">
+      <div className="flex items-start gap-4">
+        <div className="relative shrink-0 w-16 h-16">
+          <Image
+            src={company?.companyLogo || "/default-logo.png"}
+            alt={company?.companyName_th ?? "Company Logo"}
+            fill
+            className="object-cover rounded-md"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 flex-1 min-w-0">
+          <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">{job.jobTitle}</h3>
+          <p className="body-th-3 text-primary-blue truncate">
+            {company?.companyName_th ?? "N/A"}
+          </p>
+
+          <div className="flex gap-2 items-center">
+            <LucideClock width={16} height={16} className="shrink-0" />
+            <p className="body-th-3 leading-none truncate">
+              {{
+                "Full-time": "Full Time",
+                "Part-time": "Part Time", 
+                "Internship": "Internship",
+              }[job.positionType as string] ?? job.positionType ?? "ไม่ระบุ"}
+            </p>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <CardTitle className="text-sm">{job.jobTitle}</CardTitle>
-            <CardDescription className="text-xs">
-              {company?.companyName_th ?? "N/A"}
-            </CardDescription>
+          <div className="flex gap-2 items-center">
+            <LucideCalendarRange width={16} height={16} className="shrink-0" />
+            <p className="body-th-3 text-[color:var(--color-primary-blue)] truncate">
+              {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
+            </p>
+          </div>
 
-            <div className="flex gap-2 items-center">
-              <LucideClock width={16} height={16} />
-              <p className="text-xs leading-none">
-                {{
-                  "Full-time": "Full Time",
-                  "Part-time": "Part Time", 
-                  "Internship": "Internship",
-                }[job.positionType as string] ?? job.positionType ?? "ไม่ระบุ"}
-              </p>
-            </div>
-
-            <div className="flex gap-2 items-center">
-              <LucideCalendarRange width={16} height={16} />
-              <p className="body-th-3 text-[color:var(--color-primary-blue)]">
-                {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
-              </p>
-            </div>
-
-            <div className="flex gap-2 items-center">
-              <LucideMapPin width={16} height={16} />
-              <p className="text-xs">{company?.officeLocation_full ?? "N/A"}</p>
-            </div>
+          <div className="flex gap-2 items-center">
+            <LucideMapPin width={16} height={16} className="shrink-0" />
+            <p className="body-th-3 truncate">{company?.officeLocation_full ?? "N/A"}</p>
           </div>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent>
-        <p className="text-xs line-clamp-3">{job["JD & REQ"]}</p>
-      </CardContent>
-    </Card>
+      <div className="px-0">
+        <p className="body-th-3 line-clamp-3">{job["JD & REQ"]}</p>
+      </div>
+    </div>
   );
 }

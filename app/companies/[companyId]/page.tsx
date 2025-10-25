@@ -22,9 +22,9 @@ export default async function CompanyDetailPage({
     );
 
     return (
-        <div>
+        <div className="flex flex-col gap-4 items-center">
             <CompanyCardLong company={company} jobCount={companyJobs.length} />
-            <div className="flex w-auto">
+            <div className="flex w-auto max-w-[320px] w-full">
                 <div className="heading-th-2 my-4 text-primary-blue">
                     ตำแหน่งงาน
                 </div>
@@ -34,7 +34,7 @@ export default async function CompanyDetailPage({
                     </Link>
                 </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
                 {jobs.slice(0,4).map((job) => (
                     <JobCard
                         key={job.jobId}

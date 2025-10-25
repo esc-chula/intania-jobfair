@@ -138,16 +138,18 @@ export default function CompanyListClient({
                 {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
             </h2>
 
-            {paginatedCompanies.map((company) => {
-                const count = jobCountMap.get(company[""]) ?? 0;
-                return (
-                    <CompanyCard
-                        key={company[""]}
-                        company={company}
-                        jobCount={count}
-                    />
-                );
-            })}
+            <div className="flex flex-col gap-4 items-center">
+                {paginatedCompanies.map((company) => {
+                    const count = jobCountMap.get(company[""]) ?? 0;
+                    return (
+                        <CompanyCard
+                            key={company[""]}
+                            company={company}
+                            jobCount={count}
+                        />
+                    );
+                })}
+            </div>
 
             <PaginationControls
                 currentPage={page}

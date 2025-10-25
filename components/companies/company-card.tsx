@@ -1,18 +1,9 @@
 import Image from "next/image";
+import type { Company } from "@/types/schema";
 import {
-    Card,
-    CardHeader,
-    CardContent,
-    CardTitle,
-    CardDescription,
-} from "@/components/ui/card";
-import type { Job, Company } from "@/types/schema";
-import {
-    LucideCalendarRange,
     LucideMapPin,
     LucideBriefcaseBusiness,
 } from "lucide-react";
-import { countJobs } from "@/lib/helper";
 import CompanyTags from "@/components/companies/company-tags";
 
 export default function CompanyCard({
@@ -23,55 +14,53 @@ export default function CompanyCard({
     jobCount: number;
 }) {
     return (
-        <Card className="p-4">
-            <CardHeader>
-                <div className="flex items-start gap-4">
-                    <div className="relative shrink-0 w-16 h-16">
-                        <Image
-                            src={company?.companyLogo || "/default-logo.png"}
-                            alt={company?.companyName_en ?? "Company Logo"}
-                            fill
-                            className="object-cover rounded-md"
-                        />
-                    </div>
+        <div className="long-card">
+            <div className="flex items-start gap-4">
+                <div className="relative shrink-0 w-16 h-16">
+                    <Image
+                        src={company?.companyLogo || "/default-logo.png"}
+                        alt={company?.companyName_en ?? "Company Logo"}
+                        fill
+                        className="object-cover rounded-md"
+                    />
+                </div>
 
-                    <div className="flex flex-col gap-2">
-                        <CardTitle className="text-sm font-headTH text-primary-blue font-bold">
-                            {company?.companyName_th}
-                        </CardTitle>
-                        <div className="flex gap-2 items-center">
-                            <CompanyTags company={company}></CompanyTags>
-                        </div>
-                        <div className="flex gap-2 items-center">
-                            <LucideBriefcaseBusiness
-                                className="text-primary-blue"
-                                width={16}
-                                height={16}
-                            />
-                            <p className="text-xs text-primary-blue font-bodyTH">
-                                {jobCount + " ตำแหน่งงาน"}
-                            </p>
-                        </div>
-                        <div className="flex gap-2 items-center">
-                            <LucideMapPin
-                                className="text-primary-blue"
-                                width={16}
-                                height={16}
-                            />
-                            <p className="text-xs font-bodyTH text-primary-blue">
-                                {(company?.officeLocation_district ?? "N/A") + " " + 
-                                    (company?.officeLocation_province ?? "N/A")}
-                            </p>
-                        </div>
+                <div className="flex flex-col gap-2 flex-1 min-w-0">
+                    <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
+                        {company?.companyName_th}
+                    </h3>
+                    <div className="flex gap-2 items-center flex-wrap">
+                        <CompanyTags company={company}></CompanyTags>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                        <LucideBriefcaseBusiness
+                            className="text-primary-blue shrink-0"
+                            width={16}
+                            height={16}
+                        />
+                        <p className="body-th-3 text-primary-blue truncate">
+                            {jobCount + " ตำแหน่งงาน"}
+                        </p>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                        <LucideMapPin
+                            className="text-primary-blue shrink-0"
+                            width={16}
+                            height={16}
+                        />
+                        <p className="body-th-3 text-primary-blue truncate">
+                            {(company?.officeLocation_district ?? "N/A") + " " + 
+                                (company?.officeLocation_province ?? "N/A")}
+                        </p>
                     </div>
                 </div>
-            </CardHeader>
+            </div>
 
-            <CardContent>
-                <p className="text-xs line-clamp-3 font-bodyEN2 text-primary-blue">
+            <div className="px-0">
+                <p className="body-th-3 line-clamp-3">
                     {company?.shortDescription ?? "N/A"}
                 </p>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

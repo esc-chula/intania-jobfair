@@ -27,16 +27,16 @@ export default function JobCardShort({
         </div>
 
         <div className="flex flex-col gap-2 flex-1 min-w-0">
-          <h3 className="text-sm font-headTH text-primary-blue font-bold truncate">
+          <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
             {job.jobTitle}
           </h3>
-          <p className="text-xs text-primary-blue font-bodyTH truncate">
+          <p className="body-th-1 text-primary-blue truncate">
             {company?.companyName_th ?? "N/A"}
           </p>
 
           <div className="flex gap-2 items-center">
             <LucideClock width={14} height={14} className="text-primary-blue shrink-0" />
-            <p className="text-xs text-primary-blue font-bodyTH truncate">
+            <p className="body-th-3 text-primary-blue truncate">
               {{
                 "Full-time": "Full Time",
                 "Part-time": "Part Time", 
@@ -47,14 +47,14 @@ export default function JobCardShort({
 
           <div className="flex gap-2 items-center">
             <LucideCalendarRange width={14} height={14} className="text-primary-blue shrink-0" />
-            <p className="text-xs text-primary-blue font-bodyTH truncate">
+            <p className="body-th-3 text-primary-blue truncate">
               {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
             <LucideMapPin width={14} height={14} className="text-primary-blue shrink-0" />
-            <p className="text-xs text-primary-blue font-bodyTH truncate">
+            <p className="body-th-3 text-primary-blue truncate">
               {company?.officeLocation_full ?? "N/A"}
             </p>
           </div>
