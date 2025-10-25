@@ -65,7 +65,7 @@ export default function JobsListClient({
   }, [sortedJobs, page, cardsPerPage]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SearchBar
         query={query}
         setQuery={setQuery}
@@ -73,8 +73,10 @@ export default function JobsListClient({
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}
       />
-      <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
-      <h2 className="heading-th-2">ตำแหน่งงานทั้งหมด</h2>
+      <div className="flex flex-col gap-6">
+        <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
+        <h2 className="heading-th-2">ตำแหน่งงานทั้งหมด</h2>
+      </div>
 
       <div className="flex flex-col gap-4 items-center">
         {paginatedJobs.map((job) => {

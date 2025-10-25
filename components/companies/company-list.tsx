@@ -122,7 +122,7 @@ export default function CompanyListClient({
     }, [sortedCompanies, page, cardsPerPage]);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
             <SearchBar
                 query={query}
                 setQuery={setQuery}
@@ -130,13 +130,15 @@ export default function CompanyListClient({
                 setIsFilterOpen={setIsFilterOpen}
                 setPage={setPage}
             />
-            <SortSelector
-                sortOption={sortOption}
-                setSortOption={setSortOption}
-            />
-            <h2 className="heading-th-2 text-primary-blue">
-                {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
-            </h2>
+            <div className="flex flex-col gap-6">
+                <SortSelector
+                    sortOption={sortOption}
+                    setSortOption={setSortOption}
+                />
+                <h2 className="heading-th-2 text-primary-blue">
+                    {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
+                </h2>
+            </div>
 
             <div className="flex flex-col gap-4 items-center">
                 {paginatedCompanies.map((company) => {

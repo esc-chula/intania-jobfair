@@ -8,7 +8,7 @@ export default function SortSelector({
     setSortOption: (v: "name" | "job-count" | "open-date" | "close-date") => void;
 }) {
     return (
-        <div className="flex justify-end items-center gap-2">
+        <div className="flex justify-end items-center gap-2 mb-4">
             <p className="text-primary-blue font-bodyTH">เรียงตาม</p>
             <Select.Select
                 value={sortOption}
