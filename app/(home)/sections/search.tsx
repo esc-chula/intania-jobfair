@@ -1,12 +1,20 @@
 "use client";
-import { SlidersHorizontal, Search as SearchIcon } from "lucide-react";
+import { SlidersHorizontal, Search as SearchIcon, X } from "lucide-react";
 import { useSearch } from "../contexts/search-context";
 import { useState } from "react";
 
 export default function Search() {
   const { searchQuery, setSearchQuery } = useSearch();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
   return (
     <div className="flex items-center gap-3">
       <label className="flex-1 relative">
@@ -16,11 +24,21 @@ export default function Search() {
         </span>
         <input
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleInputChange}
           placeholder="ค้นหาบริษัท ตำแหน่งงาน หรือที่ตั้ง"
-          className="h-9 w-full rounded-md border border-border bg-white pl-9 pr-3 text-sm font-bodyTH placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          className="h-9 w-full rounded-md border border-border bg-white pl-9 pr-9 text-sm font-bodyTH placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         />
+        {searchQuery && (
+          <button
+            onClick={clearSearch}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B7B7B7] hover:text-gray-600"
+            aria-label="ล้างการค้นหา"
+          >
+            <X size={16} />
+          </button>
+        )}
       </label>
+
       <button
         onClick={() => setIsFilterOpen(!isFilterOpen)}
         aria-label="ตัวกรอง"

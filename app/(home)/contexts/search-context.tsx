@@ -12,11 +12,15 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
-
+  
   const isSearchActive = searchQuery.trim().length > 0;
 
   return (
-    <SearchContext.Provider value={{ searchQuery, setSearchQuery, isSearchActive }}>
+    <SearchContext.Provider value={{ 
+      searchQuery, 
+      setSearchQuery, 
+      isSearchActive
+    }}>
       {children}
     </SearchContext.Provider>
   );

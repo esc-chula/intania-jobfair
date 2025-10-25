@@ -498,6 +498,13 @@
     font-size: 0.875rem; /* 14px for short cards */
   }
   
+  @media (min-width: 640px) {
+    .short-card {
+      width: 100% !important;
+      max-width: 320px;
+    }
+  }
+  
   @media (min-width: 768px) {
     .short-card {
       width: 100% !important;
@@ -539,6 +546,13 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-size: 1rem; /* 16px for long cards */
+  }
+  
+  @media (min-width: 640px) {
+    .long-card {
+      width: 100% !important;
+      max-width: 320px;
+    }
   }
   
   @media (min-width: 768px) {
