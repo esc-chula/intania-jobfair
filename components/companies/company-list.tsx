@@ -134,7 +134,7 @@ export default function CompanyListClient({
                 sortOption={sortOption}
                 setSortOption={setSortOption}
             />
-            <h2 className="text-xl font-bold font-headTH text-primary-blue">
+            <h2 className="heading-th-2 text-primary-blue">
                 {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
             </h2>
 

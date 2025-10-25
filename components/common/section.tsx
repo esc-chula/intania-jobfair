@@ -28,9 +28,9 @@ export default function Section({
         {actionLabel && actionHref ? (
           <Link
             href={actionHref}
-            className="body-th-2 underline underline-offset-4 hover:opacity-80"
+            className="body-th-2 text-[#4A5565] hover:opacity-80 flex items-center gap-1"
           >
-            {actionLabel}
+            {actionLabel} <span>&gt;</span>
           </Link>
         ) : null}
       </div>

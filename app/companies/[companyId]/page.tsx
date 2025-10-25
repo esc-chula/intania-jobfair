@@ -25,11 +25,13 @@ export default async function CompanyDetailPage({
         <div>
             <CompanyCardLong company={company} jobCount={companyJobs.length} />
             <div className="flex w-auto">
-                <div className="text-xl my-4 font-bold font-headTH">
+                <div className="heading-th-2 my-4 text-primary-blue">
                     ตำแหน่งงาน
                 </div>
-                <div className="justify-end text-l ml-auto mr-5 my-4 font-light font-headTH text-gray-500">
-                    <Link href="/">ดูทั้งหมด {">"}</Link>
+                <div className="justify-end ml-auto mr-5 my-4">
+                    <Link href="/" className="body-th-2 text-[#4A5565] hover:opacity-80 flex items-center gap-1">
+                        ดูทั้งหมด <span>&gt;</span>
+                    </Link>
                 </div>
             </div>
             <div className="flex flex-col gap-4">
