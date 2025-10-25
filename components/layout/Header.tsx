@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/src/logo-jobfair.svg";
-import ExpandedNav from "../ExpandedNav";
+import ExpandedNav from "./ExpandedNav";
 
 export default function Header() {
   const [open, setOpen] = useState(false);

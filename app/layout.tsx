@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 import {
     Nunito,
@@ -42,7 +42,7 @@ const plexThai = IBM_Plex_Sans_Thai_Looped({
 
 const anuphan = Anuphan({
     subsets: ["latin", "thai"],
-    weight: ["400"],
+    weight: ["400", "500", "600", "700"],
     variable: "--font-body-th",
     display: "swap",
 });
