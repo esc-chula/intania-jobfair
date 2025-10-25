@@ -1,6 +1,6 @@
-import Section from "../components/section";
-import SkeletonCard from "../components/skeleton-card";
-import EmptyState from "../components/empty-state";
+import Section from "@/components/common/section";
+import SkeletonCard from "@/components/common/skeleton-card";
+import EmptyState from "@/components/common/empty-state";
 
 export default function JobResults() {
   // branch นี้ยังไม่มี data — โชว์ skeleton 3 ใบเป็น placeholder
