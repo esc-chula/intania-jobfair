@@ -444,4 +444,91 @@
     background: #E0E0E080;
   }
 
+  /* Short Job Card */
+  .short-job-card {
+    width: 358px;
+    height: 152px;
+    border-radius: 6px;
+    border: 1px solid #E5E7EB;
+    padding: 17px;
+    gap: 16px;
+    opacity: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+
+  .short-job-info {
+    width: 324px;
+    height: 118px;
+    gap: 16px;
+    opacity: 1;
+  }
+
+  /* Short Company Card */
+  .short-company-card {
+    width: 415px;
+    height: 148px;
+    border-radius: 6px;
+    border: 1px solid #E5E7EB;
+    padding: 17px;
+    gap: 16px;
+    opacity: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+
+  .short-company-info {
+    width: 381px;
+    height: 114px;
+    gap: 16px;
+    opacity: 1;
+  }
+
+  /* Short Card - Shared Style */
+  .short-card {
+    width: 288px !important;
+    padding: 17px;
+    gap: 16px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    height: auto;
+    max-width: 288px;
+    min-width: 288px;
+  }
+
+  /* Long Card - Shared Style */
+  .long-card {
+    width: 288px !important;
+    padding: 17px;
+    gap: 16px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 4px 10px rgba(174, 174, 174, 0.1);
+    height: auto;
+    max-width: 288px;
+    min-width: 288px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Text ellipsis for long content in long-card */
+  .long-card p,
+  .long-card h3,
+  .long-card h4,
+  .long-card a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .long-card .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
 }

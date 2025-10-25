@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
 import { SlidersHorizontal, Search as SearchIcon } from "lucide-react";
+import { useSearch } from "../contexts/search-context";
 
 export default function Search() {
-  const [q, setQ] = useState("");
+  const { searchQuery, setSearchQuery } = useSearch();
+  
   return (
     <div className="flex items-center gap-2">
       <label className="flex-1 relative">
@@ -12,8 +13,8 @@ export default function Search() {
           <SearchIcon className="size-4 text-foreground/50" strokeWidth={2} />
         </span>
         <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="ค้นหาบริษัท ตำแหน่งงาน หรือที่ตั้ง"
           className="w-full rounded-[14px] border border-border bg-card
                      pl-9 pr-3 py-2 text-[14px] font-bodyTH

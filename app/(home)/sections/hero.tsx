@@ -3,7 +3,7 @@ import bannerSvg from "@/src/banner.svg";
 
 export default function Hero() {
   return (
-    <section className="w-full flex justify-center ">
+    <section className="w-full flex justify-center -mt-[1px]">
       {/* Banner with specified dimensions and styling */}
       <div
         aria-labelledby="hero-title"

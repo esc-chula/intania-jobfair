@@ -74,7 +74,7 @@ export default function JobsListClient({
         setPage={setPage}
       />
       <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
-      <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
+      <h2 className="heading-th-2">ตำแหน่งงานทั้งหมด</h2>
 
       {paginatedJobs.map((job) => {
         const company =

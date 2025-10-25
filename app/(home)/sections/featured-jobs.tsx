@@ -1,6 +1,6 @@
 import Section from "@/components/common/section";
 import SkeletonCard from "@/components/common/skeleton-card";
-import JobCard from "@/components/jobs/job-card";
+import JobCardShort from "@/components/jobs/job-card-short";
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import { pickFeaturedJobs } from "../services/home.service";
 
@@ -19,11 +19,11 @@ export default async function FeaturedJobs() {
         actionLabel="ดูทั้งหมด"
         actionHref="/jobs"
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {featuredJobs.map((job) => {
             const company = companies.find(c => c[""] === job.companyId) ?? null;
             return (
-              <JobCard 
+              <JobCardShort 
                 key={job.jobId} 
                 job={job} 
                 company={company} 
@@ -41,7 +41,7 @@ export default async function FeaturedJobs() {
         actionLabel="ดูทั้งหมด"
         actionHref="/jobs"
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <SkeletonCard />
           <SkeletonCard />
           <SkeletonCard />
