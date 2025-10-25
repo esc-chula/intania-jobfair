@@ -24,5 +24,25 @@ export async function fetchCompanies(): Promise<Company[]> {
 }
 
 export async function fetchJobs(): Promise<Job[]> {
-  return fetchJson<Job[]>("jobs.json");
+  // Use specific gist URL for jobs data
+  const GIST_JOBS_URL = "https://gist.githubusercontent.com/tawanorkchiengtai/68fb4aebea0b5ec95229e9ba60685d36/raw/jobs.json";
+  
+  try {
+    const res = await fetch(GIST_JOBS_URL, { 
+      next: { revalidate: 3600 },
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+    
+    if (!res.ok) {
+      throw new Error(`Failed to fetch jobs: ${res.status} ${res.statusText}`);
+    }
+    
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch jobs from specific gist:", error);
+    // Fallback to original method if specific gist fails
+    return fetchJson<Job[]>("jobs.json");
+  }
 }

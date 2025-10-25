@@ -8,18 +8,21 @@ import FeaturedJobs from "./sections/featured-jobs";
 export default async function HomePage() {
   // NOTE: ยังไม่ fetch จริงใน branch นี้ — จะไปทำใน branch ถัดไป
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 md:py-8">
+    <>
       <Hero />
+      <div className="mx-auto max-w-6xl px-4 py-6 md:py-8">
+        <div className="mt-6">
+          <Search />
+        </div>
 
-      <div className="mt-6">
-        <Search />
+        <div className="mt-10 space-y-12">
+          <JobResults />
+          <FeaturedCompanies />
+          <FeaturedJobs />
+        </div>
       </div>
-
-      <div className="mt-10 space-y-12">
-        <JobResults />
-        <FeaturedCompanies />
-        <FeaturedJobs />
-      </div>
-    </div>
+    </>
   );
 }
+
+

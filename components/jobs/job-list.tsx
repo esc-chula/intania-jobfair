@@ -26,11 +26,11 @@ export default function JobsListClient({
   const searchedJobs = useMemo(() => {
     return initialJobs.filter((job) => {
       const company =
-        initialCompanies.find((c) => c.companyId === job.companyId) ?? null;
+        initialCompanies.find((c) => c[""] === job.companyId) ?? null;
       const matchesQuery =
         job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
         (company &&
-          company.companyName.toLowerCase().includes(query.toLowerCase()));
+          company.companyName_th.toLowerCase().includes(query.toLowerCase()));
       // Add more filter conditions here if needed
       return matchesQuery;
     });
@@ -44,14 +44,14 @@ export default function JobsListClient({
     if (sortOption === "open-date")
       return arr.sort(
         (a, b) =>
-          new Date(a.applicationStartDate).getTime() -
-          new Date(b.applicationStartDate).getTime()
+          new Date(a.application_start || "").getTime() -
+          new Date(b.application_start || "").getTime()
       );
     if (sortOption === "close-date")
       return arr.sort(
         (a, b) =>
-          new Date(a.applicationEndDate).getTime() -
-          new Date(b.applicationEndDate).getTime()
+          new Date(a.application_end || "").getTime() -
+          new Date(b.application_end || "").getTime()
       );
     return arr;
   }, [searchedJobs, sortOption]);
@@ -78,7 +78,7 @@ export default function JobsListClient({
 
       {paginatedJobs.map((job) => {
         const company =
-          initialCompanies.find((c) => c.companyId === job.companyId) ?? null;
+          initialCompanies.find((c) => c[""] === job.companyId) ?? null;
         return <JobCard key={job.jobId} job={job} company={company} />;
       })}
 
