@@ -3,13 +3,12 @@ import bannerSvg from "@/src/banner.svg";
 
 export default function Hero() {
   return (
-    <section className="w-full flex justify-center -mt-[1px]">
-      {/* Banner with specified dimensions and styling */}
+    <section className="w-full -mt-[1px]">
+      {/* Fullscreen Banner */}
       <div
         aria-labelledby="hero-title"
-        className="w-[320px] h-[240px] min-w-[320px]
-                   pt-[90px] pr-[99px] pb-[90px] pl-[99px]
-                   flex flex-col items-center gap-2 text-center
+        className="w-full h-[60vh] min-h-[300px] max-h-[600px]
+                   flex flex-col items-center justify-center gap-4 text-center
                    opacity-100 relative overflow-hidden"
       >
         {/* Background banner image */}
@@ -17,22 +16,24 @@ export default function Hero() {
           src={bannerSvg}
           alt="Intania Job Fair 2025 Banner"
           fill
-          className="object-cover  inset-0 z-0"
+          className="object-cover inset-0 z-0"
           priority
         />
         
         {/* Content overlay */}
-        <div className="relative z-10 flex flex-col items-center gap-2">
+        <div className="relative z-10 flex flex-col items-center gap-4 px-4">
           <h1
             id="hero-title"
-            className="font-headTH text-[24px] font-medium leading-[1]
+            className="font-headTH text-[24px] font-medium leading-[1.2]
+                       sm:text-[32px] md:text-[40px] lg:text-[48px]
                        text-[#102E50] whitespace-nowrap"
           >
             Intania Job Fair 2025
           </h1>
 
           <p
-            className="font-bodyTH text-[16px] font-normal leading-[1]
+            className="font-bodyTH text-[16px] font-normal leading-[1.2]
+                       sm:text-[20px] md:text-[24px] lg:text-[28px]
                        text-[#102E50]/85 whitespace-nowrap text-center"
           >
             Engineering Your Future

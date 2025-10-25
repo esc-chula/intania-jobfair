@@ -486,7 +486,8 @@
 
   /* Short Card - Shared Style */
   .short-card {
-    width: 288px !important;
+    width: 100% !important;
+    max-width: 288px;
     padding: 17px;
     gap: 16px;
     border-radius: 6px;
@@ -494,9 +495,21 @@
     border: 1px solid #E5E7EB;
     box-shadow: 0px 4px 10px 0px #AEAEAE1A;
     height: auto;
-    max-width: 288px;
-    min-width: 288px;
     font-size: 0.875rem; /* 14px for short cards */
+  }
+  
+  @media (min-width: 768px) {
+    .short-card {
+      width: 100% !important;
+      max-width: 480px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .short-card {
+      width: 100% !important;
+      max-width: 640px;
+    }
   }
 
   /* Font sizes for short cards */
@@ -512,7 +525,8 @@
 
   /* Long Card - Shared Style */
   .long-card {
-    width: 288px !important;
+    width: 100% !important;
+    max-width: 288px;
     padding: 17px !important;
     gap: 16px !important;
     border-radius: 6px !important;
@@ -520,13 +534,25 @@
     border: 1px solid #E5E7EB !important;
     box-shadow: 0 4px 10px rgba(174, 174, 174, 0.1) !important;
     height: auto !important;
-    max-width: 288px !important;
-    min-width: 288px !important;
     display: flex !important;
     flex-direction: column !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-size: 1rem; /* 16px for long cards */
+  }
+  
+  @media (min-width: 768px) {
+    .long-card {
+      width: 100% !important;
+      max-width: 480px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .long-card {
+      width: 100% !important;
+      max-width: 640px;
+    }
   }
 
   /* Font sizes for long cards */

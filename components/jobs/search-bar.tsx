@@ -30,7 +30,7 @@ export default function SearchBar({
             setPage(1);
           }}
           placeholder="ค้นหาชื่อตำแหน่ง, บริษัท, สายงาน..."
-          className="h-9 w-full rounded-md border border-border pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          className="h-9 w-full rounded-md border border-border pl-9 pr-3 text-sm bg-white font-bodyTH placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         />
       </div>
 
