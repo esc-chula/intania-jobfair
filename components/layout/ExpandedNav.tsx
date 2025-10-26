@@ -8,7 +8,7 @@ type Props = {
   id?: string;
   open: boolean;
   onClose: () => void;
-  anchorRef?: RefObject<HTMLElement>;
+  anchorRef?: RefObject<HTMLElement | null>;
 };
 
 export default function ExpandedNav({ id, open, onClose, anchorRef }: Props) {

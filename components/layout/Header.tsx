@@ -25,10 +25,9 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className={`w-full bg-primary-yellow ${
-      open ? "fixed top-0 z-50" : "relative"
-    }`}>
-      <div className={`mx-auto h-[56px] flex items-center justify-between px-4 py-2 ${
+    <>
+      <header className={`w-full bg-primary-yellow fixed top-0 left-0 right-0 z-50`}>
+        <div className={`mx-auto h-[56px] flex items-center justify-between px-4 py-2 ${
         isClient 
           ? "max-w-[320px] sm:max-w-[480px] md:max-w-[640px] lg:max-w-[800px] xl:max-w-[1200px] sm:h-[64px] md:h-[72px] sm:px-6 md:px-8" 
           : "max-w-[320px]"
@@ -97,6 +96,9 @@ export default function Header() {
         onClose={() => setOpen(false)}
         anchorRef={btnRef}
       />
-    </header>
+      </header>
+      {/* Spacer เพื่อไม่ให้เนื้อหาอยู่ใต้ fixed header */}
+      <div className={`h-[56px] ${isClient ? "sm:h-[64px] md:h-[72px]" : ""}`} />
+    </>
   );
 }
