@@ -13,9 +13,6 @@ export default async function CompaniesPage() {
                     initialCompanies={companies}
                 />
             </div>
-            <p className="text-sm text-muted-foreground mt-4">
-                รายการ {companies.length} บริษัท
-            </p>
         </div>
     );
 }
