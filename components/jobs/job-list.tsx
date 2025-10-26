@@ -6,6 +6,16 @@ import SearchBar from "./search-bar";
 import SortSelector from "./sort-select";
 import JobCard from "./job-card";
 import type { Job, Company } from "@/types/schema";
+import FilterSelector from "./filter-select";
+import GroupedFilterSelector from "./group-filter-select";
+
+// 👇 import options ที่เราแยกออกมา
+import {
+  positionTypeOptions,
+  jobTypeOptions,
+  eligibleYearOptions,
+  groupedMajorOptions,
+} from "@/constants/job-filter-options";
 
 export default function JobsListClient({
   initialJobs,
@@ -22,6 +32,10 @@ export default function JobsListClient({
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [positionTypeFilter, setPositionTypeFilter] = useState<string>("");
+  const [jobTypeFilter, setJobTypeFilter] = useState<string>("");
+  const [eligibleYearFilter, setEligibleYearFilter] = useState<string>("");
+  const [majorFilter, setMajorFilter] = useState<string>("");
 
   const searchedJobs = useMemo(() => {
     return initialJobs.filter((job) => {
@@ -31,12 +45,10 @@ export default function JobsListClient({
         job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
         (company &&
           company.companyName_th.toLowerCase().includes(query.toLowerCase()));
-      // Add more filter conditions here if needed
       return matchesQuery;
     });
   }, [initialJobs, initialCompanies, query]);
 
-  // Sorting logic
   const sortedJobs = useMemo(() => {
     const arr = [...searchedJobs];
     if (sortOption === "position")
@@ -56,9 +68,9 @@ export default function JobsListClient({
     return arr;
   }, [searchedJobs, sortOption]);
 
-  // Pagination logic
   const totalPages = Math.max(1, Math.ceil(sortedJobs.length / cardsPerPage));
   if (page > totalPages) setPage(totalPages);
+
   const paginatedJobs = useMemo(() => {
     const startIndex = (page - 1) * cardsPerPage;
     return sortedJobs.slice(startIndex, startIndex + cardsPerPage);
@@ -73,10 +85,37 @@ export default function JobsListClient({
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}
       />
-      <div className="flex flex-col gap-6">
-        <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
-        <h2 className="heading-th-2">ตำแหน่งงานทั้งหมด</h2>
-      </div>
+
+      <FilterSelector
+        filterOption={positionTypeFilter}
+        setFilterOption={setPositionTypeFilter}
+        options={positionTypeOptions}
+        placeholder="เลือกรูปแบบการทำงาน"
+      />
+
+      <FilterSelector
+        filterOption={jobTypeFilter}
+        setFilterOption={setJobTypeFilter}
+        options={jobTypeOptions}
+        placeholder="เลือกสายงานของตำแหน่ง"
+      />
+
+      <FilterSelector
+        filterOption={eligibleYearFilter}
+        setFilterOption={setEligibleYearFilter}
+        options={eligibleYearOptions}
+        placeholder="เลือกระดับการศึกษา"
+      />
+
+      <GroupedFilterSelector
+        filterOption={majorFilter}
+        setFilterOption={setMajorFilter}
+        groupedOptions={groupedMajorOptions}
+        placeholder="เลือกสาขาวิชา"
+      />
+
+      <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
+      <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
 
       <div className="flex flex-col gap-4 items-center">
         {paginatedJobs.map((job) => {
