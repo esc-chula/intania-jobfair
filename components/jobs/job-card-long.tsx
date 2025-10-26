@@ -6,19 +6,20 @@ import {
   LucideMapPin,
   LucideUserRound,
   LucideLink,
+  LucideBriefcaseBusiness,
 } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
 
-export default function JobCardLong({ 
-  job, 
-  company 
-}: { 
-  job: Job; 
-  company: Company | null 
+export default function JobCardLong({
+  job,
+  company,
+}: {
+  job: Job;
+  company: Company | null;
 }) {
   return (
     <div className="long-card">
-      <div className="flex items-start gap-4 mb-4">
+      <div className="flex items-start gap-4">
         <div className="relative shrink-0 w-16 h-16">
           <Image
             src={company?.companyLogo || "/default-logo.png"}
@@ -37,38 +38,55 @@ export default function JobCardLong({
           </p>
 
           <div className="flex gap-2 items-center">
-            <LucideClock width={16} height={16} className="text-primary-blue shrink-0" />
+            <LucideClock
+              width={16}
+              height={16}
+              className="text-primary-blue shrink-0"
+            />
             <p className="body-th-3 text-primary-blue truncate">
-              {{
-                "Full-time": "Full Time",
-                "Part-time": "Part Time", 
-                "Internship": "Internship",
-              }[job.positionType as string] ?? job.positionType ?? "ไม่ระบุ"}
+              {(job.positionType as string) ?? job.positionType ?? "ไม่ระบุ"}
+            </p>
+          </div>
+          <div className="flex gap-2 items-center">
+            <LucideBriefcaseBusiness
+              width={16}
+              height={16}
+              className="text-primary-blue shrink-0"
+            />
+            <p className="body-th-3 text-primary-blue truncate">
+              {(job.openingsCount as string) ?? job.openingsCount ?? "N/A"}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-            <LucideCalendarRange width={16} height={16} className="text-primary-blue shrink-0" />
+            <LucideCalendarRange
+              width={16}
+              height={16}
+              className="text-primary-blue shrink-0"
+            />
             <p className="body-th-3 text-primary-blue truncate">
-              {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
+              {formatThaiDate(job.application_start || "")} -{" "}
+              {formatThaiDate(job.application_end || "")}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-            <LucideMapPin width={16} height={16} className="text-primary-blue shrink-0" />
+            <LucideMapPin
+              width={16}
+              height={16}
+              className="text-primary-blue shrink-0"
+            />
             <p className="body-th-3 text-primary-blue truncate">
-              {company?.officeLocation_full ?? "N/A"}
+              {company?.officeLocation_full ?? "ไม่ระบุ"}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-gray-200 my-4"></div>
-      <div className="space-y-4">
+      <div className="border-t border-gray-200"></div>
+      <div>
         <div>
-          <h4 className="heading-th-3 text-primary-blue mb-3">
-            รายละเอียดงาน
-          </h4>
+          <h4 className="heading-th-3 leading-7 text-primary-blue mb-3">เกี่ยวกับตำแหน่งงาน</h4>
           <p className="body-th-3 text-primary-blue line-clamp-4">
             {job["JD & REQ"] ?? "ไม่มีรายละเอียด"}
           </p>
@@ -87,14 +105,23 @@ export default function JobCardLong({
                 className="text-primary-blue shrink-0 mt-0.5"
               />
               <div className="flex flex-col text-primary-blue body-th-3">
-                <p className="truncate">{company?.hrContactName ?? "N/A"} (HR)</p>
+                <p className="truncate">
+                  {company?.hrContactName ?? "N/A"} (HR)
+                </p>
                 <p className="truncate">{company?.hrContactEmail ?? "N/A"}</p>
                 <p className="truncate">{company?.hrContactPhone ?? "N/A"}</p>
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <LucideLink width="16" height={16} className="text-primary-blue shrink-0" />
-              <a href={company?.websiteUrl ?? ""} className="text-primary-blue body-th-3 underline truncate">
+              <LucideLink
+                width="16"
+                height={16}
+                className="text-primary-blue shrink-0"
+              />
+              <a
+                href={company?.websiteUrl ?? ""}
+                className="text-primary-blue body-th-3 underline truncate"
+              >
                 {company?.websiteUrl ?? "N/A"}
               </a>
             </div>

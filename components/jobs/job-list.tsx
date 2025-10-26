@@ -16,6 +16,7 @@ import {
   eligibleYearOptions,
   groupedMajorOptions,
 } from "@/constants/job-filter-options";
+import Link from "next/link";
 
 export default function JobsListClient({
   initialJobs,
@@ -85,34 +86,34 @@ export default function JobsListClient({
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}
       />
-
-      <FilterSelector
-        filterOption={positionTypeFilter}
-        setFilterOption={setPositionTypeFilter}
-        options={positionTypeOptions}
-        placeholder="เลือกรูปแบบการทำงาน"
-      />
-
-      <FilterSelector
-        filterOption={jobTypeFilter}
-        setFilterOption={setJobTypeFilter}
-        options={jobTypeOptions}
-        placeholder="เลือกสายงานของตำแหน่ง"
-      />
-
-      <FilterSelector
-        filterOption={eligibleYearFilter}
-        setFilterOption={setEligibleYearFilter}
-        options={eligibleYearOptions}
-        placeholder="เลือกระดับการศึกษา"
-      />
-
-      <GroupedFilterSelector
-        filterOption={majorFilter}
-        setFilterOption={setMajorFilter}
-        groupedOptions={groupedMajorOptions}
-        placeholder="เลือกสาขาวิชา"
-      />
+      {isFilterOpen && (
+        <>
+          <FilterSelector
+            filterOption={positionTypeFilter}
+            setFilterOption={setPositionTypeFilter}
+            options={positionTypeOptions}
+            placeholder="เลือกรูปแบบการทำงาน"
+          />
+          <FilterSelector
+            filterOption={jobTypeFilter}
+            setFilterOption={setJobTypeFilter}
+            options={jobTypeOptions}
+            placeholder="เลือกสายงานของตำแหน่ง"
+          />
+          <FilterSelector
+            filterOption={eligibleYearFilter}
+            setFilterOption={setEligibleYearFilter}
+            options={eligibleYearOptions}
+            placeholder="เลือกระดับการศึกษา"
+          />
+          <GroupedFilterSelector
+            filterOption={majorFilter}
+            setFilterOption={setMajorFilter}
+            groupedOptions={groupedMajorOptions}
+            placeholder="เลือกสาขาวิชา"
+          />
+        </>
+      )}
 
       <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
       <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
@@ -121,7 +122,15 @@ export default function JobsListClient({
         {paginatedJobs.map((job) => {
           const company =
             initialCompanies.find((c) => c[""] === job.companyId) ?? null;
-          return <JobCard key={job.jobId} job={job} company={company} />;
+          return (
+            <Link
+              key={job.jobId}
+              href={`/jobs/${job.jobId}`}
+              className="w-full"
+            >
+              <JobCard job={job} company={company} />
+            </Link>
+          );
         })}
       </div>
 

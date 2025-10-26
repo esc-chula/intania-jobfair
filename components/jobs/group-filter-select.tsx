@@ -23,15 +23,16 @@ export default function GroupedFilterSelector({
         onValueChange={(v) => setFilterOption(v as string)}
       >
         {/* Trigger */}
-        <Select.SelectTrigger className="w-full h-10">
+        <Select.SelectTrigger className="w-full bg-white font-bodyTH h-10">
           <Select.SelectValue placeholder={placeholder} />
         </Select.SelectTrigger>
 
         {/* Content */}
-        <Select.SelectContent className="w-full">
+        <Select.SelectContent className="w-full font-bodyTH">
           <Select.SelectItem key={"ทั้งหมด"} value={"All"}>
             <p>ทั้งหมด</p>
           </Select.SelectItem>
+          <Select.SelectSeparator />
           {groupedOptions.map((group) => (
             <Select.SelectGroup key={group.label}>
               <Select.SelectLabel className="text-xs text-muted-foreground px-2 py-1">

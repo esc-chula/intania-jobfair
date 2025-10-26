@@ -16,7 +16,7 @@ export default function SortSelector({
           setSortOption(v as "position" | "open-date" | "close-date")
         }
       >
-        <Select.SelectTrigger className="bg-white">
+        <Select.SelectTrigger className="bg-white font-bodyTH">
           <Select.SelectValue placeholder="ชื่อตำแหน่งงาน" />
         </Select.SelectTrigger>
         <Select.SelectContent>

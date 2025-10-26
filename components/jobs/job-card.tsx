@@ -22,8 +22,8 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
         </div>
 
         <div className="flex flex-col gap-2 flex-1 min-w-0">
-          <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">{job.jobTitle}</h3>
-          <p className="body-th-3 text-primary-blue truncate">
+          <h3 className="body-th-1 line-clamp-2">{job.jobTitle}</h3>
+          <p className="body-th-3 truncate">
             {company?.companyName_th ?? "N/A"}
           </p>
 

@@ -539,7 +539,7 @@
     border-radius: 6px !important;
     background: #FFFFFF !important;
     border: 1px solid #E5E7EB !important;
-    box-shadow: 0 4px 10px rgba(174, 174, 174, 0.1) !important;
+    box-shadow: 0 4px 4px hsla(0, 0%, 68%, 0.25) !important;
     height: auto !important;
     display: flex !important;
     flex-direction: column !important;
