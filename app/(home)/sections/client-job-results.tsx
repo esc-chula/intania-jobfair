@@ -83,7 +83,7 @@ export default function ClientJobResults() {
   }
 
   return (
-    <Section title="ผลการค้นหา" description="ตำแหน่งงานล่าสุด">
+    <Section  title="ผลการค้นหา">
       {loading ? (
         <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -106,7 +106,7 @@ export default function ClientJobResults() {
       ) : (
         <EmptyState
           title="ไม่พบตำแหน่งงานที่ตรงกับคำค้นหา"
-        
+          titleClassName="body-th-2 text-primary-blue"
         />
       )}
     </Section>

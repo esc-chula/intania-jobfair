@@ -58,7 +58,7 @@ export default function CompanyCard({
 
             <div className="px-0">
                 <p className="body-th-3 line-clamp-2">
-                    {company?.shortDescription ?? "N/A"}
+                    {company?.shortDescription }
                 </p>
             </div>
         </div>

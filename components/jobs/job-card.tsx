@@ -61,7 +61,7 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
 
       <div className="px-0">
                 <p className="body-th-3 line-clamp-2">
-                    {job?.["JD & REQ"]?? "N/A"}
+                    {job?.["JD & REQ"]}
                 </p>
             </div>
     </div>
