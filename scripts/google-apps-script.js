@@ -28,6 +28,69 @@ const SHEET_NAMES = {
 };
 
 /**
+ * Normalize businessFocus values to one of the 10 allowed canonical labels.
+ * - If Thai + English pattern like "... (English)" exists, keep English inside parentheses
+ * - Normalize punctuation/spaces and map to canonical labels
+ * - If not recognized, return "Others"
+ */
+function normalizeBusinessFocus(raw) {
+  if (raw === null || raw === undefined) return 'Others';
+  var s = String(raw).trim();
+
+  if (!s) return 'Others';
+
+  // Remove newlines and normalize curly quotes
+  s = s.replace(/\r?\n/g, ' ')
+       .replace(/[\u201C\u201D]/g, '"')
+       .replace(/[\u2018\u2019]/g, "'");
+
+  // If there is English in parentheses, keep that part
+  var m = s.match(/\(([^()]*)\)\s*$/);
+  if (m && m[1]) {
+    s = m[1].trim();
+  }
+
+  // Normalize common punctuation and spacing issues
+  // Replace variations of ", &" -> " & ", collapse spaces, harmonize 'and' to '&'
+  s = s.replace(/\s*,\s*&\s*/g, ' & ')
+       .replace(/\s+and\s+/gi, ' & ')
+       .replace(/\s*,\s*/g, ', ')
+       .replace(/\s+/g, ' ')
+       .trim();
+
+  // Build a comparison key: lowercase, drop commas (they vary), standardize spaces and '&'
+  var key = s.toLowerCase();
+  key = key.replace(/\s*,\s*/g, ' ');
+  key = key.replace(/\s*&\s*/g, ' & ');
+  key = key.replace(/\s+/g, ' ').trim();
+
+  // Canonical mapping (key -> canonical label)
+  var map = {
+    'banking finance & investment': 'Banking, Finance & Investment',
+    'computer systems it & communications technology': 'Computer systems, IT & Communications Technology',
+    'manufacturing logistics & industrial': 'Manufacturing, Logistics & Industrial',
+    'research academia & government agencies': 'Research, Academia & Government agencies',
+    'mining & geology': 'Mining & Geology',
+    'energy & sustainability': 'Energy & Sustainability',
+    'construction': 'Construction',
+    'business': 'Business',
+    'consulting & strategy': 'Consulting & Strategy',
+    'entrepreneurship & startups': 'Entrepreneurship & Startups',
+    // Common misspelling seen in sheet
+    'enterepreneurship & startups': 'Entrepreneurship & Startups',
+  };
+
+  // Direct match
+  if (map[key]) return map[key];
+
+  // Heuristic fixes for small punctuation variants (e.g., stray commas around IT)
+  var keyNoCommas = key.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  if (map[keyNoCommas]) return map[keyNoCommas];
+
+  return 'Others';
+}
+
+/**
  * Convert a sheet to JSON array
  */
 function sheetToJson(sheetName) {
@@ -128,6 +191,11 @@ function sheetToJson(sheetName) {
         }
       } else {
         obj[header] = value;
+      }
+
+      // Clean up businessFocus to canonical set of values
+      if (String(header).trim() === 'businessFocus') {
+        obj[header] = normalizeBusinessFocus(obj[header]);
       }
     });
     return obj;
