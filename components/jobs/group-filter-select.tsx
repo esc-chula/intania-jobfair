@@ -17,7 +17,7 @@ export default function GroupedFilterSelector({
   groupedOptions: GroupedOptions[];
 }) {
   return (
-    <div className="w-full">
+    <div className="w-full font-bodyTH">
       <Select.Select
         value={filterOption}
         onValueChange={(v) => setFilterOption(v as string)}
