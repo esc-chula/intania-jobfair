@@ -91,7 +91,7 @@ export default function CompanyCardLong({
                             เกี่ยวกับบริษัท
                         </h4>
                         <p className="body-th-3 text-primary-blue leading-relaxed">
-                            {company?.fullDescription ?? "N/A"}
+                            {company?.fullDescription|| company?.shortDescription || "ไม่มีรายละเอียด"}
                         </p>
                         {/* Promo Materials */}
                         {company?.promoMaterials && (

@@ -20,7 +20,7 @@ export default function CompanyCardShort({
                 <div className="relative shrink-0 w-12 h-12">
                     <Image
                         src={company?.companyLogo || "/default-logo.png"}
-                        alt={company?.companyName_en ?? "Company Logo"}
+                        alt={company?.companyName_en || "Company Logo"}
                         fill
                         className="object-cover rounded-md"
                     />
@@ -50,8 +50,8 @@ export default function CompanyCardShort({
                             height={14}
                         />
                         <p className="body-th-3 text-primary-blue line-clamp-2">
-                            {(company?.officeLocation_district ?? "N/A") + " " + 
-                                (company?.officeLocation_province ?? "N/A")}
+                            {(company?.officeLocation_district || "N/A") + " " + 
+                                (company?.officeLocation_province || "N/A")}
                         </p>
                     </div>
                 </div>

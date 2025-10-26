@@ -88,7 +88,7 @@ export default function JobCardLong({
         <div>
           <h4 className="heading-th-3 leading-7 text-primary-blue mb-3">เกี่ยวกับตำแหน่งงาน</h4>
           <p className="body-th-3 text-primary-blue leading-relaxed whitespace-pre-wrap break-words">
-            {job.jobDescription ?? "ไม่มีรายละเอียด"}
+            {job.jobDescription || "ไม่มีรายละเอียด"}
           </p>
         </div>
 
