@@ -60,8 +60,8 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
       </div>
 
       <div className="px-0">
-                <p className="body-th-3 line-clamp-2">
-                    {job?.["JD & REQ"]}
+                <p className="body-th-3 line-clamp-3">
+                    {job.jobDescription ?? "ไม่มีรายละเอียด"}
                 </p>
             </div>
     </div>

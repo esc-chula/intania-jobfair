@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { fetchCompanies, fetchJobs } from "@/lib/data";
 import CompanyCardLong from "@/components/companies/company-card-long";
 import Link from "next/link";
-import JobCard from "@/components/jobs/job-card";
+import JobCardShort from "@/components/jobs/job-card-short";
 
 export default async function CompanyDetailPage({
     params,
@@ -44,13 +44,18 @@ export default async function CompanyDetailPage({
                     </div>
 
                     {/* Job Cards Grid */}
-                    <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {companyJobs.map((job) => (
-                            <JobCard
+                            <Link
                                 key={job.jobId}
-                                job={job}
-                                company={company}
-                            />
+                                href={`/jobs/${job.jobId}`}
+                                className="w-full"
+                            >
+                                <JobCardShort
+                                    job={job}
+                                    company={company}
+                                />
+                            </Link>
                         ))}
                     </div>
                 </div>

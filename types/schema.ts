@@ -42,7 +42,7 @@ export type Job = {
     jobId: number;
     companyId: number; // (foreign key)
     jobTitle: string;
-    "JD & REQ": string; // Job description and requirements
+    jobDescription: string; // Job description and requirements
     positionType: PositionType;
     openingsCount?: string;
     eligibleStudentYear: EligibleStudentYear;
