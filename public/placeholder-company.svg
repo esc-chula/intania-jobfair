@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="24" fill="#F1F5F9"/>
+  <g opacity="0.7">
+    <circle cx="88" cy="100" r="28" fill="#CBD5E1"/>
+    <rect x="40" y="140" width="176" height="56" rx="12" fill="#E2E8F0"/>
+    <rect x="136" y="56" width="80" height="56" rx="8" fill="#E2E8F0"/>
+  </g>
+  <text x="50%" y="226" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="14" fill="#94A3B8">Company Logo</text>
+</svg>
