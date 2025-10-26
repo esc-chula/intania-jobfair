@@ -47,17 +47,22 @@ export default function JobCardShort({
 
           <div className="flex gap-2 items-center">
             <LucideCalendarRange width={14} height={14} className="text-primary-blue shrink-0" />
-            <p className="body-th-3 text-primary-blue truncate">
+            <p className="body-th-3 text-primary-blue line-clamp-2">
               {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-            <LucideMapPin width={14} height={14} className="text-primary-blue shrink-0" />
-            <p className="body-th-3 text-primary-blue truncate">
-              {company?.officeLocation_full ?? "N/A"}
-            </p>
-          </div>
+                        <LucideMapPin
+                            className="text-primary-blue shrink-0"
+                            width={14}
+                            height={14}
+                        />
+                        <p className="body-th-3 text-primary-blue line-clamp-2">
+                            {(company?.officeLocation_district ?? "N/A") + " " + 
+                                (company?.officeLocation_province ?? "N/A")}
+                        </p>
+                    </div>
         </div>
       </div>
     </div>

@@ -40,21 +40,30 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
 
           <div className="flex gap-2 items-center">
             <LucideCalendarRange width={16} height={16} className="shrink-0" />
-            <p className="body-th-3 text-[color:var(--color-primary-blue)] truncate">
+            <p className="body-th-3 text-[color:var(--color-primary-blue)] line-clamp-2">
               {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-            <LucideMapPin width={16} height={16} className="shrink-0" />
-            <p className="body-th-3 truncate">{company?.officeLocation_full ?? "N/A"}</p>
-          </div>
+                        <LucideMapPin
+                            className="text-primary-blue shrink-0"
+                            width={14}
+                            height={14}
+                        />
+                        <p className="body-th-3 text-primary-blue line-clamp-2">
+                            {(company?.officeLocation_district ?? "N/A") + " " + 
+                                (company?.officeLocation_province ?? "N/A")}
+                        </p>
+                    </div>
         </div>
       </div>
 
       <div className="px-0">
-        <p className="body-th-3 line-clamp-2">{job["JD & REQ"]}</p>
-      </div>
+                <p className="body-th-3 line-clamp-2">
+                    {job?.["JD & REQ"]?? "N/A"}
+                </p>
+            </div>
     </div>
   );
 }

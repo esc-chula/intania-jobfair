@@ -6,11 +6,17 @@ import JobCardShort from "@/components/jobs/job-card-short";
 import { useSearch } from "../contexts/search-context";
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import { searchJobsAndCompanies } from "@/lib/search";
-import { useState, useEffect } from "react";
-import type { Job, Company } from "@/types/schema";
+import { useState, useEffect, useMemo } from "react";
+import type { Job, Company, EligibleStudentYear, MajorEligibility } from "@/types/schema";
 
 export default function ClientJobResults() {
-  const { isSearchActive, searchQuery } = useSearch();
+  const { 
+    isSearchActive, 
+    searchQuery,
+    jobTypeFilter,
+    eligibleYearFilter,
+    majorFilter,
+  } = useSearch();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(false);
@@ -31,17 +37,50 @@ export default function ClientJobResults() {
     }
   }, [dataLoaded]);
 
-  // แสดงเฉพาะเมื่อมีการค้นหา
-  if (!isSearchActive) {
+  // Filter jobs based on search and filters
+  const filteredJobs = useMemo(() => {
+    let jobsToFilter = jobs;
+
+    // Apply search if there's a query
+    if (searchQuery.trim()) {
+      const { jobs: searchedJobs } = searchJobsAndCompanies(
+        searchQuery,
+        jobs,
+        companies
+      );
+      jobsToFilter = searchedJobs;
+    }
+
+    // Then apply filters
+    return jobsToFilter.filter((job) => {
+      // Job type filter
+      const matchesJobType =
+        jobTypeFilter === "" ||
+        jobTypeFilter === "All" ||
+        job.field_of_work.includes(jobTypeFilter);
+
+      // Eligible year filter
+      const matchesEligibleYear =
+        eligibleYearFilter === "" ||
+        eligibleYearFilter === "All" ||
+        job.eligibleStudentYear[
+          eligibleYearFilter as keyof EligibleStudentYear
+        ] === true;
+
+      // Major filter
+      const matchesMajor =
+        majorFilter === "" ||
+        majorFilter === "All" ||
+        job.major[majorFilter as string] === true;
+
+      return matchesJobType && matchesEligibleYear && matchesMajor;
+    });
+  }, [jobs, companies, searchQuery, jobTypeFilter, eligibleYearFilter, majorFilter]);
+
+  // แสดงเฉพาะเมื่อมีการค้นหาหรือมีการใช้ filter
+  if (!isSearchActive && !jobTypeFilter && !eligibleYearFilter && !majorFilter) {
     return null;
   }
-
-  // Use simple search
-  const { jobs: filteredJobs } = searchJobsAndCompanies(
-    searchQuery,
-    jobs,
-    companies
-  );
 
   return (
     <Section title="ผลการค้นหา" description="ตำแหน่งงานล่าสุด">
@@ -67,7 +106,7 @@ export default function ClientJobResults() {
       ) : (
         <EmptyState
           title="ไม่พบตำแหน่งงานที่ตรงกับคำค้นหา"
-          description="ลองใช้คำค้นหาอื่น หรือดูตำแหน่งงานที่แนะนำ"
+        
         />
       )}
     </Section>

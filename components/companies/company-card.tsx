@@ -38,7 +38,7 @@ export default function CompanyCard({
                             width={16}
                             height={16}
                         />
-                        <p className="body-th-3 text-primary-blue truncate">
+                        <p className="body-th-3 text-primary-blue line-clamp-2">
                             {jobCount + " ตำแหน่งงาน"}
                         </p>
                     </div>
@@ -48,7 +48,7 @@ export default function CompanyCard({
                             width={16}
                             height={16}
                         />
-                        <p className="body-th-3 text-primary-blue truncate">
+                        <p className="body-th-3 text-primary-blue line-clamp-2">
                             {(company?.officeLocation_district ?? "N/A") + " " + 
                                 (company?.officeLocation_province ?? "N/A")}
                         </p>

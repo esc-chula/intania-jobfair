@@ -27,17 +27,12 @@ export default function Header() {
   return (
     <>
       <header className={`w-full bg-primary-yellow fixed top-0 left-0 right-0 z-50`}>
-        <div className={`mx-auto h-[56px] flex items-center justify-between px-4 py-2 ${
+        <div className={`h-[56px] flex items-center justify-between py-2 w-full px-3 ${
         isClient 
-          ? "max-w-[320px] sm:max-w-[480px] md:max-w-[640px] lg:max-w-[800px] xl:max-w-[1200px] sm:h-[64px] md:h-[72px] sm:px-6 md:px-8" 
-          : "max-w-[320px]"
+          ? "sm:h-[64px] md:h-[72px] sm:px-4 md:px-6 lg:px-8" 
+          : ""
       }`}>
-        <div className={`flex items-center justify-between w-full ${
-          isClient 
-            ? "gap-4 sm:gap-8 md:gap-12" 
-            : "gap-[113px]"
-        }`}>
-          <Link href="/" className="inline-flex items-center">
+          <Link href="/" className="inline-flex items-center shrink-0">
             <Image
               src={logo}
               alt="Intania Job Fair 2025"
@@ -60,7 +55,7 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="expanded-nav"
             onClick={() => setOpen((v) => !v)}
-            className={`inline-flex items-center justify-center text-primary-blue ${
+            className={`inline-flex items-center justify-center text-primary-blue shrink-0 ${
               isClient 
                 ? "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 hover:opacity-80 transition-opacity" 
                 : "w-6 h-6"
@@ -87,15 +82,14 @@ export default function Header() {
             </svg>
           </button>
         </div>
-      </div>
 
-      {/* แผง Expanded Nav */}
-      <ExpandedNav
-        id="expanded-nav"
-        open={open}
-        onClose={() => setOpen(false)}
-        anchorRef={btnRef}
-      />
+        {/* แผง Expanded Nav */}
+        <ExpandedNav
+          id="expanded-nav"
+          open={open}
+          onClose={() => setOpen(false)}
+          anchorRef={btnRef}
+        />
       </header>
       {/* Spacer เพื่อไม่ให้เนื้อหาอยู่ใต้ fixed header */}
       <div className={`h-[56px] ${isClient ? "sm:h-[64px] md:h-[72px]" : ""}`} />

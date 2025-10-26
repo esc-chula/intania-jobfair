@@ -7,9 +7,11 @@ export default function Hero() {
       {/* Fullscreen Banner */}
       <div
         aria-labelledby="hero-title"
-        className="w-full h-[60vh] min-h-[300px] max-h-[600px]
-                   flex flex-col items-center justify-center gap-4 text-center
-                   opacity-100 relative overflow-hidden"
+        className="w-full h-[240px] 
+                   flex flex-col items-center justify-center gap-2 text-center
+                   opacity-100 relative overflow-hidden
+                   pt-[90px] pr-[99px] pb-[90px] pl-[99px]
+                   sm:h-[60vh] sm:min-h-[300px] sm:max-h-[600px] sm:gap-4 sm:pt-4 sm:pr-4 sm:pb-4 sm:pl-4"
       >
         {/* Background banner image */}
         <Image
@@ -21,7 +23,7 @@ export default function Hero() {
         />
         
         {/* Content overlay */}
-        <div className="relative z-10 flex flex-col items-center gap-4 px-4">
+        <div className="relative z-10 flex flex-col items-center gap-2 sm:gap-4 px-0">
           <h1
             id="hero-title"
             className="font-headTH text-[24px] font-medium leading-[1.2]
