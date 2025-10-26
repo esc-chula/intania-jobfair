@@ -33,7 +33,7 @@ export default function JobCardLong({
           <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
             {job.jobTitle}
           </h3>
-          <p className="body-th-1 truncate">
+          <p className="body-th-1 line-clamp-2">
             {company?.companyName_th ?? "N/A"}
           </p>
 
@@ -87,7 +87,7 @@ export default function JobCardLong({
       <div>
         <div>
           <h4 className="heading-th-3 leading-7 text-primary-blue mb-3">เกี่ยวกับตำแหน่งงาน</h4>
-          <p className="body-th-3 text-primary-blue line-clamp-4">
+          <p className="body-th-3 text-primary-blue line-clamp-2">
             {job["JD & REQ"] ?? "ไม่มีรายละเอียด"}
           </p>
         </div>

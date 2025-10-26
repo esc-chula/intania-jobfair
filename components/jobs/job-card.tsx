@@ -23,7 +23,7 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
 
         <div className="flex flex-col gap-2 flex-1 min-w-0">
           <h3 className="body-th-1 line-clamp-2">{job.jobTitle}</h3>
-          <p className="body-th-3 truncate">
+          <p className="body-th-3 line-clamp-2">
             {company?.companyName_th ?? "N/A"}
           </p>
 
@@ -53,7 +53,7 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
       </div>
 
       <div className="px-0">
-        <p className="body-th-3 line-clamp-3">{job["JD & REQ"]}</p>
+        <p className="body-th-3 line-clamp-2">{job["JD & REQ"]}</p>
       </div>
     </div>
   );

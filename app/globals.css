@@ -590,14 +590,39 @@
     max-width: 100%;
   }
 
+  /* Line clamp for h3, h4 titles - 2 lines */
   .long-card h3,
   .long-card h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Line clamp for paragraphs with line-clamp class */
+  .long-card p.line-clamp-2 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-width: 100%;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .long-card p.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .long-card .truncate {
@@ -620,13 +645,27 @@
     max-width: 100%;
   }
 
-  .short-card h3 {
+  /* Line clamp for short card paragraphs with line-clamp class */
+  .short-card p.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Line clamp for short card titles */
+  .short-card h3 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-width: 100%;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .short-card .truncate {

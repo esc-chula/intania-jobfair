@@ -30,7 +30,7 @@ export default function JobCardShort({
           <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
             {job.jobTitle}
           </h3>
-          <p className="body-th-1 text-primary-blue truncate">
+          <p className="body-th-1 text-primary-blue line-clamp-2">
             {company?.companyName_th ?? "N/A"}
           </p>
 
