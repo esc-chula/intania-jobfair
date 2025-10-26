@@ -5,7 +5,7 @@ import PaginationControls from "./pagination";
 import SearchBar from "./search-bar";
 import SortSelector from "./sort-select";
 import JobCard from "./job-card";
-import type { Job, Company } from "@/types/schema";
+import type { Job, Company, EligibleStudentYear, MajorEligibility } from "@/types/schema";
 import FilterSelector from "./filter-select";
 import GroupedFilterSelector from "./group-filter-select";
 
@@ -42,30 +42,70 @@ export default function JobsListClient({
     return initialJobs.filter((job) => {
       const company =
         initialCompanies.find((c) => c[""] === job.companyId) ?? null;
+
+      // 1. Search query
       const matchesQuery =
         job.jobTitle.toLowerCase().includes(query.toLowerCase()) ||
         (company &&
           company.companyName_th.toLowerCase().includes(query.toLowerCase()));
-      return matchesQuery;
+
+      // 2. Position type filter
+      const matchesPositionType =
+        positionTypeFilter === "" || job.positionType === positionTypeFilter;
+
+      // 3. Job type filter
+      const matchesJobType =
+        jobTypeFilter === "" || job.field_of_work === jobTypeFilter;
+
+      // 4. Eligible year filter
+      const matchesEligibleYear =
+        eligibleYearFilter === "" ||
+        job.eligibleStudentYear[
+          eligibleYearFilter as keyof EligibleStudentYear
+        ] == true;
+
+      // 5. Major filter
+      const matchesMajor =
+        majorFilter === "" || job.major[majorFilter as string] === true;
+
+      // combine all
+      return (
+        matchesQuery &&
+        matchesPositionType &&
+        matchesJobType &&
+        matchesEligibleYear &&
+        matchesMajor
+      );
     });
-  }, [initialJobs, initialCompanies, query]);
+  }, [
+    initialJobs,
+    initialCompanies,
+    query,
+    positionTypeFilter,
+    jobTypeFilter,
+    eligibleYearFilter,
+    majorFilter,
+  ]);
 
   const sortedJobs = useMemo(() => {
     const arr = [...searchedJobs];
     if (sortOption === "position")
       return arr.sort((a, b) => a.jobTitle.localeCompare(b.jobTitle));
+
     if (sortOption === "open-date")
       return arr.sort(
         (a, b) =>
           new Date(a.application_start || "").getTime() -
           new Date(b.application_start || "").getTime()
       );
+
     if (sortOption === "close-date")
       return arr.sort(
         (a, b) =>
           new Date(a.application_end || "").getTime() -
           new Date(b.application_end || "").getTime()
       );
+
     return arr;
   }, [searchedJobs, sortOption]);
 
@@ -90,7 +130,9 @@ export default function JobsListClient({
         <>
           <FilterSelector
             filterOption={positionTypeFilter}
-            setFilterOption={setPositionTypeFilter}
+            setFilterOption={(v) => {
+              setPositionTypeFilter(v), setPage(1);
+            }}
             options={positionTypeOptions}
             placeholder="เลือกรูปแบบการทำงาน"
           />

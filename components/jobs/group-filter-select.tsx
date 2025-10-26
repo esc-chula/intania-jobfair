@@ -35,6 +35,9 @@ export default function GroupedFilterSelector({
           <Select.SelectSeparator />
           {groupedOptions.map((group) => (
             <Select.SelectGroup key={group.label}>
+              <Select.SelectLabel className="font-bodyTH font-bold text-primary-blue">
+                {group.label}
+              </Select.SelectLabel>
               {group.options.map((option) => (
                 <Select.SelectItem
                   key={option.value}

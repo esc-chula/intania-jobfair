@@ -33,7 +33,7 @@ export type EligibleStudentYear = {
     "Bachelor's Junior": boolean;
     "Bachelor's Senior": boolean;
     "Master's": boolean;
-    Doctorate: boolean;
+    "Doctorate": boolean;
 };
 
 export type MajorEligibility = Record<string, boolean>;
