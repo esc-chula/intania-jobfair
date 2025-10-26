@@ -4,6 +4,7 @@ import JobCardLong from "@/components/jobs/job-card-long";
 import Link from "next/link";
 import { Company } from "@/types/schema";
 import CompanyCard from "@/components/companies/company-card";
+import BackButton from "@/components/common/back";
 
 export default async function jobDetailPage({
   params,
@@ -24,7 +25,8 @@ export default async function jobDetailPage({
     <div className="w-full max-w-7xl mx-auto px-4 py-6 md:py-8">
       <div className="max-w-4xl mx-auto">
         {/* job Information */}
-        <div className="mb-8">
+        <BackButton />
+        <div className="mb-8 mt-4">
           <JobCardLong job={job} company={company as Company | null} />
         </div>
 
@@ -33,12 +35,14 @@ export default async function jobDetailPage({
           <div className="flex items-center justify-between mb-6">
             <h2 className="heading-th-2 text-primary-blue">เกี่ยวกับบริษัท</h2>
           </div>
-          <CompanyCard
-            jobCount={
-              jobs.filter((j) => j.companyId === Number(company?.[""])).length
-            }
-            company={company as Company}
-          />
+          <Link href={`/companies/${company?.[""]}`}>
+            <CompanyCard
+              jobCount={
+                jobs.filter((j) => j.companyId === Number(company?.[""])).length
+              }
+              company={company as Company}
+            />
+          </Link>
         </div>
       </div>
     </div>
