@@ -30,19 +30,15 @@ export default function GroupedFilterSelector({
         {/* Content */}
         <Select.SelectContent className="w-full">
           <Select.SelectItem key={"ทั้งหมด"} value={"All"}>
-            <p>ทั้งหมด</p>
+            <p className="font-bodyTH">ทั้งหมด</p>
           </Select.SelectItem>
           {groupedOptions.map((group) => (
             <Select.SelectGroup key={group.label}>
-              <Select.SelectLabel className="text-xs text-muted-foreground px-2 py-1">
-                {group.label}
-              </Select.SelectLabel>
-
               {group.options.map((option) => (
                 <Select.SelectItem
                   key={option.value}
                   value={option.value}
-                  className="w-full h-9 text-left"
+                  className="w-full h-9 text-left font-bodyTH"
                 >
                   {option.label}
                 </Select.SelectItem>
