@@ -1,11 +1,13 @@
-export const positionTypeOptions = [
-  { value: "internship", label: "Internship" },
-  { value: "part-time", label: "Part-Time" },
+import type { PositionType } from "@/types/schema";
+export const positionTypeOptions:{value: PositionType | "All", label: string}[] = [
+  { value: "All", label: "ทั้งหมด" },
+  { value: "Internship" , label: "Internship" },
+  { value: "Part-time", label: "Part-Time" },
   { value: "Job", label: "Full-Time" },
 ];
 
 export const jobTypeOptions = [
-  { value: "ทั้งหมด", label: "ทั้งหมด" },
+  { value: "All", label: "ทั้งหมด" },
   { value: "งานธนาคาร งานการเงิน งานเกี่ยวกับการลงทุน", label: "งานธนาคาร งานการเงิน งานเกี่ยวกับการลงทุน" },
   { value: "งานระบบคอมพิวเตอร์ งานไอที งานเทคโนโลยีสื่อสาร", label: "งานระบบคอมพิวเตอร์ งานไอที งานเทคโนโลยีสื่อสาร" },
   { value: "งานการผลิต งานขนส่ง งานอุตสาหการ", label: "งานการผลิต งานขนส่ง งานอุตสาหการ" },

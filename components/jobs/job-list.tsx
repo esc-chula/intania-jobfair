@@ -5,7 +5,13 @@ import PaginationControls from "./pagination";
 import SearchBar from "./search-bar";
 import SortSelector from "./sort-select";
 import JobCard from "./job-card";
-import type { Job, Company, EligibleStudentYear, MajorEligibility } from "@/types/schema";
+import type {
+  Job,
+  Company,
+  EligibleStudentYear,
+  MajorEligibility,
+  PositionType,
+} from "@/types/schema";
 import FilterSelector from "./filter-select";
 import GroupedFilterSelector from "./group-filter-select";
 
@@ -51,22 +57,29 @@ export default function JobsListClient({
 
       // 2. Position type filter
       const matchesPositionType =
-        positionTypeFilter === "" || job.positionType === positionTypeFilter;
+        positionTypeFilter === "" ||
+        positionTypeFilter === "All" ||
+        job.positionType === positionTypeFilter;
 
       // 3. Job type filter
       const matchesJobType =
-        jobTypeFilter === "" || job.field_of_work === jobTypeFilter;
+        jobTypeFilter === "" ||
+        jobTypeFilter === "All" ||
+        job.field_of_work.includes(jobTypeFilter);
 
       // 4. Eligible year filter
       const matchesEligibleYear =
         eligibleYearFilter === "" ||
+        eligibleYearFilter === "All" ||
         job.eligibleStudentYear[
           eligibleYearFilter as keyof EligibleStudentYear
         ] == true;
 
       // 5. Major filter
       const matchesMajor =
-        majorFilter === "" || job.major[majorFilter as string] === true;
+        majorFilter === "" ||
+        majorFilter === "All" ||
+        job.major[majorFilter as string] === true;
 
       // combine all
       return (
