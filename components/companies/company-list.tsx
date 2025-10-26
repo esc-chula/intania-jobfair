@@ -218,7 +218,7 @@ export default function CompanyListClient({
                                     setBusinessFocusFilter(v);
                                     setPage(1);
                                 }}
-                                placeholder="เลือกประเภทธุรกิจ"
+                                placeholder="เลือกสายงานของบริษัท"
                                 groupedOptions={filterOptions.businessFocus}
                             />
                         </div>
