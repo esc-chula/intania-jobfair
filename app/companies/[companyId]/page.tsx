@@ -35,17 +35,17 @@ export default async function CompanyDetailPage({
                         <h2 className="heading-th-2 text-primary-blue">
                             ตำแหน่งงาน
                         </h2>
-                        <Link 
+                        {/* <Link 
                             href="/" 
                             className="body-th-2 text-[#4A5565] hover:opacity-80 flex items-center gap-1 transition-opacity"
                         >
                             ดูทั้งหมด <span>&gt;</span>
-                        </Link>
+                        </Link> */}
                     </div>
 
                     {/* Job Cards Grid */}
                     <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {companyJobs.slice(0, 8).map((job) => (
+                        {companyJobs.map((job) => (
                             <JobCard
                                 key={job.jobId}
                                 job={job}

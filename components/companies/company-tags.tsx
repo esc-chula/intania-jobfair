@@ -9,17 +9,15 @@ const TAG_COLORS: Record<string, string> = {
     "Research, Academia & Government agencies": "bg-[#7B6A9C80]",
     "Mining & Geology": "bg-[#BA784680]",
     "Energy & Sustainability": "bg-[#879F6780]",
-    Construction: "bg-[#B4406080]",
-    Business: "bg-[#78BAD180]",
+    "Construction": "bg-[#B4406080]",
+    "Business": "bg-[#78BAD180]",
     "Consulting & Strategy": "bg-[#9E9E9E80]",
     "Entrepreneurship & Startups": "bg-[#EB7EA680]",
-    Others: "bg-[#E0E0E080]",
+    "Others": "bg-[#E0E0E080]",
 };
 
 export default function CompanyTags({ company }: { company: Company }) {
-    // const tag = company.businessFocus || "Others";
-    const tag = "Construction"; // mock wait p'tawan clean data
-
+    const tag = company.businessFocus || "Others";
     const colorClass = TAG_COLORS[tag] || "bg-gray-100 text-gray-800";
 
     return (
