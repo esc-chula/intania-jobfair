@@ -171,7 +171,7 @@ export default function JobsListClient({
       )}
 
       <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
-      <h2 className="text-xl font-bold">ตำแหน่งงานทั้งหมด</h2>
+      <h2 className="heading-th-2 text-primary-blue">ตำแหน่งงานทั้งหมด</h2>
 
       <div className="flex flex-col gap-4 items-center">
         {paginatedJobs.map((job) => {

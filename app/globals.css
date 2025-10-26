@@ -496,38 +496,78 @@
     box-shadow: 0px 4px 10px 0px #AEAEAE1A;
     height: auto;
     font-size: 0.875rem; /* 14px for short cards */
+    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-width, padding, font-size, gap;
+  }
+  
+  @media (min-width: 375px) {
+    .short-card {
+      max-width: 320px;
+    }
+  }
+  
+  @media (min-width: 425px) {
+    .short-card {
+      max-width: 360px;
+    }
   }
   
   @media (min-width: 640px) {
     .short-card {
-      width: 100% !important;
-      max-width: 320px;
+      max-width: 100%;
     }
   }
   
   @media (min-width: 768px) {
     .short-card {
-      width: 100% !important;
-      max-width: 480px;
+      padding: 20px;
     }
   }
   
   @media (min-width: 1024px) {
     .short-card {
-      width: 100% !important;
-      max-width: 640px;
+      padding: 24px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .short-card {
+      padding: 28px;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .short-card {
+      padding: 32px;
     }
   }
 
-  /* Font sizes for short cards */
+  /* Font sizes for short cards - Responsive */
   .short-card h3 {
     font-size: 0.875rem; /* 14px */
     line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .short-card h3 {
+      font-size: 1rem; /* 16px */
+    }
   }
   
   .short-card p {
     font-size: 0.75rem; /* 12px */
     line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .short-card p {
+      font-size: 0.875rem; /* 14px */
+    }
   }
 
   /* Long Card - Shared Style */
@@ -546,39 +586,82 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-size: 1rem; /* 16px for long cards */
+    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-width, padding, font-size, gap;
+  }
+  
+  @media (min-width: 375px) {
+    .long-card {
+      max-width: 320px;
+    }
+  }
+  
+  @media (min-width: 425px) {
+    .long-card {
+      max-width: 360px;
+    }
   }
   
   @media (min-width: 640px) {
     .long-card {
-      width: 100% !important;
-      max-width: 320px;
+      max-width: 100%;
     }
   }
   
   @media (min-width: 768px) {
     .long-card {
-      width: 100% !important;
-      max-width: 480px;
+      padding: 20px !important;
     }
   }
   
   @media (min-width: 1024px) {
     .long-card {
-      width: 100% !important;
-      max-width: 640px;
+      padding: 24px !important;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .long-card {
+      gap: 20px !important;
+      padding: 28px !important;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .long-card {
+      gap: 24px !important;
+      padding: 32px !important;
     }
   }
 
-  /* Font sizes for long cards */
+  /* Font sizes for long cards - Responsive */
   .long-card h3,
   .long-card h4 {
     font-size: 1rem; /* 16px */
     line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .long-card h3,
+    .long-card h4 {
+      font-size: 1.125rem; /* 18px */
+    }
   }
   
   .long-card p {
     font-size: 0.875rem; /* 14px */
     line-height: 1.5;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .long-card p {
+      font-size: 1rem; /* 16px */
+    }
   }
 
   /* Text ellipsis for long content in long-card */
