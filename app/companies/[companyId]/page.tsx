@@ -35,12 +35,12 @@ export default async function CompanyDetailPage({
                         <h2 className="heading-th-2 text-primary-blue">
                             ตำแหน่งงาน
                         </h2>
-                        <Link 
+                        {/* <Link 
                             href="/" 
                             className="body-th-2 text-[#4A5565] hover:opacity-80 flex items-center gap-1 transition-opacity"
                         >
                             ดูทั้งหมด <span>&gt;</span>
-                        </Link>
+                        </Link> */}
                     </div>
 
                     {/* Job Cards Grid */}
