@@ -28,11 +28,7 @@ export default function Section({
         {actionLabel && actionHref ? (
           <Link
             href={actionHref}
-<<<<<<< HEAD
             className="body-th-2 text-[#4A5565] hover:opacity-80 flex items-center gap-1"
-=======
-            className="body-th-2 underline underline-offset-4 hover:opacity-80"
->>>>>>> af3fe09 (manage font style in home page create component style add banner use real data jobs in gist)
           >
             {actionLabel} <span>&gt;</span>
           </Link>
