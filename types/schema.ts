@@ -1,9 +1,9 @@
 export type SocialMediaLinks = {
-  facebook?: string;
-  instagram?: string;
-  twitter?: string;
-  linkedin?: string;
-  website?: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+    website?: string;
 };
 
 export type Company = {
@@ -25,7 +25,7 @@ export type Company = {
   promoMaterials?: string;
 };
 
-export type PositionType = "Internship" | "Part-time" | "Full-time";
+export type MajorEligibility = Record<string, boolean>;
 
 export type EligibleStudentYear = {
   "Bachelor's Freshmen": boolean;

@@ -1,19 +1,53 @@
-import Section from "../components/section";
-import SkeletonCard from "../components/skeleton-card";
+import Section from "@/components/common/section";
+import SkeletonCard from "@/components/common/skeleton-card";
+import CompanyCardShort from "@/components/companies/company-card-short";
+import { fetchCompanies, fetchJobs } from "@/lib/data";
+import { pickFeaturedCompanies } from "../services/home.service";
 
-export default function FeaturedCompanies() {
-  return (
-    <Section
-      title="บริษัทที่น่าสนใจ"
-      actionLabel="ดูทั้งหมด"
-      actionHref="/companies"
-    >
-      <div className="grid gap-4 md:grid-cols-2">
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
-      </div>
-    </Section>
-  );
+export default async function FeaturedCompanies() {
+  try {
+    const [companies, jobs] = await Promise.all([
+      fetchCompanies(),
+      fetchJobs(),
+    ]);
+
+    const featuredCompanies = pickFeaturedCompanies(companies, 4);
+
+    return (
+      <Section
+        title="บริษัทที่น่าสนใจ"
+        actionLabel="ดูทั้งหมด"
+        actionHref="/companies"
+      >
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {featuredCompanies.map((company) => {
+            const jobCount = jobs.filter(job => job.companyId === company[""]).length;
+            return (
+              <CompanyCardShort
+                key={company[""]}
+                company={company}
+                jobCount={jobCount}
+              />
+            );
+          })}
+        </div>
+      </Section>
+    );
+  } catch (error) {
+    console.error("Failed to load featured companies:", error);
+    return (
+      <Section
+        title="บริษัทที่น่าสนใจ"
+        actionLabel="ดูทั้งหมด"
+        actionHref="/companies"
+      >
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      </Section>
+    );
+  }
 }
