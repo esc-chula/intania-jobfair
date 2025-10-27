@@ -178,7 +178,7 @@ export default function JobsListClient({
                             setMajorFilter("");
                             setPage(1);
                         }}
-                        className="w-full h-9 shadow bg-[#F5C45E] hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
+                        className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
                     >
                         ล้างตัวกรอง
                     </button>
