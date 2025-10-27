@@ -3,7 +3,7 @@ export const positionTypeOptions:{value: PositionType | "All", label: string}[] 
   { value: "All", label: "ทั้งหมด" },
   { value: "Internship" , label: "Internship" },
   { value: "Part-time", label: "Part-Time" },
-  { value: "Job", label: "Full-Time" },
+  { value: "Full-time", label: "Full-Time" },
 ];
 
 export const jobTypeOptions = [
