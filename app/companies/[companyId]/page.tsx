@@ -7,19 +7,20 @@ import JobCardShort from "@/components/jobs/job-card-short";
 export default async function CompanyDetailPage({
     params,
 }: {
-    params: { companyId: string };
+    params: Promise<{ companyId: string }>;
 }) {
+    const { companyId } = await params;
+    const idNum = Number(companyId);
+
     const companies = await fetchCompanies();
-    const company = companies.find((c) => c[""] === Number(params.companyId));
+    const company = companies.find((c) => c[""] === idNum);
 
     if (!company) {
         notFound();
     }
 
     const jobs = await fetchJobs();
-    const companyJobs = jobs.filter(
-        (j) => j.companyId === Number(params.companyId)
-    );
+    const companyJobs = jobs.filter((j) => j.companyId === idNum);
 
     return (
         <div className="w-full max-w-7xl mx-auto px-4 py-6 md:py-8">
