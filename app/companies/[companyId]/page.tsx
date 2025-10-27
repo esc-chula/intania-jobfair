@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { fetchCompanies, fetchJobs } from "@/lib/data";
 import CompanyCardLong from "@/components/companies/company-card-long";
 import JobCardShort from "@/components/jobs/job-card-short";
+import BackButton from "@/components/common/back";
 
 export default async function CompanyDetailPage({
     params,
@@ -25,8 +26,12 @@ export default async function CompanyDetailPage({
         <div className="w-full max-w-7xl mx-auto px-4 py-6 md:py-8">
             <div className="max-w-4xl mx-auto">
                 {/* Company Information */}
-                <div className="mb-8">
-                    <CompanyCardLong company={company} jobCount={companyJobs.length} />
+                <BackButton />
+                <div className="mb-8 mt-4">
+                    <CompanyCardLong
+                        company={company}
+                        jobCount={companyJobs.length}
+                    />
                 </div>
 
                 {/* Job Positions Section */}
