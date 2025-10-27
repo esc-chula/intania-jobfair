@@ -36,7 +36,7 @@ export type EligibleStudentYear = {
   "Doctorate": boolean;
 };
 
-export type MajorEligibility = Record<string, boolean>;
+export type PositionType = "Internship" | "Part-time" | "Full-time";
 
 export type Job = {
   jobId: number; 
@@ -53,3 +53,19 @@ export type Job = {
   field_of_work: string;
   major: MajorEligibility;
 };
+
+export const BUSINESS_FOCUS_OPTIONS = [
+    "Banking, Finance & Investment",
+    "Computer systems, IT & Communications Technology",
+    "Manufacturing, Logistics & Industrial",
+    "Research, Academia & Government agencies",
+    "Mining & Geology",
+    "Energy & Sustainability",
+    "Construction",
+    "Business",
+    "Consulting & Strategy",
+    "Entrepreneurship & Startups",
+    "Others",
+] as const;
+
+export type BusinessFocus = (typeof BUSINESS_FOCUS_OPTIONS)[number];
