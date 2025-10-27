@@ -488,6 +488,7 @@
   .short-card {
     width: 100% !important;
     max-width: 288px;
+    margin: 0 auto;
     padding: 17px;
     gap: 16px;
     border-radius: 6px;
@@ -574,6 +575,7 @@
   .long-card {
     width: 100% !important;
     max-width: 288px;
+    margin: 0 auto;
     padding: 17px !important;
     gap: 16px !important;
     border-radius: 6px !important;
