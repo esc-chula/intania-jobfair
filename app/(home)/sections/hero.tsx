@@ -4,26 +4,19 @@ import bannerSvg from "@/src/banner.svg";
 export default function Hero() {
   return (
     <section className="w-full -mt-[1px]">
-      {/* Fullscreen Banner */}
-      <div
-        aria-labelledby="hero-title"
-        className="w-full h-[240px] 
-                   flex flex-col items-center justify-center gap-2 text-center
-                   opacity-100 relative overflow-hidden
-                   pt-[90px] pr-[99px] pb-[90px] pl-[99px]
-                   sm:h-[60vh] sm:min-h-[300px] sm:max-h-[600px] sm:gap-4 sm:pt-4 sm:pr-4 sm:pb-4 sm:pl-4"
-      >
-        {/* Background banner image */}
+      {/* Banner (responsive, full image visible) */}
+      <div aria-labelledby="hero-title" className="relative w-full">
+        {/* Background banner image (intrinsic sizing for full visibility) */}
         <Image
           src={bannerSvg}
           alt="Intania Job Fair 2025 Banner"
-          fill
-          className="object-cover inset-0 z-0"
+          className="w-full h-auto object-contain"
+          sizes="100vw"
           priority
         />
-        
+
         {/* Content overlay */}
-        <div className="relative z-10 flex flex-col items-center gap-2 sm:gap-4 px-0">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 sm:gap-4 px-4 sm:px-0 text-center">
           <h1
             id="hero-title"
             className="font-headTH text-[24px] font-medium leading-[1.2]
