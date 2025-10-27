@@ -22,7 +22,7 @@ import {
     eligibleYearOptions,
     groupedMajorOptions,
 } from "@/constants/job-filter-options";
-import Link from "next/link";
+
 
 export default function JobsListClient({
     initialJobs,
@@ -199,13 +199,9 @@ export default function JobsListClient({
                         initialCompanies.find((c) => c[""] === job.companyId) ??
                         null;
                     return (
-                        <Link
-                            key={job.jobId}
-                            href={`/jobs/${job.jobId}`}
-                            className="w-full"
-                        >
+                        <div key={job.jobId} className="w-full">
                             <JobCard job={job} company={company} />
-                        </Link>
+                        </div>
                     );
                 })}
             </div>

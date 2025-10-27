@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { fetchCompanies, fetchJobs } from "@/lib/data";
 import JobCardLong from "@/components/jobs/job-card-long";
-import Link from "next/link";
 import { Company } from "@/types/schema";
 import CompanyCard from "@/components/companies/company-card";
 import BackButton from "@/components/common/back";
@@ -35,14 +34,12 @@ export default async function jobDetailPage({
           <div className="flex items-center justify-between mb-6">
             <h2 className="heading-th-2 text-primary-blue">เกี่ยวกับบริษัท</h2>
           </div>
-          <Link href={`/companies/${company?.[""]}`}>
-            <CompanyCard
-              jobCount={
-                jobs.filter((j) => j.companyId === Number(company?.[""])).length
-              }
-              company={company as Company}
-            />
-          </Link>
+          <CompanyCard
+            jobCount={
+              jobs.filter((j) => j.companyId === Number(company?.[""])).length
+            }
+            company={company as Company}
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import {
   LucideClock,
   LucideCalendarRange,
@@ -28,7 +29,13 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
     })();
     return () => controller.abort();
   }, [company?.companyLogo]);
+  const href = `/jobs/${job.jobId}`;
   return (
+    <Link
+      href={href}
+      aria-label={`ดูรายละเอียดตำแหน่งงาน ${job.jobTitle}`}
+      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue rounded-md"
+    >
     <div className="long-card">
       <div className="flex items-start gap-4">
         <div className="relative shrink-0 w-16 h-16">
@@ -36,6 +43,7 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
             src={logoUrl}
             alt={company?.companyName_th ?? "Company Logo"}
             fill
+            sizes="64px"
             className="object-contain rounded-md bg-white p-1"
           />
         </div>
@@ -59,7 +67,7 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
 
           <div className="flex gap-2 items-center">
             <LucideCalendarRange width={16} height={16} className="shrink-0" />
-            <p className="body-th-3 text-[color:var(--color-primary-blue)] line-clamp-2">
+            <p className="body-th-3 text-(--color-primary-blue) line-clamp-2">
               {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
             </p>
           </div>
@@ -84,5 +92,6 @@ export default function JobCard({ job, company }: { job: Job; company: Company |
                 </p>
             </div>
     </div>
+    </Link>
   );
 }

@@ -8,7 +8,7 @@ import CompanyCard from "@/components/companies/company-card";
 import FilterSelector from "@/components/jobs/filter-select";
 import type { Job, Company } from "@/types/schema";
 import { BUSINESS_FOCUS_OPTIONS } from "@/types/schema";
-import Link from "next/link";
+ 
 
 export default function CompanyListClient({
     initialCompanies,
@@ -245,13 +245,9 @@ export default function CompanyListClient({
                 {paginatedCompanies.map((company) => {
                     const count = jobCountMap.get(company[""]) ?? 0;
                     return (
-                        <Link
-                            key={company[""]}
-                            href={`/companies/${company[""]}`}
-                            className="w-full"
-                        >
+                        <div key={company[""]} className="w-full">
                             <CompanyCard company={company} jobCount={count} />
-                        </Link>
+                        </div>
                     );
                 })}
             </div>
