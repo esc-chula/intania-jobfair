@@ -9,6 +9,7 @@ import {
   LucideBriefcaseBusiness,
 } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
+import { resolveLocalLogo } from "@/lib/assets";
 
 export default function JobCardLong({
   job,
@@ -22,10 +23,10 @@ export default function JobCardLong({
       <div className="flex items-start gap-4">
         <div className="relative shrink-0 w-16 h-16">
           <Image
-            src={company?.companyLogo || "/default-logo.png"}
+            src={resolveLocalLogo(company?.companyLogo)}
             alt={company?.companyName_th ?? "Company Logo"}
             fill
-            className="object-cover rounded-md"
+            className="object-contain rounded-md bg-white p-1"
           />
         </div>
 

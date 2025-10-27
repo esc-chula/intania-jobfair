@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 import CompanyTags from "@/components/companies/company-tags";
 import Link from "next/link";
+import { resolveLocalLogo, resolvePromoAssets } from "@/lib/assets";
+import LogoPreview from "@/components/common/image-preview";
+import { FaFilePdf } from "react-icons/fa6";
 
 function ensureValidUrl(
     url: string | undefined,
@@ -44,15 +47,15 @@ export default function CompanyCardLong({
                 <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-6">
                     <div className="relative shrink-0 w-16 h-16 sm:w-20 sm:h-20">
                         <Image
-                            src={company?.companyLogo || "/default-logo.png"}
+                            src={resolveLocalLogo(company?.companyLogo)}
                             alt={company?.companyName_en ?? "Company Logo"}
                             fill
-                            className="object-cover rounded-lg"
+                            className="object-contain rounded-lg bg-white p-1"
                         />
                     </div>
 
                     <div className="flex flex-col gap-3 flex-1 min-w-0">
-                        <h3 className="heading-th-2 sm:heading-th-1 font-bold text-primary-blue line-clamp-2">
+                        <h3 className="heading-th-2 sm:heading-th-1 font-bold text-primary-blue !leading-[1.5] line-clamp-2">
                             {company?.companyName_th}
                         </h3>
                         <div className="flex gap-2 items-center flex-wrap">
@@ -94,21 +97,49 @@ export default function CompanyCardLong({
                             {company?.fullDescription|| company?.shortDescription || "ไม่มีรายละเอียด"}
                         </p>
                         {/* Promo Materials */}
-                        {company?.promoMaterials && (
-                            <div className="mt-6">
-                                <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden">
-                                    <Image
-                                        src={company.promoMaterials}
-                                        alt={
-                                            company.companyName_en ??
-                                            "Company Promo Banner"
-                                        }
-                                        fill
-                                        className="object-cover"
-                                    />
+                        {company?.promoMaterials && (() => {
+                            const assets = resolvePromoAssets(company.promoMaterials);
+                            if (!assets.length) return null;
+
+                            const images = assets.filter(a => a.kind === "image");
+                            const pdfs = assets.filter(a => a.kind === "pdf");
+
+                            return (
+                                <div className="mt-6 space-y-3">
+                                    {images.length > 0 && (
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                            {images.map(img => (
+                                                <LogoPreview
+                                                    key={img.url}
+                                                    src={img.url}
+                                                    alt={img.name}
+                                                    thumbContainerClassName="relative w-full h-40 sm:h-48 rounded-lg overflow-hidden border"
+                                                    imageClassName="object-cover"
+                                                    modalHeightClassName="h-[80vh]"
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {pdfs.length > 0 && (
+                                        <div className="flex flex-wrap gap-2">
+                                            {pdfs.map(pdf => (
+                                                <a
+                                                    key={pdf.url}
+                                                    href={pdf.url}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-2 rounded border px-3 py-2 text-sm hover:bg-accent"
+                                                >
+                                                    <FaFilePdf className="text-red-600" size={18} aria-hidden="true" />
+                                                    <span className="truncate max-w-[12rem]">{pdf.name}</span>
+                                                </a>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
-                        )}
+                            );
+                        })()}
                     </div>
 
                     {/* Contact Information */}

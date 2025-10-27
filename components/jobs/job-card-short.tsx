@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import type { Job, Company } from "@/types/schema";
 import {
@@ -6,6 +7,7 @@ import {
   LucideMapPin,
 } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
+import { useEffect, useState } from "react";
 
 export default function JobCardShort({ 
   job, 
@@ -14,15 +16,37 @@ export default function JobCardShort({
   job: Job; 
   company: Company | null 
 }) {
+  const [logoUrl, setLogoUrl] = useState<string>("/placeholder-company.svg");
+
+  useEffect(() => {
+    const key = company?.companyLogo;
+    if (!key) {
+      setLogoUrl("/placeholder-company.svg");
+      return;
+    }
+    const controller = new AbortController();
+    const run = async () => {
+      try {
+        const res = await fetch(`/api/logo?key=${encodeURIComponent(key)}`, { signal: controller.signal });
+        if (!res.ok) throw new Error("bad response");
+        const data = (await res.json()) as { url?: string };
+        setLogoUrl(data?.url || "/placeholder-company.svg");
+      } catch {
+        setLogoUrl("/placeholder-company.svg");
+      }
+    };
+    run();
+    return () => controller.abort();
+  }, [company?.companyLogo]);
   return (
     <div className="short-card">
       <div className="flex items-start gap-3">
         <div className="relative shrink-0 w-12 h-12">
           <Image
-            src={company?.companyLogo || "/default-logo.png"}
+            src={logoUrl}
             alt={company?.companyName_th ?? "Company Logo"}
             fill
-            className="object-cover rounded-md"
+            className="object-contain rounded-md bg-white p-1"
           />
         </div>
 
