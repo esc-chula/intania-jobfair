@@ -1,48 +1,71 @@
 export type SocialMediaLinks = {
-  facebook?: string;
-  instagram?: string;
-  twitter?: string;
-  linkedin?: string;
-  website?: string;
-};
-
-export type HrContact = {
-  name: string;
-  email: string;
-  phone: string;
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+    website?: string;
 };
 
 export type Company = {
-  companyId: string; // unique id
-  companyName: string;
-  companyLogo: string; // path under public, e.g. /companies/{id}/logo.png
-  shortDescription: string; // ~200 words max
-  fullDescription: string; // rich text stored as markdown/plain for now
-  officeLocation: string; // Thai address
-  companyType: string[]; // tags (สายงาน)
+  "": number; // Row no. from sheet
+  companyName_th: string;
+  companyName_en: string;
+  companyLogo: string;
+  shortDescription: string;
+  fullDescription: string;
+  officeLocation_district: string;
+  officeLocation_province: string; 
+  officeLocation_full: string;
+  businessFocus: string;
   websiteUrl?: string;
-  socialMediaLinks?: SocialMediaLinks;
-  hrContact: HrContact;
-  promoMaterials?: string[]; // image paths under public
-  hiringStatus: boolean; // true if currently accepting applications
+  socialMediaLinks?: SocialMediaLinks | Record<string, never>;
+  hrContactName: string;
+  hrContactEmail: string;
+  hrContactPhone: string;
+  promoMaterials?: string;
+};
+
+export type MajorEligibility = Record<string, boolean>;
+
+export type EligibleStudentYear = {
+  "Bachelor's Freshmen": boolean;
+  "Bachelor's Sophmore": boolean;
+  "Bachelor's Junior": boolean;
+  "Bachelor's Senior": boolean;
+  "Master's": boolean;
+  "Doctorate": boolean;
 };
 
 export type PositionType = "Internship" | "Part-time" | "Full-time";
 
 export type Job = {
-  jobId: string; // unique id
-  companyId: string; // foreign key
-  jobTitle: string;
-  jobDescription: string; // rich text as markdown/plain for now
-  positionType: PositionType;
-  openingsCount?: number; // optional; if missing, display as "ไม่ระบุ"
-  eligibleYear: string[]; // tags in Thai
-  applicationStartDate: string; // ISO date
-  applicationEndDate: string; // ISO date
-  applicationLink: string; // URL
-  jobType: string[]; // field of work tags in Thai
-  majors: string[]; // tags in Thai
+  jobId: number; 
+  companyId: number; // (foreign key)
+  jobTitle: string; 
+  jobDescription: string;
+  positionType: PositionType; 
+  openingsCount?: string; 
+  eligibleStudentYear: EligibleStudentYear; 
+  application_start?: string; 
+  application_end?: string;
+  always_applicable: boolean;
+  application_link: string;
+  field_of_work: string;
+  major: MajorEligibility;
 };
 
-export type MajorsDictionary = string[];
-export type JobTypesDictionary = string[];
+export const BUSINESS_FOCUS_OPTIONS = [
+    "Banking, Finance & Investment",
+    "Computer systems, IT & Communications Technology",
+    "Manufacturing, Logistics & Industrial",
+    "Research, Academia & Government agencies",
+    "Mining & Geology",
+    "Energy & Sustainability",
+    "Construction",
+    "Business",
+    "Consulting & Strategy",
+    "Entrepreneurship & Startups",
+    "Others",
+] as const;
+
+export type BusinessFocus = (typeof BUSINESS_FOCUS_OPTIONS)[number];

@@ -4,10 +4,61 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+
+  /* --- Colors (CI) --- */
+  --color-primary-yellow: #F5C45E;   /* Navbar/Expanded nav */
+  --color-primary-blue:   #102E50;   /* Headings/Nav text */
+  --color-gray-400-ci:    #99A1AF;   /* "ดูทั้งหมด" */
+  --color-secondary-white: #FBF5DE; /* background */
+  --bg-cream: #FBF5DE;
+
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+   --color-card:       var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover:    var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+
+   --color-card:       var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover:    var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -20,83 +71,92 @@
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  --radius-sm: 4px;     
+  --radius-md: 8px;     
+  --radius-lg: 14px;    
+  --radius-xl: 20px;   
+
+  --shadow-light: 0 4px 10px rgba(174,174,174,.10); /* input */
+  --shadow-card:  0 6px 24px rgba(0,0,0,.06);       /* card */
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+
+  --radius: 14px;
+
+  --background: #FBF5DE;
+  --foreground: #1F2328;
+
+  --card: #FFFFFF;
+  --card-foreground: #1F2328;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F2328;
+
+  --primary: #D62828;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #F1F5F9;
+  --secondary-foreground: #1F2328;
+
+  --muted: #F6F7F9;
+  --muted-foreground: #8A8F98;
+
+  --accent: #F1F5F9;
+  --accent-foreground: #1F2328;
+
+  --destructive: #EF4444;
+
+  --border: #E5E5E5;
+  --input:  #E5E5E5;
+
+  --ring: #94A3B8;
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  --sidebar: #FFFDF7;
+  --sidebar-foreground: #1F2328;
+  --sidebar-primary: #102E50;          
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F5C45E;
+  --sidebar-accent-foreground: #102E50;
+  --sidebar-border: #E5E5E5;
+  --sidebar-ring: #94A3B8;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: #FBF5DE;
+  --foreground: #E8EAED;
+  --card: #121821;
+  --card-foreground: #E8EAED;
+  --popover: #121821;
+  --popover-foreground: #E8EAED;
+
+  --primary: #D62828;            /* CTA แดงยังคงเดิม */
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #0F172A;
+  --secondary-foreground: #E8EAED;
+
+  --muted: #0F172A;
+  --muted-foreground: #9AA0A6;
+
+  --accent: #0F172A;
+  --accent-foreground: #E8EAED;
+
+  --destructive: #DC2626;
+
+  --border: #293241;
+  --input:  #293241;
+  --ring:   #64748B;
+
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -113,10 +173,596 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+/* ===============================
+   4) FONT HELPERS (ใช้กับ next/font)
+   =============================== */
+.font-headTH { font-family: var(--font-head-th), system-ui, sans-serif; }
+.font-bodyTH { font-family: var(--font-body-th), system-ui, sans-serif; }
+.font-headEN { font-family: var(--font-head-en), system-ui, sans-serif; }
+.font-bodyEN { font-family: var(--font-body-en), system-ui, sans-serif; }
+.font-bodyEN2 { font-family: var(--font-body-en-2), system-ui, sans-serif; }
+
+/* ===============================
+   5) RECIPES (เขียนคลาสสั้น)
+   =============================== */
+@layer components {
+  .card-base { @apply rounded-xl md:rounded-[var(--radius-xl)] border border-border bg-card shadow-card; }
+  .btn-primary { @apply rounded-lg px-4 py-2 text-sm font-medium text-white bg-primary hover:opacity-90; }
+  .btn-outline { @apply rounded-lg px-4 py-2 text-sm border border-border text-[color:var(--color-primary-blue)] hover:bg-card; }
+  .heading-1 {
+    font-size: 24px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
   }
-  body {
-    @apply bg-background text-foreground;
+  .heading-2 {
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
   }
+  .heading-3 {
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .body-1 {
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .body-2 {
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .heading-th-1 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 24px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .heading-th-2 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .heading-th-3 {
+    font-family: var(--font-head-th), var(--font-head-en);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .body-th-1 {
+    font-family: var(--font-body-th);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .body-th-2 {
+    font-family: var(--font-body-th);
+    font-size: 14px;
+    line-height: 100%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .body-th-3 {
+    font-family: var(--font-body-th);
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .filter-btn {
+    width: 36;
+    height: 36;
+    top: 16px;
+    left: 16px;
+    opacity: 1;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+  .filter-btn-active {
+    width: 36;
+    height: 36;
+    opacity: 1;
+    border-radius: rounded-md;
+    border-width: border;
+    background: #D9A94C;
+    border-top: 1px solid #D9A94C;
+    box-shadow: 0px 1px 2px 0px #0000001A;
+  }
+
+  .search-input {
+    width: 236;
+    height: 36;
+    angle: 0 deg;
+    opacity: 1;
+    border-radius: rounded-md;
+    border-width: 1px;
+    background: #FFFFFF;
+    border: 1px solid var(--border, #E5E5E5);
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+
+
+
+    
+
+  }
+
+  .select-trigger {
+    width: 273px;
+    height: 40px;
+    opacity: 1;
+    border-radius: 6px;
+    border-width: 1px;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #FFFFFF;
+    border: 1px solid var(--border, #E5E5E5);
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+
+  /* Sort Option Dropdown */
+  .sort-option {
+    width: 170px;
+    height: 97px;
+    opacity: 1;
+    gap: 6px;
+  }
+
+  .sort-option-item {
+    width: 120px;
+    height: 17px;
+    opacity: 1;
+    font-family: var(--font-body-th);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: #334155;
+  }
+
+  .sort-option-item-selected {
+    width: 160px;
+    height: 29px;
+    opacity: 1;
+    border-radius: 6px;
+    gap: 8px;
+    padding: 6px 8px;
+    background: #F1F5F9;
+  }
+
+  /* Filter Containers */
+  .eligible-year-filter {
+    width: 273px;
+    height: 213px;
+    opacity: 1;
+    gap: 6px;
+    border: 1px solid #F1F5F9;
+    box-shadow: 0px 4px 6px 0px #00000017;
+  }
+
+  .job-types-filter {
+    width: 273px;
+    height: 409px;
+    opacity: 1;
+    border-radius: 6px;
+    border: 1px solid #F1F5F9;
+    box-shadow: 0px 4px 6px 0px #00000017;
+  }
+
+  /* Company Type Tags */
+  .company-tag {
+    opacity: 1;
+    border-radius: 8px;
+    gap: 10px;
+    padding: 2px 10px;
+    font-family: var(--font-body-th);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0;
+    color: var(--color-secondary-foreground);
+  }
+
+  .company-tag-finance {
+    width: 120px;
+    height: 36px;
+    background: #67ABA380;
+  }
+
+  .company-tag-tech {
+    width: 184px;
+    height: 36px;
+    background: #A1A1A680;
+  }
+
+  .company-tag-industrial {
+    width: 163px;
+    height: 36px;
+    background: #78909C80;
+  }
+
+  .company-tag-research {
+    width: 150px;
+    height: 36px;
+    background: #7B6A9C80;
+  }
+
+  .company-tag-mining {
+    width: 120px;
+    height: 22px;
+    background: #BA784680;
+  }
+
+  .company-tag-energy {
+    width: 150px;
+    height: 22px;
+    background: #879F6780;
+  }
+
+  .company-tag-construction {
+    width: 94px;
+    height: 22px;
+    background: #B4406080;
+  }
+
+  .company-tag-business {
+    width: 71px;
+    height: 22px;
+    background: #78BAD180;
+  }
+
+  .company-tag-consult {
+    width: 144px;
+    height: 22px;
+    background: #9E9E9E80;
+  }
+
+  .company-tag-entrepreneur {
+    width: 181px;
+    height: 22px;
+    background: #EB7EA680;
+  }
+
+  .company-tag-others {
+    width: 59px;
+    height: 22px;
+    background: #E0E0E080;
+  }
+
+  /* Short Job Card */
+  .short-job-card {
+    width: 358px;
+    height: 152px;
+    border-radius: 6px;
+    border: 1px solid #E5E7EB;
+    padding: 17px;
+    gap: 16px;
+    opacity: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+
+  .short-job-info {
+    width: 324px;
+    height: 118px;
+    gap: 16px;
+    opacity: 1;
+  }
+
+  /* Short Company Card */
+  .short-company-card {
+    width: 415px;
+    height: 148px;
+    border-radius: 6px;
+    border: 1px solid #E5E7EB;
+    padding: 17px;
+    gap: 16px;
+    opacity: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+  }
+
+  .short-company-info {
+    width: 381px;
+    height: 114px;
+    gap: 16px;
+    opacity: 1;
+  }
+
+  /* Short Card - Shared Style */
+  .short-card {
+    width: 100% !important;
+    max-width: 288px;
+    margin: 0 auto;
+    padding: 17px;
+    gap: 16px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    height: auto;
+    font-size: 0.875rem; /* 14px for short cards */
+    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-width, padding, font-size, gap;
+  }
+  
+  @media (min-width: 375px) {
+    .short-card {
+      max-width: 320px;
+    }
+  }
+  
+  @media (min-width: 425px) {
+    .short-card {
+      max-width: 360px;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .short-card {
+      max-width: 100%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .short-card {
+      padding: 20px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .short-card {
+      padding: 24px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .short-card {
+      padding: 28px;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .short-card {
+      padding: 32px;
+    }
+  }
+
+  /* Font sizes for short cards - Responsive */
+  .short-card h3 {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .short-card h3 {
+      font-size: 1rem; /* 16px */
+    }
+  }
+  
+  .short-card p {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .short-card p {
+      font-size: 0.875rem; /* 14px */
+    }
+  }
+
+  /* Long Card - Shared Style */
+  .long-card {
+    width: 100% !important;
+    max-width: 288px;
+    margin: 0 auto;
+    padding: 17px !important;
+    gap: 16px !important;
+    border-radius: 6px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    box-shadow: 0 4px 4px hsla(0, 0%, 68%, 0.25) !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 1rem; /* 16px for long cards */
+    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-width, padding, font-size, gap;
+  }
+  
+  @media (min-width: 375px) {
+    .long-card {
+      max-width: 320px;
+    }
+  }
+  
+  @media (min-width: 425px) {
+    .long-card {
+      max-width: 360px;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .long-card {
+      max-width: 100%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .long-card {
+      padding: 20px !important;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .long-card {
+      padding: 24px !important;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .long-card {
+      gap: 20px !important;
+      padding: 28px !important;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .long-card {
+      gap: 24px !important;
+      padding: 32px !important;
+    }
+  }
+
+  /* Font sizes for long cards - Responsive */
+  .long-card h3,
+  .long-card h4 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.25;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .long-card h3,
+    .long-card h4 {
+      font-size: 1.125rem; /* 18px */
+    }
+  }
+  
+  .long-card p {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+    transition: font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (min-width: 768px) {
+    .long-card p {
+      font-size: 1rem; /* 16px */
+    }
+  }
+
+  /* Text ellipsis for long content in long-card */
+  .long-card p,
+  .long-card a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Line clamp for h3, h4 titles - 2 lines */
+  .long-card h3,
+  .long-card h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Line clamp for paragraphs with line-clamp class */
+  .long-card p.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .long-card p.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .long-card .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Ensure flex children don't overflow */
+  .long-card > div {
+    min-width: 0;
+  }
+
+  /* Text ellipsis for short cards */
+  .short-card p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Line clamp for short card paragraphs with line-clamp class */
+  .short-card p.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Line clamp for short card titles */
+  .short-card h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .short-card .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  /* Ensure flex children don't overflow in short cards */
+  .short-card > div {
+    min-width: 0;
+  }
+
 }
