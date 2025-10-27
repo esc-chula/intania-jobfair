@@ -5,7 +5,7 @@ import PaginationControls from "@/components/jobs/pagination";
 import SearchBar from "@/components/companies/search-bar";
 import SortSelector from "@/components/companies/sort-select";
 import CompanyCard from "@/components/companies/company-card";
-import GroupedFilterSelector from "@/components/jobs/group-filter-select";
+import FilterSelector from "@/components/jobs/filter-select";
 import type { Job, Company } from "@/types/schema";
 import { BUSINESS_FOCUS_OPTIONS } from "@/types/schema";
 import Link from "next/link";
@@ -34,22 +34,16 @@ export default function CompanyListClient({
     const filterOptions = useMemo(() => {
         return {
             businessFocus: [
-                {
-                    label: "ประเภทธุรกิจ",
-                    options: BUSINESS_FOCUS_OPTIONS.map((focus) => ({
-                        value: focus,
-                        label: focus,
-                    })),
-                },
+                { value: "All", label: "ทั้งหมด" },
+                ...BUSINESS_FOCUS_OPTIONS.map((focus) => ({
+                    value: focus,
+                    label: focus,
+                })),
             ],
             availability: [
-                {
-                    label: "สถานะรับสมัคร",
-                    options: [
-                        { value: "available", label: "เปิดรับสมัครอยู่" },
-                        { value: "closed", label: "ปิดรับสมัครแล้ว" },
-                    ],
-                },
+                { value: "All", label: "ทั้งหมด" },
+                { value: "available", label: "เปิดรับสมัครอยู่" },
+                { value: "closed", label: "ปิดรับสมัครแล้ว" },
             ],
         };
     }, []);
@@ -202,42 +196,26 @@ export default function CompanyListClient({
 
             {/* Filter Panel */}
             {isFilterOpen && (
-                <div className="bg-white rounded-lg border border-border p-4 space-y-4">
-                    <h3 className="font-headTH font-bold text-primary-blue">
-                        ตัวกรอง
-                    </h3>
+                <div className="space-y-3">
+                    <FilterSelector
+                        filterOption={businessFocusFilter}
+                        setFilterOption={(v) => {
+                            setBusinessFocusFilter(v);
+                            setPage(1);
+                        }}
+                        placeholder="เลือกสายงานของบริษัท"
+                        options={filterOptions.businessFocus}
+                    />
 
-                    <div className="space-y-3">
-                        <div>
-                            <label className="text-sm font-bodyTH text-primary-blue mb-2 block">
-                                ประเภทธุรกิจ
-                            </label>
-                            <GroupedFilterSelector
-                                filterOption={businessFocusFilter}
-                                setFilterOption={(v) => {
-                                    setBusinessFocusFilter(v);
-                                    setPage(1);
-                                }}
-                                placeholder="เลือกสายงานของบริษัท"
-                                groupedOptions={filterOptions.businessFocus}
-                            />
-                        </div>
-
-                        <div>
-                            <label className="text-sm font-bodyTH text-primary-blue mb-2 block">
-                                สถานะรับสมัคร
-                            </label>
-                            <GroupedFilterSelector
-                                filterOption={availabilityFilter}
-                                setFilterOption={(v) => {
-                                    setAvailabilityFilter(v);
-                                    setPage(1);
-                                }}
-                                placeholder="เลือกสถานะรับสมัคร"
-                                groupedOptions={filterOptions.availability}
-                            />
-                        </div>
-                    </div>
+                    <FilterSelector
+                        filterOption={availabilityFilter}
+                        setFilterOption={(v) => {
+                            setAvailabilityFilter(v);
+                            setPage(1);
+                        }}
+                        placeholder="เลือกสถานะรับสมัคร"
+                        options={filterOptions.availability}
+                    />
 
                     {/* Reset filters button */}
                     <button
@@ -246,7 +224,7 @@ export default function CompanyListClient({
                             setAvailabilityFilter("");
                             setPage(1);
                         }}
-                        className="w-full h-9 bg-gray-100 hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
+                        className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
                     >
                         ล้างตัวกรอง
                     </button>
