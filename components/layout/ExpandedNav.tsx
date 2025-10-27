@@ -35,18 +35,17 @@ export default function ExpandedNav({ id, open, onClose, anchorRef }: Props) {
     return () => document.removeEventListener("mousedown", onClick);
   }, [open, onClose, anchorRef]);
 
-  if (!open) return null;
-
   return (
   <div
     id={id}
     role="dialog"
     aria-modal="true"
-    className={`fixed inset-x-0 z-50 bg-primary-yellow border-t border-[color:var(--border)] ${
+    aria-hidden={!open}
+    className={`fixed inset-x-0 z-50 bg-primary-yellow border-t border-[color:var(--border)] transition-opacity duration-200 ease-out ${
       isClient 
         ? "top-[56px] sm:top-[64px] md:top-[72px]" 
         : "top-[56px]"
-    }`}
+    } ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
   >
     <div className={`mx-auto px-4 ${
       isClient 
@@ -55,11 +54,11 @@ export default function ExpandedNav({ id, open, onClose, anchorRef }: Props) {
     }`}>
       <div
         ref={panelRef}
-        className={`w-full py-4 flex flex-col gap-4 ${
-          isClient 
-            ? "sm:w-[200px] md:w-[240px] min-h-[130px] sm:min-h-[150px] md:min-h-[170px] sm:py-6 md:py-8 sm:gap-5 md:gap-6" 
-            : "min-h-[130px]"
-        }`}
+        className={`w-full flex flex-col gap-4 overflow-hidden transition-all duration-300 ease-out transform-gpu ${
+          open
+            ? `${isClient ? "sm:w-[200px] md:w-[240px] sm:gap-5 md:gap-6" : ""} opacity-100 translate-y-0 max-h-[70vh] py-6`
+            : `opacity-0 -translate-y-3 max-h-0 py-0`
+        } ${isClient ? "" : ""}`}
       >
         <NavItem href="/companies" icon={<Building2 strokeWidth={2} />} label="Companies" isClient={isClient} />
         <NavItem href="/jobs" icon={<BriefcaseBusiness strokeWidth={2} />} label="Jobs" isClient={isClient} />
