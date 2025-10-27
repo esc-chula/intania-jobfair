@@ -202,16 +202,9 @@ export default function CompanyListClient({
 
             {/* Filter Panel */}
             {isFilterOpen && (
-                <div className="bg-white rounded-lg border border-border p-4 space-y-4">
-                    <h3 className="font-headTH font-bold text-primary-blue">
-                        ตัวกรอง
-                    </h3>
-
+                <div className="space-y-4">
                     <div className="space-y-3">
                         <div>
-                            <label className="text-sm font-bodyTH text-primary-blue mb-2 block">
-                                ประเภทธุรกิจ
-                            </label>
                             <GroupedFilterSelector
                                 filterOption={businessFocusFilter}
                                 setFilterOption={(v) => {
@@ -224,9 +217,6 @@ export default function CompanyListClient({
                         </div>
 
                         <div>
-                            <label className="text-sm font-bodyTH text-primary-blue mb-2 block">
-                                สถานะรับสมัคร
-                            </label>
                             <GroupedFilterSelector
                                 filterOption={availabilityFilter}
                                 setFilterOption={(v) => {
@@ -237,19 +227,19 @@ export default function CompanyListClient({
                                 groupedOptions={filterOptions.availability}
                             />
                         </div>
-                    </div>
 
-                    {/* Reset filters button */}
-                    <button
-                        onClick={() => {
-                            setBusinessFocusFilter("");
-                            setAvailabilityFilter("");
-                            setPage(1);
-                        }}
-                        className="w-full h-9 bg-gray-100 hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-                    >
-                        ล้างตัวกรอง
-                    </button>
+                        {/* Reset filters button */}
+                        <button
+                            onClick={() => {
+                                setBusinessFocusFilter("");
+                                setAvailabilityFilter("");
+                                setPage(1);
+                            }}
+                            className="w-full h-9 shadow bg-[#F5C45E] hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
+                        >
+                            ล้างตัวกรอง
+                        </button>
+                    </div>
                 </div>
             )}
 
