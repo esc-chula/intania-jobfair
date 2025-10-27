@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Company } from "@/types/schema";
 import {
@@ -32,14 +33,24 @@ export default function CompanyCardShort({
         })();
         return () => controller.abort();
     }, [company?.companyLogo]);
-    return (
-        <div className="short-card">
+        const companyId = company?.[""] as number | undefined;
+        const href = typeof companyId === "number" ? `/companies/${companyId}` : undefined;
+
+        return (
+            <Link
+                href={href || "#"}
+                aria-label={`ดูรายละเอียดบริษัท ${company?.companyName_th || company?.companyName_en || ""}`}
+                className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue rounded-md"
+                onClick={(e) => { if (!href) e.preventDefault(); }}
+            >
+            <div className="short-card">
             <div className="flex items-start gap-3">
                 <div className="relative shrink-0 w-12 h-12">
                     <Image
                         src={logoUrl}
                         alt={company?.companyName_en || "Company Logo"}
                         fill
+                            sizes="48px"
                         className="object-contain rounded-md bg-white p-1"
                     />
                 </div>
@@ -74,6 +85,7 @@ export default function CompanyCardShort({
                     </div>
                 </div>
             </div>
-        </div>
+                </div>
+                </Link>
     );
 }

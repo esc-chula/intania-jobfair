@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import type { Job, Company } from "@/types/schema";
 import {
   LucideClock,
@@ -11,10 +12,12 @@ import { useEffect, useState } from "react";
 
 export default function JobCardShort({ 
   job, 
-  company 
+  company,
+  disableLink = false,
 }: { 
   job: Job; 
-  company: Company | null 
+  company: Company | null;
+  disableLink?: boolean;
 }) {
   const [logoUrl, setLogoUrl] = useState<string>("/placeholder-company.svg");
 
@@ -38,7 +41,8 @@ export default function JobCardShort({
     run();
     return () => controller.abort();
   }, [company?.companyLogo]);
-  return (
+  const href = `/jobs/${job.jobId}`;
+  const cardInner = (
     <div className="short-card">
       <div className="flex items-start gap-3">
         <div className="relative shrink-0 w-12 h-12">
@@ -46,6 +50,7 @@ export default function JobCardShort({
             src={logoUrl}
             alt={company?.companyName_th ?? "Company Logo"}
             fill
+            sizes="48px"
             className="object-contain rounded-md bg-white p-1"
           />
         </div>
@@ -90,5 +95,17 @@ export default function JobCardShort({
         </div>
       </div>
     </div>
+  );
+
+  if (disableLink) return cardInner;
+
+  return (
+    <Link
+      href={href}
+      aria-label={`ดูรายละเอียดตำแหน่งงาน ${job.jobTitle}`}
+      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue rounded-md"
+    >
+      {cardInner}
+    </Link>
   );
 }
