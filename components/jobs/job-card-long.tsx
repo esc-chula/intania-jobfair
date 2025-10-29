@@ -7,9 +7,11 @@ import {
   LucideUserRound,
   LucideLink,
   LucideBriefcaseBusiness,
+  LucideFileText,
 } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
 import { resolveLocalLogo } from "@/lib/assets";
+import Link from "next/link";
 
 export default function JobCardLong({
   job,
@@ -87,7 +89,15 @@ export default function JobCardLong({
       <div className="border-t border-gray-200"></div>
       <div>
         <div>
-          <h4 className="heading-th-3 leading-7 text-primary-blue mb-3">เกี่ยวกับตำแหน่งงาน</h4>
+          <h4 className="heading-th-3 leading-7 text-primary-blue mb-3">
+            เกี่ยวกับตำแหน่งงาน
+          </h4>
+          {job.application_link && (
+            <Link href={job.application_link} className="text-primary-blue mb-3  items-center flex flex-row gap-2">
+              <LucideFileText size={16} />
+              <p className="body-th-3 underline">แบบฟอร์มรับสมัคร</p>
+            </Link>
+          )}
           <p className="body-th-3 text-primary-blue leading-relaxed whitespace-pre-wrap break-words">
             {job.jobDescription || "ไม่มีรายละเอียด"}
           </p>
