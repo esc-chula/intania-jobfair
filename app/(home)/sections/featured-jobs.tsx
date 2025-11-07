@@ -3,6 +3,7 @@ import SkeletonCard from "@/components/common/skeleton-card";
 import JobCardShort from "@/components/jobs/job-card-short";
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import { pickFeaturedJobs } from "../services/home.service";
+import Link from "next/link";
 
 export default async function FeaturedJobs() {
   try {
@@ -23,11 +24,16 @@ export default async function FeaturedJobs() {
           {featuredJobs.map((job) => {
             const company = companies.find(c => c[""] === job.companyId) ?? null;
             return (
-              <JobCardShort 
-                key={job.jobId} 
-                job={job} 
-                company={company} 
-              />
+              <Link
+                key={job.jobId}
+                href={`/jobs/${job.jobId}`}
+                className="w-full"
+              >
+                <JobCardShort 
+                  job={job} 
+                  company={company} 
+                />
+              </Link>
             );
           })}
         </div>

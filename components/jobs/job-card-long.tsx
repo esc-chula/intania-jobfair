@@ -13,6 +13,7 @@ import { formatThaiDate } from "@/lib/helper";
 import { resolveLocalLogo } from "@/lib/assets";
 import Link from "next/link";
 
+
 export default function JobCardLong({
   job,
   company,
@@ -57,7 +58,7 @@ export default function JobCardLong({
               className="text-primary-blue shrink-0"
             />
             <p className="body-th-3 text-primary-blue truncate">
-              {(job.openingsCount as string) ?? job.openingsCount ?? "N/A"}
+              {job.openingsCount ? `${job.openingsCount} ตำแหน่ง` : "ไม่ระบุ"}
             </p>
           </div>
 

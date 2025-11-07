@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bannerSvg from "@/src/bannerWaiArLai.png";
+import bannerSvg from "@/src/banner-black-bow.png";
 
 export default function Hero() {
   return (
