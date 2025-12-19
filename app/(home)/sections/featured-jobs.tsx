@@ -11,9 +11,9 @@ export default async function FeaturedJobs() {
       fetchJobs(),
       fetchCompanies()
     ]);
-
+    
     const featuredJobs = pickFeaturedJobs(jobs, 6);
-
+    
     return (
       <Section
         title="ตำแหน่งงานที่น่าสนใจ"
@@ -24,13 +24,16 @@ export default async function FeaturedJobs() {
           {featuredJobs.map((job) => {
             const company = companies.find(c => c[""] === job.companyId) ?? null;
             return (
-
-              <JobCardShort
+              <Link
                 key={job.jobId}
-                job={job}
-                company={company}
-              />
-
+                href={`/jobs/${job.jobId}`}
+                className="w-full"
+              >
+                <JobCardShort 
+                  job={job} 
+                  company={company} 
+                />
+              </Link>
             );
           })}
         </div>
