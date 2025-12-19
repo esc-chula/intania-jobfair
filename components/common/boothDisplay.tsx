@@ -1,6 +1,13 @@
 import { Company } from "@/types/schema";
 
-export const BoothDisplay = ({ company }: { company: Company }) => {
+export const BoothDisplay = ({ company }: { company: Company | null }) => {
+  if (!company) {
+    return (
+      <h3 className="shrink-0 font-bodyEN font-bold text-slate-500 whitespace-nowrap">
+        No data
+      </h3>
+    );
+  }
   if (company.boothDay1 && !company.boothDay2) {
     return (
       <div className="flex gap-2 flex-col items-end text-[#E78B48] font-bodyEN">
