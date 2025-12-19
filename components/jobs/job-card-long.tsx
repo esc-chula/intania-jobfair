@@ -19,7 +19,7 @@ export default function JobCardLong({
   company,
 }: {
   job: Job;
-  company: Company;
+  company: Company | null;
 }) {
   return (
     <div className="long-card">
