@@ -21,7 +21,9 @@ export default async function FeaturedCompanies() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {featuredCompanies.map((company) => {
-            const jobCount = jobs.filter(job => job.companyId === company[""]).length;
+            const jobCount = jobs.filter(
+              (job) => job.companyId === company[""],
+            ).length;
             return (
               <CompanyCardShort
                 key={company[""]}

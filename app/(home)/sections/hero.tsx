@@ -60,7 +60,7 @@ export default function Hero() {
             </div>
 
             <div className="flex items-center gap-[10px]">
-              <Link href="#" >
+              <Link href="#">
                 <Button
                   className="w-[127px] h-[37px] sm:w-[150px] sm:h-[42px] md:w-[160px] md:h-[46px] rounded-[6px] gap-[10px]
                              bg-primary-yellow hover:bg-primary-yellow/90

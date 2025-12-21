@@ -9,6 +9,9 @@ export async function GET() {
     });
   } catch (e) {
     console.error("[/api/data/companies] error", e);
-    return NextResponse.json([], { status: 200, headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json([], {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 }

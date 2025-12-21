@@ -13,7 +13,6 @@ import { formatThaiDate } from "@/lib/helper";
 import { resolveLocalLogo } from "@/lib/assets";
 import Link from "next/link";
 
-
 export default function JobCardLong({
   job,
   company,
@@ -94,7 +93,10 @@ export default function JobCardLong({
             เกี่ยวกับตำแหน่งงาน
           </h4>
           {job.application_link && (
-            <Link href={job.application_link} className="text-primary-blue mb-3  items-center flex flex-row gap-2">
+            <Link
+              href={job.application_link}
+              className="text-primary-blue mb-3  items-center flex flex-row gap-2"
+            >
               <LucideFileText size={16} />
               <p className="body-th-3 underline">แบบฟอร์มรับสมัคร</p>
             </Link>
