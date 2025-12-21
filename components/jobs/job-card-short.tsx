@@ -2,20 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Job, Company } from "@/types/schema";
-import {
-  LucideClock,
-  LucideCalendarRange,
-  LucideMapPin,
-} from "lucide-react";
+import { LucideClock, LucideCalendarRange, LucideMapPin } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
 import { useEffect, useState } from "react";
 
-export default function JobCardShort({ 
-  job, 
+export default function JobCardShort({
+  job,
   company,
   disableLink = false,
-}: { 
-  job: Job; 
+}: {
+  job: Job;
   company: Company | null;
   disableLink?: boolean;
 }) {
@@ -30,7 +26,9 @@ export default function JobCardShort({
     const controller = new AbortController();
     const run = async () => {
       try {
-        const res = await fetch(`/api/logo?key=${encodeURIComponent(key)}`, { signal: controller.signal });
+        const res = await fetch(`/api/logo?key=${encodeURIComponent(key)}`, {
+          signal: controller.signal,
+        });
         if (!res.ok) throw new Error("bad response");
         const data = (await res.json()) as { url?: string };
         setLogoUrl(data?.url || "/placeholder-company.svg");
@@ -64,34 +62,46 @@ export default function JobCardShort({
           </p>
 
           <div className="flex gap-2 items-center">
-            <LucideClock width={14} height={14} className="text-primary-blue shrink-0" />
+            <LucideClock
+              width={14}
+              height={14}
+              className="text-primary-blue shrink-0"
+            />
             <p className="body-th-3 text-primary-blue truncate">
               {{
                 "Full-time": "Full Time",
-                "Part-time": "Part Time", 
-                "Internship": "Internship",
-              }[job.positionType as string] ?? job.positionType ?? "ไม่ระบุ"}
+                "Part-time": "Part Time",
+                Internship: "Internship",
+              }[job.positionType as string] ??
+                job.positionType ??
+                "ไม่ระบุ"}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-            <LucideCalendarRange width={14} height={14} className="text-primary-blue shrink-0" />
+            <LucideCalendarRange
+              width={14}
+              height={14}
+              className="text-primary-blue shrink-0"
+            />
             <p className="body-th-3 text-primary-blue line-clamp-2">
-              {formatThaiDate(job.application_start || "")} - {formatThaiDate(job.application_end || "")}
+              {formatThaiDate(job.application_start || "")} -{" "}
+              {formatThaiDate(job.application_end || "")}
             </p>
           </div>
 
           <div className="flex gap-2 items-center">
-                        <LucideMapPin
-                            className="text-primary-blue shrink-0"
-                            width={14}
-                            height={14}
-                        />
-                        <p className="body-th-3 text-primary-blue line-clamp-2">
-                            {(company?.officeLocation_district ?? "N/A") + " " + 
-                                (company?.officeLocation_province ?? "N/A")}
-                        </p>
-                    </div>
+            <LucideMapPin
+              className="text-primary-blue shrink-0"
+              width={14}
+              height={14}
+            />
+            <p className="body-th-3 text-primary-blue line-clamp-2">
+              {(company?.officeLocation_district ?? "N/A") +
+                " " +
+                (company?.officeLocation_province ?? "N/A")}
+            </p>
+          </div>
         </div>
       </div>
     </div>

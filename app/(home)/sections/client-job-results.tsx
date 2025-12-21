@@ -7,11 +7,16 @@ import { useSearch } from "../contexts/search-context";
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import { searchJobsAndCompanies } from "@/lib/search";
 import { useState, useEffect, useMemo } from "react";
-import type { Job, Company, EligibleStudentYear, MajorEligibility } from "@/types/schema";
+import type {
+  Job,
+  Company,
+  EligibleStudentYear,
+  MajorEligibility,
+} from "@/types/schema";
 
 export default function ClientJobResults() {
-  const { 
-    isSearchActive, 
+  const {
+    isSearchActive,
     searchQuery,
     jobTypeFilter,
     eligibleYearFilter,
@@ -46,7 +51,7 @@ export default function ClientJobResults() {
       const { jobs: searchedJobs } = searchJobsAndCompanies(
         searchQuery,
         jobs,
-        companies
+        companies,
       );
       jobsToFilter = searchedJobs;
     }
@@ -75,15 +80,27 @@ export default function ClientJobResults() {
 
       return matchesJobType && matchesEligibleYear && matchesMajor;
     });
-  }, [jobs, companies, searchQuery, jobTypeFilter, eligibleYearFilter, majorFilter]);
+  }, [
+    jobs,
+    companies,
+    searchQuery,
+    jobTypeFilter,
+    eligibleYearFilter,
+    majorFilter,
+  ]);
 
   // แสดงเฉพาะเมื่อมีการค้นหาหรือมีการใช้ filter
-  if (!isSearchActive && !jobTypeFilter && !eligibleYearFilter && !majorFilter) {
+  if (
+    !isSearchActive &&
+    !jobTypeFilter &&
+    !eligibleYearFilter &&
+    !majorFilter
+  ) {
     return null;
   }
 
   return (
-    <Section  title="ผลการค้นหา">
+    <Section title="ผลการค้นหา">
       {loading ? (
         <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -93,7 +110,7 @@ export default function ClientJobResults() {
       ) : filteredJobs.length > 0 ? (
         <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredJobs.map((job) => {
-            const company = companies.find(c => c[""] === job.companyId);
+            const company = companies.find((c) => c[""] === job.companyId);
             return (
               <JobCardShort
                 key={job.jobId}

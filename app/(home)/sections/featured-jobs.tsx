@@ -9,7 +9,7 @@ export default async function FeaturedJobs() {
   try {
     const [jobs, companies] = await Promise.all([
       fetchJobs(),
-      fetchCompanies()
+      fetchCompanies(),
     ]);
     
     const featuredJobs = pickFeaturedJobs(jobs, 6);
@@ -22,19 +22,9 @@ export default async function FeaturedJobs() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {featuredJobs.map((job) => {
-            const company = companies.find(c => c[""] === job.companyId) ?? null;
-            return (
-              <Link
-                key={job.jobId}
-                href={`/jobs/${job.jobId}`}
-                className="w-full"
-              >
-                <JobCardShort 
-                  job={job} 
-                  company={company} 
-                />
-              </Link>
-            );
+            const company =
+              companies.find((c) => c[""] === job.companyId) ?? null;
+            return <JobCardShort key={job.jobId} job={job} company={company} />;
           })}
         </div>
       </Section>

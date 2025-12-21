@@ -1,4 +1,3 @@
-
 import Hero from "./sections/hero";
 import Search from "./sections/search";
 import JobResultsWrapper from "./sections/job-results-wrapper";
@@ -27,5 +26,3 @@ export default async function HomePage() {
     </>
   );
 }
-
-

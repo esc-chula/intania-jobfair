@@ -1,6 +1,9 @@
 import type { Company, Job } from "@/types/schema";
 
-export function pickFeaturedCompanies(companies: Company[], limit = 6): Company[] {
+export function pickFeaturedCompanies(
+  companies: Company[],
+  limit = 6,
+): Company[] {
   // TODO: จะ implement ใน branch ถัดไป
   return companies.slice(0, limit);
 }

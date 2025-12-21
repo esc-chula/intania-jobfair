@@ -21,21 +21,23 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [jobTypeFilter, setJobTypeFilter] = useState("");
   const [eligibleYearFilter, setEligibleYearFilter] = useState("");
   const [majorFilter, setMajorFilter] = useState("");
-  
+
   const isSearchActive = searchQuery.trim().length > 0;
 
   return (
-    <SearchContext.Provider value={{ 
-      searchQuery, 
-      setSearchQuery, 
-      isSearchActive,
-      jobTypeFilter,
-      setJobTypeFilter,
-      eligibleYearFilter,
-      setEligibleYearFilter,
-      majorFilter,
-      setMajorFilter,
-    }}>
+    <SearchContext.Provider
+      value={{
+        searchQuery,
+        setSearchQuery,
+        isSearchActive,
+        jobTypeFilter,
+        setJobTypeFilter,
+        eligibleYearFilter,
+        setEligibleYearFilter,
+        majorFilter,
+        setMajorFilter,
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );

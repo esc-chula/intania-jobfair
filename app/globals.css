@@ -4,14 +4,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-
   /* --- Colors (CI) --- */
-  --color-primary-yellow: #F5C45E;   /* Navbar/Expanded nav */
-  --color-primary-blue:   #102E50;   /* Headings/Nav text */
-  --color-gray-400-ci:    #99A1AF;   /* "ดูทั้งหมด" */
-  --color-secondary-white: #FBF5DE; /* background */
-  --bg-cream: #FBF5DE;
-
+  --color-primary-yellow: #f5c45e;
+  /* Navbar/Expanded nav */
+  --color-primary-blue: #102e50;
+  /* Headings/Nav text */
+  --color-gray-400-ci: #99a1af;
+  /* "ดูทั้งหมด" */
+  --color-secondary-white: #fbf5de;
+  /* background */
+  --bg-cream: #fbf5de;
+  --color-secondary-yellow: #fcef91;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,40 +83,41 @@
   --radius-lg: 14px;    
   --radius-xl: 20px;   
 
-  --shadow-light: 0 4px 10px rgba(174,174,174,.10); /* input */
-  --shadow-card:  0 6px 24px rgba(0,0,0,.06);       /* card */
+  --shadow-light: 0 4px 10px rgba(174, 174, 174, 0.1);
+  /* input */
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.06);
+  /* card */
 }
 
 :root {
-
   --radius: 14px;
 
-  --background: #FBF5DE;
-  --foreground: #1F2328;
+  --background: #fbf5de;
+  --foreground: #1f2328;
 
-  --card: #FFFFFF;
-  --card-foreground: #1F2328;
-  --popover: #FFFFFF;
-  --popover-foreground: #1F2328;
+  --card: #ffffff;
+  --card-foreground: #1f2328;
+  --popover: #ffffff;
+  --popover-foreground: #1f2328;
 
-  --primary: #D62828;
-  --primary-foreground: #FFFFFF;
+  --primary: #d62828;
+  --primary-foreground: #ffffff;
 
-  --secondary: #F1F5F9;
-  --secondary-foreground: #1F2328;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1f2328;
 
-  --muted: #F6F7F9;
-  --muted-foreground: #8A8F98;
+  --muted: #f6f7f9;
+  --muted-foreground: #8a8f98;
 
-  --accent: #F1F5F9;
-  --accent-foreground: #1F2328;
+  --accent: #f1f5f9;
+  --accent-foreground: #1f2328;
 
-  --destructive: #EF4444;
+  --destructive: #ef4444;
 
-  --border: #E5E5E5;
-  --input:  #E5E5E5;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
 
-  --ring: #94A3B8;
+  --ring: #94a3b8;
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -121,41 +125,42 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
 
-  --sidebar: #FFFDF7;
-  --sidebar-foreground: #1F2328;
-  --sidebar-primary: #102E50;          
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F5C45E;
-  --sidebar-accent-foreground: #102E50;
-  --sidebar-border: #E5E5E5;
-  --sidebar-ring: #94A3B8;
+  --sidebar: #fffdf7;
+  --sidebar-foreground: #1f2328;
+  --sidebar-primary: #102e50;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5c45e;
+  --sidebar-accent-foreground: #102e50;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #94a3b8;
 }
 
 .dark {
-  --background: #FBF5DE;
-  --foreground: #E8EAED;
+  --background: #fbf5de;
+  --foreground: #e8eaed;
   --card: #121821;
-  --card-foreground: #E8EAED;
+  --card-foreground: #e8eaed;
   --popover: #121821;
-  --popover-foreground: #E8EAED;
+  --popover-foreground: #e8eaed;
 
-  --primary: #D62828;            /* CTA แดงยังคงเดิม */
-  --primary-foreground: #FFFFFF;
+  --primary: #d62828;
+  /* CTA แดงยังคงเดิม */
+  --primary-foreground: #ffffff;
 
-  --secondary: #0F172A;
-  --secondary-foreground: #E8EAED;
+  --secondary: #0f172a;
+  --secondary-foreground: #e8eaed;
 
-  --muted: #0F172A;
-  --muted-foreground: #9AA0A6;
+  --muted: #0f172a;
+  --muted-foreground: #9aa0a6;
 
-  --accent: #0F172A;
-  --accent-foreground: #E8EAED;
+  --accent: #0f172a;
+  --accent-foreground: #e8eaed;
 
-  --destructive: #DC2626;
+  --destructive: #dc2626;
 
   --border: #293241;
-  --input:  #293241;
-  --ring:   #64748B;
+  --input: #293241;
+  --ring: #64748b;
 
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -272,7 +277,7 @@
     top: 16px;
     left: 16px;
     opacity: 1;
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
   }
   .filter-btn-active {
     width: 36;
@@ -280,9 +285,9 @@
     opacity: 1;
     border-radius: rounded-md;
     border-width: border;
-    background: #D9A94C;
-    border-top: 1px solid #D9A94C;
-    box-shadow: 0px 1px 2px 0px #0000001A;
+    background: #d9a94c;
+    border-top: 1px solid #d9a94c;
+    box-shadow: 0px 1px 2px 0px #0000001a;
   }
 
   .search-input {
@@ -292,14 +297,9 @@
     opacity: 1;
     border-radius: rounded-md;
     border-width: 1px;
-    background: #FFFFFF;
-    border: 1px solid var(--border, #E5E5E5);
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
-
-
-
-    
-
+    background: #ffffff;
+    border: 1px solid var(--border, #e5e5e5);
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
   }
 
   .select-trigger {
@@ -310,9 +310,9 @@
     border-width: 1px;
     gap: 10px;
     padding: 8px 12px;
-    background: #FFFFFF;
-    border: 1px solid var(--border, #E5E5E5);
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    background: #ffffff;
+    border: 1px solid var(--border, #e5e5e5);
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
   }
 
   /* Sort Option Dropdown */
@@ -342,7 +342,7 @@
     border-radius: 6px;
     gap: 8px;
     padding: 6px 8px;
-    background: #F1F5F9;
+    background: #f1f5f9;
   }
 
   /* Filter Containers */
@@ -351,7 +351,7 @@
     height: 213px;
     opacity: 1;
     gap: 6px;
-    border: 1px solid #F1F5F9;
+    border: 1px solid #f1f5f9;
     box-shadow: 0px 4px 6px 0px #00000017;
   }
 
@@ -360,7 +360,7 @@
     height: 409px;
     opacity: 1;
     border-radius: 6px;
-    border: 1px solid #F1F5F9;
+    border: 1px solid #f1f5f9;
     box-shadow: 0px 4px 6px 0px #00000017;
   }
 
@@ -381,67 +381,67 @@
   .company-tag-finance {
     width: 120px;
     height: 36px;
-    background: #67ABA380;
+    background: #67aba380;
   }
 
   .company-tag-tech {
     width: 184px;
     height: 36px;
-    background: #A1A1A680;
+    background: #a1a1a680;
   }
 
   .company-tag-industrial {
     width: 163px;
     height: 36px;
-    background: #78909C80;
+    background: #78909c80;
   }
 
   .company-tag-research {
     width: 150px;
     height: 36px;
-    background: #7B6A9C80;
+    background: #7b6a9c80;
   }
 
   .company-tag-mining {
     width: 120px;
     height: 22px;
-    background: #BA784680;
+    background: #ba784680;
   }
 
   .company-tag-energy {
     width: 150px;
     height: 22px;
-    background: #879F6780;
+    background: #879f6780;
   }
 
   .company-tag-construction {
     width: 94px;
     height: 22px;
-    background: #B4406080;
+    background: #b4406080;
   }
 
   .company-tag-business {
     width: 71px;
     height: 22px;
-    background: #78BAD180;
+    background: #78bad180;
   }
 
   .company-tag-consult {
     width: 144px;
     height: 22px;
-    background: #9E9E9E80;
+    background: #9e9e9e80;
   }
 
   .company-tag-entrepreneur {
     width: 181px;
     height: 22px;
-    background: #EB7EA680;
+    background: #eb7ea680;
   }
 
   .company-tag-others {
     width: 59px;
     height: 22px;
-    background: #E0E0E080;
+    background: #e0e0e080;
   }
 
   /* Short Job Card */
@@ -449,12 +449,12 @@
     width: 358px;
     height: 152px;
     border-radius: 6px;
-    border: 1px solid #E5E7EB;
+    border: 1px solid #e5e7eb;
     padding: 17px;
     gap: 16px;
     opacity: 1;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
   }
 
   .short-job-info {
@@ -469,12 +469,12 @@
     width: 415px;
     height: 148px;
     border-radius: 6px;
-    border: 1px solid #E5E7EB;
+    border: 1px solid #e5e7eb;
     padding: 17px;
     gap: 16px;
     opacity: 1;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
   }
 
   .short-company-info {
@@ -492,15 +492,17 @@
     padding: 17px;
     gap: 16px;
     border-radius: 6px;
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0px 4px 10px 0px #AEAEAE1A;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0px 4px 10px 0px #aeaeae1a;
     height: auto;
-    font-size: 0.875rem; /* 14px for short cards */
-    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.875rem;
+    /* 14px for short cards */
+    transition:
+      max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: max-width, padding, font-size, gap;
   }
   
@@ -579,19 +581,21 @@
     padding: 17px !important;
     gap: 16px !important;
     border-radius: 6px !important;
-    background: #FFFFFF !important;
-    border: 1px solid #E5E7EB !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
     box-shadow: 0 4px 4px hsla(0, 0%, 68%, 0.25) !important;
     height: auto !important;
     display: flex !important;
     flex-direction: column !important;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    font-size: 1rem; /* 16px for long cards */
-    transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    /* 16px for long cards */
+    transition:
+      max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      gap 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: max-width, padding, font-size, gap;
   }
   
@@ -764,5 +768,4 @@
   .short-card > div {
     min-width: 0;
   }
-
 }

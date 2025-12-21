@@ -1,9 +1,9 @@
 export type SocialMediaLinks = {
-    facebook?: string;
-    instagram?: string;
-    twitter?: string;
-    linkedin?: string;
-    website?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  linkedin?: string;
+  website?: string;
 };
 
 export type Company = {
@@ -14,7 +14,7 @@ export type Company = {
   shortDescription: string;
   fullDescription: string;
   officeLocation_district: string;
-  officeLocation_province: string; 
+  officeLocation_province: string;
   officeLocation_full: string;
   businessFocus: string;
   websiteUrl?: string;
@@ -33,20 +33,20 @@ export type EligibleStudentYear = {
   "Bachelor's Junior": boolean;
   "Bachelor's Senior": boolean;
   "Master's": boolean;
-  "Doctorate": boolean;
+  Doctorate: boolean;
 };
 
 export type PositionType = "Internship" | "Part-time" | "Full-time";
 
 export type Job = {
-  jobId: number; 
+  jobId: number;
   companyId: number; // (foreign key)
-  jobTitle: string; 
+  jobTitle: string;
   jobDescription: string;
-  positionType: PositionType; 
-  openingsCount?: string; 
-  eligibleStudentYear: EligibleStudentYear; 
-  application_start?: string; 
+  positionType: PositionType;
+  openingsCount?: string;
+  eligibleStudentYear: EligibleStudentYear;
+  application_start?: string;
   application_end?: string;
   always_applicable: boolean;
   application_link: string;
@@ -55,17 +55,17 @@ export type Job = {
 };
 
 export const BUSINESS_FOCUS_OPTIONS = [
-    "Banking, Finance & Investment",
-    "Computer systems, IT & Communications Technology",
-    "Manufacturing, Logistics & Industrial",
-    "Research, Academia & Government agencies",
-    "Mining & Geology",
-    "Energy & Sustainability",
-    "Construction",
-    "Business",
-    "Consulting & Strategy",
-    "Entrepreneurship & Startups",
-    "Others",
+  "Banking, Finance & Investment",
+  "Computer systems, IT & Communications Technology",
+  "Manufacturing, Logistics & Industrial",
+  "Research, Academia & Government agencies",
+  "Mining & Geology",
+  "Energy & Sustainability",
+  "Construction",
+  "Business",
+  "Consulting & Strategy",
+  "Entrepreneurship & Startups",
+  "Others",
 ] as const;
 
 export type BusinessFocus = (typeof BUSINESS_FOCUS_OPTIONS)[number];
