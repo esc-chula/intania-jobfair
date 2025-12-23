@@ -60,7 +60,11 @@ export default function Hero() {
             </div>
 
             <div className="flex items-center gap-[10px]">
-              <Link href="#">
+              <Link
+                href="https://forms.gle/u7okHoedihnG7Vxh8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button
                   className="w-[127px] h-[37px] sm:w-[150px] sm:h-[42px] md:w-[160px] md:h-[46px] rounded-[6px] gap-[10px]
                              bg-primary-yellow hover:bg-primary-yellow/90
@@ -72,7 +76,7 @@ export default function Hero() {
                   </span>
                 </Button>
               </Link>
-              <Link href="#">
+              <Link href="https://forms.gle/vSDhd7ddrUDvjYfV6">
                 <Button
                   className="w-[108px] h-[37px] sm:w-[130px] sm:h-[42px] md:w-[140px] md:h-[46px] rounded-[6px] gap-[10px]
                              bg-secondary-yellow hover:bg-secondary-yellow/90
