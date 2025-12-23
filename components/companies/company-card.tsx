@@ -5,6 +5,9 @@ import type { Company } from "@/types/schema";
 import { LucideMapPin, LucideBriefcaseBusiness } from "lucide-react";
 import CompanyTags from "@/components/companies/company-tags";
 import { useEffect, useState } from "react";
+import { BoothDisplay } from "../common/boothDisplay";
+
+// This is actually the long company card in Figma
 
 export default function CompanyCard({
   company,
@@ -41,7 +44,9 @@ export default function CompanyCard({
   return (
     <Link
       href={href || "#"}
-      aria-label={`ดูรายละเอียดบริษัท ${company?.companyName_th ?? company?.companyName_en ?? ""}`}
+      aria-label={`ดูรายละเอียดบริษัท ${
+        company?.companyName_th ?? company?.companyName_en ?? ""
+      }`}
       className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-blue rounded-md"
       onClick={(e) => {
         if (!href) e.preventDefault();
@@ -60,9 +65,13 @@ export default function CompanyCard({
           </div>
 
           <div className="flex flex-col gap-2 flex-1 min-w-0">
-            <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
-              {company?.companyName_th}
-            </h3>
+            <div className="flex flex-row justify-between">
+              <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
+                {company?.companyName_th}
+              </h3>
+              <BoothDisplay company={company}/>
+            </div>
+
             <div className="flex gap-2 items-center flex-wrap">
               <CompanyTags company={company}></CompanyTags>
             </div>

@@ -23,6 +23,11 @@ export type Company = {
   hrContactEmail: string;
   hrContactPhone: string;
   promoMaterials?: string;
+  day1: boolean;
+  day2: boolean;
+  boothDay1: string;
+  boothDay2: string;
+
 };
 
 export type MajorEligibility = Record<string, boolean>;

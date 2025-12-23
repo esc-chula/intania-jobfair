@@ -6,6 +6,7 @@ import { LucideClock, LucideCalendarRange, LucideMapPin } from "lucide-react";
 import type { Job, Company } from "@/types/schema";
 import { formatThaiDate } from "@/lib/helper";
 import { useEffect, useState } from "react";
+import { BoothDisplay } from "../common/boothDisplay";
 
 export default function JobCard({
   job,
@@ -56,9 +57,12 @@ export default function JobCard({
           </div>
 
           <div className="flex flex-col gap-2 flex-1 min-w-0">
-            <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
-              {job.jobTitle}
-            </h3>
+            <div className="flex flex-row justify-between">
+              <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
+                {job.jobTitle}
+              </h3>
+              <BoothDisplay company={company} />
+            </div>
             <p className="body-th-3 line-clamp-2">
               {company?.companyName_th ?? "N/A"}
             </p>

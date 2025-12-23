@@ -14,10 +14,13 @@ import Link from "next/link";
 import { resolveLocalLogo, resolvePromoAssets } from "@/lib/assets";
 import LogoPreview from "@/components/common/image-preview";
 import { FaFilePdf } from "react-icons/fa6";
+import { BoothDisplay } from "../common/boothDisplay";
+
+// This is actually the full company card in Figma
 
 function ensureValidUrl(
   url: string | undefined,
-  platform: "linkedin" | "facebook" | "instagram",
+  platform: "linkedin" | "facebook" | "instagram"
 ): string {
   if (!url) return "#";
 
@@ -55,9 +58,12 @@ export default function CompanyCardLong({
           </div>
 
           <div className="flex flex-col gap-3 flex-1 min-w-0">
-            <h3 className="heading-th-2 sm:heading-th-1 font-bold text-primary-blue !leading-[1.5] line-clamp-2">
-              {company?.companyName_th}
-            </h3>
+            <div className="flex flex-row justify-between">
+              <h3 className="heading-th-2 sm:heading-th-1 font-bold text-primary-blue !leading-[1.5] line-clamp-2">
+                {company?.companyName_th}
+              </h3>
+              <BoothDisplay company={company} />
+            </div>
             <div className="flex gap-2 items-center flex-wrap">
               <CompanyTags company={company}></CompanyTags>
             </div>
@@ -202,7 +208,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.linkedin,
-                      "linkedin",
+                      "linkedin"
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -223,7 +229,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.facebook,
-                      "facebook",
+                      "facebook"
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -244,7 +250,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.instagram,
-                      "instagram",
+                      "instagram"
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
