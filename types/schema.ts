@@ -27,7 +27,6 @@ export type Company = {
   day2: boolean;
   boothDay1: string;
   boothDay2: string;
-
 };
 
 export type MajorEligibility = Record<string, boolean>;

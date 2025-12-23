@@ -40,7 +40,6 @@ export default function CompanyCardShort({
   const href =
     typeof companyId === "number" ? `/companies/${companyId}` : undefined;
 
-
   return (
     <Link
       href={href || "#"}

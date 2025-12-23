@@ -69,7 +69,7 @@ export default function CompanyCard({
               <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
                 {company?.companyName_th}
               </h3>
-              <BoothDisplay company={company}/>
+              <BoothDisplay company={company} />
             </div>
 
             <div className="flex gap-2 items-center flex-wrap">

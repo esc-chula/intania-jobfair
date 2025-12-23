@@ -20,7 +20,7 @@ import { BoothDisplay } from "../common/boothDisplay";
 
 function ensureValidUrl(
   url: string | undefined,
-  platform: "linkedin" | "facebook" | "instagram"
+  platform: "linkedin" | "facebook" | "instagram",
 ): string {
   if (!url) return "#";
 
@@ -208,7 +208,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.linkedin,
-                      "linkedin"
+                      "linkedin",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -229,7 +229,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.facebook,
-                      "facebook"
+                      "facebook",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -250,7 +250,7 @@ export default function CompanyCardLong({
                   <Link
                     href={ensureValidUrl(
                       company.socialMediaLinks?.instagram,
-                      "instagram"
+                      "instagram",
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
