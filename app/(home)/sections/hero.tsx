@@ -70,7 +70,7 @@ export default function Hero() {
                   </span>
                 </Button>
               </Link>
-              <Link href="#">
+              <Link href="https://forms.gle/vSDhd7ddrUDvjYfV6">
                 <Button
                   className="w-[108px] h-[37px] sm:w-[130px] sm:h-[42px] md:w-[140px] md:h-[46px] rounded-[6px] gap-[10px]
                              bg-secondary-yellow hover:bg-secondary-yellow/90
