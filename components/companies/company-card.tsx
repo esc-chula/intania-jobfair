@@ -60,9 +60,13 @@ export default function CompanyCard({
           </div>
 
           <div className="flex flex-col gap-2 flex-1 min-w-0">
-            <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
-              {company?.companyName_th}
-            </h3>
+            <div className="flex flex-row justify-between">
+              <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
+                {company?.companyName_th}
+              </h3>
+              <BoothDisplay company={company} />
+            </div>
+
             <div className="flex gap-2 items-center flex-wrap">
               <CompanyTags company={company}></CompanyTags>
             </div>
