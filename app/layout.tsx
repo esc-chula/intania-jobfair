@@ -66,12 +66,13 @@ export default function RootLayout({
           ${plexThai.variable}
           ${anuphan.variable}
           ${inter.variable}
+          flex min-h-screen flex-col
           antialiased
           bg-background text-foreground
         `}
             >
                 <Header />
-                <main>{children}</main>
+                <main className="flex-1">{children}</main>
                 <Footer />
             </body>
         </html>
