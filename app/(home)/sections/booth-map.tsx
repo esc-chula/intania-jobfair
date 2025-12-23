@@ -1,12 +1,21 @@
 import Section from "@/components/common/section";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, CircleAlert } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import mapImage from "@/src/map.svg";
 
 export default function BoothMap() {
   return (
+     <div className="flex flex-col gap-6">
+            <div className="w-full rounded-lg border border-border bg-[#FFE2E2] px-4 py-3 text-[#DC2626]">
+                <div className="flex items-start gap-3">
+                    <CircleAlert className="h-5 w-5 shrink-0 translate-y-[2px]" />
+                    <p className="font-bodyTH text-[14px] leading-none">
+                        ข้อมูลบนเว็บไซต์เป็นข้อมูลเบื้องต้น โปรดสอบถามรายละเอียดเพิ่มเติมที่บูธในงาน
+                    </p>
+                </div>
+    </div>
     <Section
       title="แผนผังบูธบริษัท"
       actionLabel="ดูบูธทั้งหมด"
@@ -40,5 +49,6 @@ export default function BoothMap() {
         </Link>
       </div>
     </Section>
+    </div>
   );
 }
