@@ -12,7 +12,7 @@ import {
 import { formatThaiDate } from "@/lib/helper";
 import { resolveLocalLogo } from "@/lib/assets";
 import Link from "next/link";
-import { BoothDisplay } from "../common/boothDisplay";
+
 
 export default function JobCardLong({
   job,
@@ -34,13 +34,9 @@ export default function JobCardLong({
         </div>
 
         <div className="flex flex-col gap-2 flex-1 min-w-0">
-          <div className="flex flex-row justify-between">
-            <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
-              {job.jobTitle}
-            </h3>
-            <BoothDisplay company={company} />
-          </div>
-
+          <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
+            {job.jobTitle}
+          </h3>
           <p className="body-th-1 line-clamp-2">
             {company?.companyName_th ?? "N/A"}
           </p>
@@ -98,10 +94,7 @@ export default function JobCardLong({
             เกี่ยวกับตำแหน่งงาน
           </h4>
           {job.application_link && (
-            <Link
-              href={job.application_link}
-              className="text-primary-blue mb-3  items-center flex flex-row gap-2"
-            >
+            <Link href={job.application_link} className="text-primary-blue mb-3  items-center flex flex-row gap-2">
               <LucideFileText size={16} />
               <p className="body-th-3 underline">แบบฟอร์มรับสมัคร</p>
             </Link>
