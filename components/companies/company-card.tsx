@@ -82,7 +82,7 @@ export default function CompanyCard({
                 height={16}
               />
               <p className="body-th-3 text-primary-blue line-clamp-2">
-                {jobCount + 10 + " ตำแหน่งงาน"}
+                {jobCount + " ตำแหน่งงาน"}
               </p>
             </div>
             <div className="flex gap-2 items-center">

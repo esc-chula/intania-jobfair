@@ -1,7 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
 
-
 const ASSET_BASE = process.env.NEXT_PUBLIC_ASSET_BASE ?? "/assets";
 
 const PUBLIC_DIR = path.join(process.cwd(), "public");
@@ -19,7 +18,7 @@ const DEFAULT_LOGO = "/placeholder-company.svg";
 export function resolveLocalLogo(key?: string): string {
   if (!key) return DEFAULT_LOGO;
 
-  const clean = key.replace(/^\/+/, ""); 
+  const clean = key.replace(/^\/+/, "");
   const parts = clean.split("/");
 
   const exts = ["png", "jpg", "jpeg", "webp", "svg"];
@@ -28,10 +27,15 @@ export function resolveLocalLogo(key?: string): string {
 
   // 1) Preferred: e.g. assets/<parts>/logo/logo.png
   const nestedLogoDir = path.join(folderAbs, "logo");
-  if (fs.existsSync(nestedLogoDir) && fs.statSync(nestedLogoDir).isDirectory()) {
+  if (
+    fs.existsSync(nestedLogoDir) &&
+    fs.statSync(nestedLogoDir).isDirectory()
+  ) {
     const nested = fs
       .readdirSync(nestedLogoDir)
-      .filter((f) => exts.includes(path.extname(f).toLowerCase().replace(/^\./, "")))
+      .filter((f) =>
+        exts.includes(path.extname(f).toLowerCase().replace(/^\./, "")),
+      )
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     if (nested.length > 0) {
       return path.posix.join(ASSET_BASE, clean, "logo", nested[0]);
@@ -60,7 +64,9 @@ export function resolveLocalLogo(key?: string): string {
   if (fs.existsSync(folderAbs) && fs.statSync(folderAbs).isDirectory()) {
     const files = fs
       .readdirSync(folderAbs)
-      .filter((f) => exts.includes(path.extname(f).toLowerCase().replace(/^\./, "")))
+      .filter((f) =>
+        exts.includes(path.extname(f).toLowerCase().replace(/^\./, "")),
+      )
       .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     if (files.length > 0) {
       return path.posix.join(ASSET_BASE, clean, files[0]);
@@ -100,7 +106,15 @@ export type PromoAsset = {
   kind: "image" | "pdf" | "other";
 };
 
-const IMAGE_EXTS = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".avif"]);
+const IMAGE_EXTS = new Set([
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".svg",
+  ".gif",
+  ".avif",
+]);
 const PDF_EXTS = new Set([".pdf"]);
 
 /**
@@ -127,8 +141,8 @@ export function resolvePromoAssets(key?: string): PromoAsset[] {
     const kind: PromoAsset["kind"] = IMAGE_EXTS.has(ext)
       ? "image"
       : PDF_EXTS.has(ext)
-      ? "pdf"
-      : "other";
+        ? "pdf"
+        : "other";
     return { url, name: f, ext, kind };
   });
 

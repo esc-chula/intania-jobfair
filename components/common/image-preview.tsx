@@ -23,7 +23,11 @@ export function LogoPreview({
   // Note: modalHeightClassName is kept for compatibility; react-photo-view manages its own layout.
   return (
     <div className={thumbContainerClassName}>
-      <PhotoProvider maskOpacity={0.5} speed={() => 300} easing={() => "ease-out"}>
+      <PhotoProvider
+        maskOpacity={0.5}
+        speed={() => 300}
+        easing={() => "ease-out"}
+      >
         <PhotoView src={src}>
           {/* Using next/image as the thumbnail; PhotoView will open the lightbox on click */}
           <Image
