@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { Building2, BriefcaseBusiness, Phone } from "lucide-react";
+import { Building2, BriefcaseBusiness, Phone, Store } from "lucide-react";
 
 type Props = {
   id?: string;
@@ -66,6 +66,13 @@ export default function ExpandedNav({ id, open, onClose, anchorRef }: Props) {
               : `opacity-0 -translate-y-3 max-h-0 py-0`
           } ${isClient ? "" : ""}`}
         >
+          <NavItem
+            href="/booths"
+            icon={<Store strokeWidth={2} />}
+            label="Booths"
+            isClient={isClient}
+            onClose={onClose}
+          />
           <NavItem
             href="/companies"
             icon={<Building2 strokeWidth={2} />}
