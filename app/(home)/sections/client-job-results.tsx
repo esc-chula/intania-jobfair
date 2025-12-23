@@ -18,6 +18,7 @@ export default function ClientJobResults() {
   const {
     isSearchActive,
     searchQuery,
+    dateFilter,
     jobTypeFilter,
     eligibleYearFilter,
     majorFilter,
@@ -56,8 +57,30 @@ export default function ClientJobResults() {
       jobsToFilter = searchedJobs;
     }
 
+    // Debug: Log first few companies to check boothDay1/boothDay2 structure
+    if (dateFilter && companies.length > 0) {
+      console.log("Date filter active:", dateFilter);
+      console.log("Sample companies (first 3):", companies.slice(0, 3).map(c => ({
+        name: c.companyName_en,
+        boothDay1: c.boothDay1,
+        boothDay2: c.boothDay2,
+      })));
+    }
+
     // Then apply filters
     return jobsToFilter.filter((job) => {
+      // Get company for date filtering
+      const company = companies.find((c) => c[""] === job.companyId);
+
+      // Date filter - check booth strings (boothDay1/boothDay2), not day1/day2 booleans
+      // This matches the logic in BoothDisplay component
+      const matchesDate =
+        !dateFilter ||
+        dateFilter === "" ||
+        dateFilter === "All" ||
+        (dateFilter === "Day1" && company?.boothDay1) ||
+        (dateFilter === "Day2" && company?.boothDay2);
+
       // Job type filter
       const matchesJobType =
         jobTypeFilter === "" ||
@@ -78,12 +101,13 @@ export default function ClientJobResults() {
         majorFilter === "All" ||
         job.major[majorFilter as string] === true;
 
-      return matchesJobType && matchesEligibleYear && matchesMajor;
+      return matchesDate && matchesJobType && matchesEligibleYear && matchesMajor;
     });
   }, [
     jobs,
     companies,
     searchQuery,
+    dateFilter,
     jobTypeFilter,
     eligibleYearFilter,
     majorFilter,
@@ -92,6 +116,7 @@ export default function ClientJobResults() {
   // แสดงเฉพาะเมื่อมีการค้นหาหรือมีการใช้ filter
   if (
     !isSearchActive &&
+    !dateFilter &&
     !jobTypeFilter &&
     !eligibleYearFilter &&
     !majorFilter

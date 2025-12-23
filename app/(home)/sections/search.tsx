@@ -9,11 +9,14 @@ import {
   eligibleYearOptions,
   groupedMajorOptions,
 } from "@/constants/job-filter-options";
+import { eventDateOptions } from "@/constants/event-date-filter-options";
 
 export default function Search() {
   const {
     searchQuery,
     setSearchQuery,
+    dateFilter,
+    setDateFilter,
     jobTypeFilter,
     setJobTypeFilter,
     eligibleYearFilter,
@@ -74,6 +77,12 @@ export default function Search() {
       {isFilterOpen && (
         <div className="flex flex-col gap-3">
           <FilterSelector
+            filterOption={dateFilter}
+            setFilterOption={setDateFilter}
+            options={eventDateOptions}
+            placeholder="เลือกวันที่เข้าร่วมงาน"
+          />
+          <FilterSelector
             filterOption={jobTypeFilter}
             setFilterOption={setJobTypeFilter}
             options={jobTypeOptions}
@@ -91,9 +100,9 @@ export default function Search() {
             groupedOptions={groupedMajorOptions}
             placeholder="เลือกสาขาที่เปิดรับ"
           />
-          {/* Reset filters button */}
           <button
             onClick={() => {
+              setDateFilter("");
               setJobTypeFilter("");
               setEligibleYearFilter("");
               setMajorFilter("");
