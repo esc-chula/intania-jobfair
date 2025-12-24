@@ -118,12 +118,12 @@ const mockJobs: Job[] = [
     jobDescription: "Do marketing",
     positionType: "Full-time",
     eligibleStudentYear: {
-        "Bachelor's Freshmen": false,
-        "Bachelor's Sophmore": false,
-        "Bachelor's Junior": false,
-        "Bachelor's Senior": true,
-        "Master's": true,
-        Doctorate: false,
+      "Bachelor's Freshmen": false,
+      "Bachelor's Sophmore": false,
+      "Bachelor's Junior": false,
+      "Bachelor's Senior": true,
+      "Master's": true,
+      Doctorate: false,
     },
     always_applicable: false,
     application_link: "",
@@ -138,57 +138,99 @@ async function runTests() {
   // Test 1: English Company Name
   {
     const result = searchJobsAndCompanies("Tech", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "English Name Search: Should find 1 company");
-    assert(result.companies[0].companyName_en === "Tech Co., Ltd.", "English Name Search: Name match");
+    assert(
+      result.companies.length === 1,
+      "English Name Search: Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "Tech Co., Ltd.",
+      "English Name Search: Name match",
+    );
   }
 
   // Test 2: Thai Company Name
   {
     const result = searchJobsAndCompanies("ซีพี", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "Thai Name Search: Should find 1 company");
-    assert(result.companies[0].companyName_en === "CP ALL", "Thai Name Search: Name match");
+    assert(
+      result.companies.length === 1,
+      "Thai Name Search: Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "CP ALL",
+      "Thai Name Search: Name match",
+    );
   }
 
   // Test 3: Job Title
   {
     const result = searchJobsAndCompanies("Software", mockJobs, mockCompanies);
     assert(result.jobs.length === 1, "Job Title Search: Should find 1 job");
-    assert(result.jobs[0].jobTitle === "Software Engineer", "Job Title Search: Title match");
+    assert(
+      result.jobs[0].jobTitle === "Software Engineer",
+      "Job Title Search: Title match",
+    );
   }
 
   // Test 4: Booth A01
   {
     const result = searchJobsAndCompanies("A01", mockJobs, mockCompanies);
     assert(result.companies.length === 1, "Booth A01: Should find 1 company");
-    assert(result.companies[0].companyName_en === "Tech Co., Ltd.", "Booth A01: Company match");
+    assert(
+      result.companies[0].companyName_en === "Tech Co., Ltd.",
+      "Booth A01: Company match",
+    );
   }
 
   // Test 5: Booth Hall 1
   {
     const result = searchJobsAndCompanies("Hall 1", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "Booth Hall 1: Should find 1 company");
-    assert(result.companies[0].companyName_en === "CP ALL", "Booth Hall 1: Company match");
+    assert(
+      result.companies.length === 1,
+      "Booth Hall 1: Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "CP ALL",
+      "Booth Hall 1: Company match",
+    );
   }
 
   // Test 6: Booth with Thai "บูธ A01"
   {
     const result = searchJobsAndCompanies("บูธ A01", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "Thai Booth Search: Should find 1 company");
-    assert(result.companies[0].companyName_en === "Tech Co., Ltd.", "Thai Booth Search: Company match");
+    assert(
+      result.companies.length === 1,
+      "Thai Booth Search: Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "Tech Co., Ltd.",
+      "Thai Booth Search: Company match",
+    );
   }
 
   // Test 7: Booth Range (B03-B04) - Search "B03"
   {
     const result = searchJobsAndCompanies("B03", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "Booth Range Search 'B03': Should find 1 company");
-    assert(result.companies[0].companyName_en === "Audit Corp", "Booth Range Search 'B03': Company match");
+    assert(
+      result.companies.length === 1,
+      "Booth Range Search 'B03': Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "Audit Corp",
+      "Booth Range Search 'B03': Company match",
+    );
   }
 
   // Test 8: Booth Range (B03-B04) - Search "B04"
   {
     const result = searchJobsAndCompanies("B04", mockJobs, mockCompanies);
-    assert(result.companies.length === 1, "Booth Range Search 'B04': Should find 1 company");
-    assert(result.companies[0].companyName_en === "Audit Corp", "Booth Range Search 'B04': Company match");
+    assert(
+      result.companies.length === 1,
+      "Booth Range Search 'B04': Should find 1 company",
+    );
+    assert(
+      result.companies[0].companyName_en === "Audit Corp",
+      "Booth Range Search 'B04': Company match",
+    );
   }
 
   // Test 9: False Positive Check (Search "B3", ensure no "B30")
@@ -196,9 +238,14 @@ async function runTests() {
     // Searching "B3" should NOT find "XYZ Corp" (which has booth B30)
     // It implies we need strict matching like "B3" or "B03" but not prefix match on numbers
     const result = searchJobsAndCompanies("B3", mockJobs, mockCompanies);
-    
-    const foundXYZ = result.companies.find(c => c.companyName_en === "XYZ Corp");
-    assert(!foundXYZ, "Strict Booth Search: 'B3' should NOT match 'B30' (XYZ Corp)");
+
+    const foundXYZ = result.companies.find(
+      (c) => c.companyName_en === "XYZ Corp",
+    );
+    assert(
+      !foundXYZ,
+      "Strict Booth Search: 'B3' should NOT match 'B30' (XYZ Corp)",
+    );
   }
 
   console.log("ALL TESTS PASSED ✨");

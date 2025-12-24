@@ -8,11 +8,7 @@ import { useSearch } from "../contexts/search-context";
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import { searchJobsAndCompanies } from "@/lib/search";
 import { useState, useEffect, useMemo } from "react";
-import type {
-  Job,
-  Company,
-  EligibleStudentYear,
-} from "@/types/schema";
+import type { Job, Company, EligibleStudentYear } from "@/types/schema";
 
 export default function ClientJobResults() {
   const {
@@ -198,14 +194,12 @@ export default function ClientJobResults() {
             </div>
           )}
 
-          {!loading &&
-            !shouldShowCompanies &&
-            filteredJobs.length === 0 && (
-              <EmptyState
-                title="ไม่พบข้อมูลที่ตรงกับคำค้นหา"
-                titleClassName="body-th-2 text-primary-blue"
-              />
-            )}
+          {!loading && !shouldShowCompanies && filteredJobs.length === 0 && (
+            <EmptyState
+              title="ไม่พบข้อมูลที่ตรงกับคำค้นหา"
+              titleClassName="body-th-2 text-primary-blue"
+            />
+          )}
         </div>
       )}
     </Section>
