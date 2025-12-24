@@ -27,9 +27,7 @@ export async function fetchCompanies(): Promise<Company[]> {
 
 export async function fetchJobs(): Promise<Job[]> {
   // Use specific gist URL for jobs data
-  const GIST_JOBS_URL =
-    "https://gist.githubusercontent.com/tawanorkchiengtai/68fb4aebea0b5ec95229e9ba60685d36/raw/jobs.json";
-
+  const GIST_JOBS_URL = "https://gist.githubusercontent.com/tech-esc/411e78247ce49f590a2755d2a7e982fe/raw/jobs.json";
   try {
     const res = await fetch(GIST_JOBS_URL, {
       next: { revalidate: 3600 },
