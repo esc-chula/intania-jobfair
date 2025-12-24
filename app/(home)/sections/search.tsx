@@ -45,7 +45,7 @@ export default function Search() {
           <input
             value={searchQuery}
             onChange={handleInputChange}
-            placeholder="ค้นหาบริษัท ตำแหน่งงาน หรือที่ตั้ง"
+            placeholder="ค้นหาตำแหน่งบูธ บริษัท ตำแหน่งงาน หรือที่ตั้ง"
             className="h-9 w-full rounded-md border border-border bg-white pl-9 pr-9 text-sm font-bodyTH placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           />
           {searchQuery && (
