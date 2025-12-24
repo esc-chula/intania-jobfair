@@ -25,7 +25,7 @@ function parseBoothCodes(boothStr: string = ""): string[] {
   // Extract letter-digit pairs (e.g. "A01", "B5")
   const matches = normalized.match(/[A-Z]+\s*\d+/gi);
   if (matches) {
-    matches.forEach(m => {
+    matches.forEach((m) => {
       codes.add(m.replace(/\s+/g, "").toUpperCase()); // "B 05" -> "B05"
       codes.add(m.toUpperCase()); // "B 05"
     });
@@ -33,16 +33,18 @@ function parseBoothCodes(boothStr: string = ""): string[] {
 
   // Handle ranges (basic support)
   if (normalized.includes("-") || normalized.includes(",")) {
-     // Split by common delimiters
-     const parts = normalized.split(/[-,\/]/).map(s => s.trim());
-     parts.forEach(p => {
-       if (p) codes.add(p);
-       // Recursively extract from parts if needed, but simple add is usually enough for "B03"
-       const subMatches = p.match(/[A-Z]+\s*\d+/gi);
-       if(subMatches) {
-         subMatches.forEach(sm => codes.add(sm.replace(/\s+/g, "").toUpperCase()));
-       }
-     });
+    // Split by common delimiters
+    const parts = normalized.split(/[-,\/]/).map((s) => s.trim());
+    parts.forEach((p) => {
+      if (p) codes.add(p);
+      // Recursively extract from parts if needed, but simple add is usually enough for "B03"
+      const subMatches = p.match(/[A-Z]+\s*\d+/gi);
+      if (subMatches) {
+        subMatches.forEach((sm) =>
+          codes.add(sm.replace(/\s+/g, "").toUpperCase()),
+        );
+      }
+    });
   }
 
   return Array.from(codes);
@@ -51,29 +53,32 @@ function parseBoothCodes(boothStr: string = ""): string[] {
 /**
  * Flattens Jobs and Companies into a single searchable structure.
  */
-export function flattenJobs(jobs: Job[], companies: Company[]): SearchableJob[] {
+export function flattenJobs(
+  jobs: Job[],
+  companies: Company[],
+): SearchableJob[] {
   // Create a map for O(1) company lookup
   const companyMap = new Map<number, Company>();
-  companies.forEach(c => {
+  companies.forEach((c) => {
     // Check if company has an ID field (it seems to be the first key usually, or mapped via index)
     // The schema says companyId is used. In raw JSON, it might be the "" key or "id".
     // Based on user data inspection: {"": 1, ...}
-    const id = c[""] || (c as any).id; 
+    const id = c[""] || (c as Record<string, unknown>).id;
     if (id) companyMap.set(Number(id), c);
   });
 
-  return jobs.map(job => {
+  return jobs.map((job) => {
     const company = companyMap.get(job.companyId) || null;
-    
+
     // Extract true majors
     const activeMajors = Object.entries(job.major || {})
-      .filter(([_, isActive]) => isActive)
+      .filter(([, isActive]) => isActive)
       .map(([majorName]) => majorName);
 
     const boothCodes = new Set<string>();
     if (company) {
-      parseBoothCodes(company.boothDay1).forEach(c => boothCodes.add(c));
-      parseBoothCodes(company.boothDay2).forEach(c => boothCodes.add(c));
+      parseBoothCodes(company.boothDay1).forEach((c) => boothCodes.add(c));
+      parseBoothCodes(company.boothDay2).forEach((c) => boothCodes.add(c));
     }
 
     return {
@@ -92,9 +97,9 @@ export function flattenJobs(jobs: Job[], companies: Company[]): SearchableJob[] 
  */
 export function extractUniqueMajors(jobs: Job[]): string[] {
   const majorsSet = new Set<string>();
-  jobs.forEach(job => {
+  jobs.forEach((job) => {
     if (job.major) {
-      Object.keys(job.major).forEach(k => majorsSet.add(k));
+      Object.keys(job.major).forEach((k) => majorsSet.add(k));
     }
   });
   return Array.from(majorsSet).sort();
