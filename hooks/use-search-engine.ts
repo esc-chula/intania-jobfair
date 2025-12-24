@@ -114,10 +114,7 @@ export function useSearchEngine(jobs: Job[], companies: Company[]) {
     return () => handleSearch.cancel();
   }, [filters, handleSearch]);
 
-  const updateFilter = (
-    key: keyof SearchFilters,
-    value: string | string[],
-  ) => {
+  const updateFilter = (key: keyof SearchFilters, value: string | string[]) => {
     setFilters((prev: SearchFilters) => ({ ...prev, [key]: value }));
   };
 
