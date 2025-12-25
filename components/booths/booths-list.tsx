@@ -3,244 +3,189 @@
 import { useState, useMemo } from "react";
 import PaginationControls from "@/components/jobs/pagination";
 import SearchBar from "@/components/booths/search-bar";
-import SortSelector from "@/components/booths/sort-select";
 import BoothCard from "@/components/booths/booth-card";
 import FilterSelector from "@/components/jobs/filter-select";
-import type { Job, Company } from "@/types/schema";
+import type { Booth } from "@/types/schema";
 import { BUSINESS_FOCUS_OPTIONS } from "@/types/schema";
 
 export default function BoothListClient({
-  initialCompanies,
-  initialJobs,
-  cardsPerPage = 10,
+    initialBooths,
+    cardsPerPage = 10,
 }: {
-  initialCompanies: Company[];
-  initialJobs: Job[];
-  cardsPerPage?: number;
+    initialBooths: Booth[];
+    cardsPerPage?: number;
 }) {
-  const [sortOption, setSortOption] = useState<
-    "name" | "job-count" | "open-date" | "close-date"
-  >("name");
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState("");
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // Filter states
-  const [businessFocusFilter, setBusinessFocusFilter] = useState("");
-  const [availabilityFilter, setAvailabilityFilter] = useState("");
+    // Filter states
+    const [businessFocusFilter, setBusinessFocusFilter] = useState("");
+    const [dateFilter, setDateFilter] = useState("");
 
-  // Generate filter options
-  const filterOptions = useMemo(() => {
-    return {
-      businessFocus: [
-        { value: "All", label: "ทั้งหมด" },
-        ...BUSINESS_FOCUS_OPTIONS.map((focus) => ({
-          value: focus,
-          label: focus,
-        })),
-      ],
-      availability: [
-        { value: "All", label: "ทั้งหมด" },
-        { value: "available", label: "เปิดรับสมัครอยู่" },
-        { value: "closed", label: "ปิดรับสมัครแล้ว" },
-      ],
-    };
-  }, []);
+    // Generate filter options
+    const filterOptions = useMemo(() => {
+        return {
+            businessFocus: [
+                { value: "All", label: "ทั้งหมด" },
+                ...BUSINESS_FOCUS_OPTIONS.map((focus) => ({
+                    value: focus,
+                    label: focus,
+                })),
+            ],
+            date: [
+                { value: "All", label: "ทั้งหมด" },
+                { value: "1", label: "7 ม.ค. 69" },
+                { value: "2", label: "8 ม.ค. 69" },
+            ],
+        };
+    }, []);
 
-  // Helper to check if company has open jobs
-  const hasOpenJobs = useMemo(() => {
-    const map = new Map<number, boolean>();
-    const now = Date.now();
+    const searchedCompanies = useMemo(() => {
+        return initialBooths.filter((booth) => {
+            const matchesQuery =
+                booth.companyName_en
+                    .toLowerCase()
+                    .includes(query.toLowerCase()) ||
+                booth.companyName_th.includes(query);
 
-    initialJobs.forEach((job) => {
-      const endTime = job.application_end
-        ? new Date(job.application_end).getTime()
-        : Infinity;
+            // Apply business focus filter
+            const matchesBusinessFocus =
+                businessFocusFilter === "" ||
+                businessFocusFilter === "All" ||
+                booth.businessFocus === businessFocusFilter;
 
-      if (endTime >= now) {
-        map.set(job.companyId, true);
-      }
-    });
+            // Apply booth date filter
+            const matchesDate =
+                dateFilter === "" ||
+                dateFilter === "All" ||
+                (dateFilter == "1" && booth.day1) ||
+                (dateFilter == "2" && booth.day2);
 
-    return map;
-  }, [initialJobs]);
+            return matchesQuery && matchesBusinessFocus && matchesDate;
+        });
+    }, [initialBooths, query, businessFocusFilter, dateFilter]);
 
-  const searchedCompanies = useMemo(() => {
-    return initialCompanies.filter((company: Company) => {
-      const matchesQuery =
-        company.companyName_en.toLowerCase().includes(query.toLowerCase()) ||
-        company.companyName_th.includes(query);
+    // Sorting logic
+    const sortedCompanies = useMemo(() => {
+        const arr = [...searchedCompanies];
 
-      // Apply business focus filter
-      const matchesBusinessFocus =
-        businessFocusFilter === "" ||
-        businessFocusFilter === "All" ||
-        company.businessFocus === businessFocusFilter;
+        const parseBoothNumber = (boothNumber: string) => {
+            const match = boothNumber.match(/^([A-Za-z]+)(\d+)$/);
+            if (match) {
+                return {
+                    letter: match[1].toUpperCase(),
+                    number: parseInt(match[2], 10),
+                };
+            }
+            return { letter: boothNumber, number: 0 };
+        };
 
-      // Apply availability filter
-      const hasOpen = hasOpenJobs.get(company[""]) ?? false;
-      const matchesAvailability =
-        availabilityFilter === "" ||
-        availabilityFilter === "All" ||
-        (availabilityFilter === "available" && hasOpen) ||
-        (availabilityFilter === "closed" && !hasOpen);
+        return arr.sort((a, b) => {
+            const aBoothParsed = parseBoothNumber(a.boothNumber);
+            const bBoothParsed = parseBoothNumber(b.boothNumber);
 
-      return matchesQuery && matchesBusinessFocus && matchesAvailability;
-    });
-  }, [
-    initialCompanies,
-    query,
-    businessFocusFilter,
-    availabilityFilter,
-    hasOpenJobs,
-  ]);
+            // 1. Sort by letter part
+            if (aBoothParsed.letter !== bBoothParsed.letter) {
+                return aBoothParsed.letter.localeCompare(bBoothParsed.letter);
+            }
 
-  // pre compute job dates by company (for sorting)
-  const companyJobDates = useMemo(() => {
-    const map = new Map<number, { earliestStart: number; latestEnd: number }>();
+            // 2. Sort by number part
+            if (aBoothParsed.number !== bBoothParsed.number) {
+                return aBoothParsed.number - bBoothParsed.number;
+            }
 
-    initialJobs.forEach((job) => {
-      const existing = map.get(job.companyId) || {
-        earliestStart: Infinity,
-        latestEnd: -Infinity,
-      };
+            // 3. Sort by day
+            const aHasDay1Only = a.day1 && !a.day2;
+            const bHasDay1Only = b.day1 && !b.day2;
+            const aHasDay2Only = !a.day1 && a.day2;
+            const bHasDay2Only = !b.day1 && b.day2;
 
-      const startTime = job.application_start
-        ? new Date(job.application_start).getTime()
-        : Infinity;
-      const endTime = job.application_end
-        ? new Date(job.application_end).getTime()
-        : -Infinity;
+            if (aHasDay1Only && bHasDay2Only) return -1;
+            if (aHasDay2Only && bHasDay1Only) return 1;
 
-      map.set(job.companyId, {
-        earliestStart: Math.min(existing.earliestStart, startTime),
-        latestEnd: Math.max(existing.latestEnd, endTime),
-      });
-    });
+            return 0;
+        });
+    }, [searchedCompanies]);
 
-    return map;
-  }, [initialJobs]);
+    // Pagination logic
+    const totalPages = Math.max(
+        1,
+        Math.ceil(sortedCompanies.length / cardsPerPage)
+    );
+    if (page > totalPages && totalPages > 0) setPage(totalPages);
+    const paginatedCompanies = useMemo(() => {
+        const startIndex = (page - 1) * cardsPerPage;
+        return sortedCompanies.slice(startIndex, startIndex + cardsPerPage);
+    }, [sortedCompanies, page, cardsPerPage]);
 
-  // pre compute job count by company (for <CompanyCard>)
-  const jobCountMap = useMemo(() => {
-    const m = new Map<number, number>();
-    initialJobs.forEach((j) => {
-      m.set(j.companyId, (m.get(j.companyId) ?? 0) + 1);
-    });
-    return m;
-  }, [initialJobs]);
+    return (
+        <div className="flex flex-col gap-6">
+            <SearchBar
+                query={query}
+                setQuery={setQuery}
+                isFilterOpen={isFilterOpen}
+                setIsFilterOpen={setIsFilterOpen}
+                setPage={setPage}
+            />
 
-  // Sorting logic
-  const sortedCompanies = useMemo(() => {
-    const arr = [...searchedCompanies];
-    if (sortOption === "name")
-      return arr.sort((a, b) =>
-        a.companyName_th.localeCompare(b.companyName_th),
-      );
+            {/* Filter Panel */}
+            {isFilterOpen && (
+                <div className="space-y-3">
+                    <FilterSelector
+                        filterOption={dateFilter}
+                        setFilterOption={(v) => {
+                            setDateFilter(v);
+                            setPage(1);
+                        }}
+                        placeholder="เลือกวันที่เข้าร่วมงาน"
+                        options={filterOptions.date}
+                    />
+                    <FilterSelector
+                        filterOption={businessFocusFilter}
+                        setFilterOption={(v) => {
+                            setBusinessFocusFilter(v);
+                            setPage(1);
+                        }}
+                        placeholder="เลือกสายงานของบริษัท"
+                        options={filterOptions.businessFocus}
+                    />
 
-    if (sortOption === "open-date")
-      return arr.sort((a, b) => {
-        const openA = companyJobDates.get(a[""])?.earliestStart ?? Infinity;
-        const openB = companyJobDates.get(b[""])?.earliestStart ?? Infinity;
-        return openA - openB;
-      });
+                    {/* Reset filters button */}
+                    <button
+                        onClick={() => {
+                            setBusinessFocusFilter("");
+                            setDateFilter("");
+                            setPage(1);
+                        }}
+                        className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
+                    >
+                        ล้างตัวกรอง
+                    </button>
+                </div>
+            )}
 
-    if (sortOption === "close-date")
-      return arr.sort((a, b) => {
-        const closeA = companyJobDates.get(a[""])?.latestEnd ?? -Infinity;
-        const closeB = companyJobDates.get(b[""])?.latestEnd ?? -Infinity;
-        return closeB - closeA; // Latest first
-      });
-    if (sortOption === "job-count")
-      return arr.sort(
-        (a, b) =>
-          -((jobCountMap.get(a[""]) ?? 0) - (jobCountMap.get(b[""]) ?? 0)),
-      );
-
-    return arr;
-  }, [searchedCompanies, sortOption, companyJobDates, jobCountMap]);
-
-  // Pagination logic
-  const totalPages = Math.max(
-    1,
-    Math.ceil(sortedCompanies.length / cardsPerPage),
-  );
-  if (page > totalPages && totalPages > 0) setPage(totalPages);
-  const paginatedCompanies = useMemo(() => {
-    const startIndex = (page - 1) * cardsPerPage;
-    return sortedCompanies.slice(startIndex, startIndex + cardsPerPage);
-  }, [sortedCompanies, page, cardsPerPage]);
-
-  return (
-    <div className="flex flex-col gap-6">
-      <SearchBar
-        query={query}
-        setQuery={setQuery}
-        isFilterOpen={isFilterOpen}
-        setIsFilterOpen={setIsFilterOpen}
-        setPage={setPage}
-      />
-
-      {/* Filter Panel */}
-      {isFilterOpen && (
-        <div className="space-y-3">
-          <FilterSelector
-            filterOption={businessFocusFilter}
-            setFilterOption={(v) => {
-              setBusinessFocusFilter(v);
-              setPage(1);
-            }}
-            placeholder="เลือกสายงานของบริษัท"
-            options={filterOptions.businessFocus}
-          />
-
-          <FilterSelector
-            filterOption={availabilityFilter}
-            setFilterOption={(v) => {
-              setAvailabilityFilter(v);
-              setPage(1);
-            }}
-            placeholder="เลือกสถานะรับสมัคร"
-            options={filterOptions.availability}
-          />
-
-          {/* Reset filters button */}
-          <button
-            onClick={() => {
-              setBusinessFocusFilter("");
-              setAvailabilityFilter("");
-              setPage(1);
-            }}
-            className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-          >
-            ล้างตัวกรอง
-          </button>
-        </div>
-      )}
-
-      <div className="flex flex-col gap-6">
-        <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
-        <h2 className="heading-th-2 text-primary-blue">
-          {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
-        </h2>
-      </div>
-
-      <div className="flex flex-col gap-4 items-center">
-        {paginatedCompanies.map((company) => {
-          const count = jobCountMap.get(company[""]) ?? 0;
-          return (
-            <div key={company[""]} className="w-full">
-              <BoothCard company={company} jobCount={count} />
+            <div className="flex flex-col gap-6">
+                <h2 className="heading-th-2 text-primary-blue">
+                    {query == "" ? "บริษัททั้งหมด" : "ผลการค้นหา"}
+                </h2>
             </div>
-          );
-        })}
-      </div>
 
-      <PaginationControls
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
-    </div>
-  );
+            <div className="flex flex-col gap-4 items-center">
+                {paginatedCompanies.map((booth) => {
+                    return (
+                        <div key={booth.boothId} className="w-full">
+                            <BoothCard booth={booth} />
+                        </div>
+                    );
+                })}
+            </div>
+
+            <PaginationControls
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+            />
+        </div>
+    );
 }

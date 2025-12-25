@@ -1,4 +1,4 @@
-import { Company } from "@/types/schema";
+import { Booth, Company } from "@/types/schema";
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 
@@ -16,7 +16,7 @@ const TAG_COLORS: Record<string, string> = {
   Others: "bg-[#E0E0E080]",
 };
 
-export default function CompanyTags({ company }: { company: Company }) {
+export default function CompanyTags({ company }: { company: Company | Booth }) {
   const tag = company.businessFocus || "Others";
   const colorClass = TAG_COLORS[tag] || "bg-gray-100 text-gray-800";
 
