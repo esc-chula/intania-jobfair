@@ -7,6 +7,7 @@ import BoothCard from "@/components/booths/booth-card";
 import FilterSelector from "@/components/jobs/filter-select";
 import type { Booth } from "@/types/schema";
 import { BUSINESS_FOCUS_OPTIONS } from "@/types/schema";
+import { RefreshCw } from "lucide-react";
 
 export default function BoothListClient({
     initialBooths,
@@ -153,16 +154,18 @@ export default function BoothListClient({
                     />
 
                     {/* Reset filters button */}
-                    <button
-                        onClick={() => {
-                            setBusinessFocusFilter("");
-                            setDateFilter("");
-                            setPage(1);
-                        }}
-                        className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-                    >
-                        ล้างตัวกรอง
-                    </button>
+                    <div className="flex justify-center">
+                        <button
+                            onClick={() => {
+                                setBusinessFocusFilter("");
+                                setDateFilter("");
+                                setPage(1);
+                            }}
+                            className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"
+                        >
+                            <RefreshCw /> ล้างตัวกรอง
+                        </button>
+                    </div>
                 </div>
             )}
 
