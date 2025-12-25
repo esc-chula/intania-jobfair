@@ -47,7 +47,8 @@ export default function BoothListClient({
                 booth.companyName_en
                     .toLowerCase()
                     .includes(query.toLowerCase()) ||
-                booth.companyName_th.includes(query);
+                booth.companyName_th.includes(query) ||
+                booth.boothNumber.toLowerCase().includes(query.toLowerCase());
 
             // Apply business focus filter
             const matchesBusinessFocus =
