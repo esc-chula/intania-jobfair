@@ -65,7 +65,11 @@ export default function BoothCard({ booth }: { booth: Booth }) {
                             <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
                                 {booth?.companyName_th}
                             </h3>
-                            {/* <BoothDisplay company={booth} /> */}
+                            <div className="flex gap-2 flex-col items-end text-[#E78B48] pl-2">
+                                <h3 className="font-bodyEN font-bold">
+                                    {booth.boothNumber}
+                                </h3>
+                            </div>
                         </div>
 
                         <div className="flex gap-2 items-center flex-wrap">

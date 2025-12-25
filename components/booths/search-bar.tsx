@@ -29,7 +29,7 @@ export default function SearchBar({
             setQuery(e.target.value);
             setPage(1);
           }}
-          placeholder="ค้นหาบริษัท"
+          placeholder="ค้นหาบริษัท หรือตำแหน่งบูธ"
           className="h-9 w-full rounded-md border border-border pl-9 pr-3 text-sm bg-white font-bodyTH placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         />
       </div>
