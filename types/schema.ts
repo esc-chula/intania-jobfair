@@ -29,6 +29,19 @@ export type Company = {
   boothDay2: string;
 };
 
+export type Booth = {
+  boothId: number;
+  companyId: number;
+  companyName_th: string;
+  companyName_en: string;
+  companyLogo: string;
+  businessFocus: string;
+  day1: boolean;
+  day2: boolean;
+  boothNumber: string;
+  description: string;
+};
+
 export type MajorEligibility = Record<string, boolean>;
 
 export type EligibleStudentYear = {

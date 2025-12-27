@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Download, ChevronLeft, ChevronRight, CircleAlert } from "lucide-react";
+import { Download, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import mapDay1Image from "@/src/map.jpg";
@@ -34,20 +34,7 @@ export default function BoothMap() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="w-full rounded-lg border border-border bg-[#FFE2E2] px-4 py-3 text-[#DC2626]">
-        <div className="flex items-start gap-3">
-          <CircleAlert className="h-5 w-5 shrink-0 translate-y-[2px]" />
-          <p className="font-bodyTH text-[14px] leading-none">
-            ข้อมูลบนเว็บไซต์เป็นข้อมูลเบื้องต้น
-            โปรดสอบถามรายละเอียดเพิ่มเติมที่บูธในงาน
-          </p>
-        </div>
-      </div>
-      <Section
-        title="แผนผังบูธบริษัท"
-        actionLabel="ดูบูธทั้งหมด"
-        actionHref="/booths"
-      >
+      <Section title="แผนผังบูธบริษัท" actionHref="/booths">
         <div className="flex flex-col items-center gap-4">
           {/* Map Image Carousel */}
           <div className="w-full relative">

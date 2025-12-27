@@ -12,6 +12,7 @@ export default async function HomePage() {
     <>
       <Hero />
       <div className="mx-auto max-w-6xl px-4 py-4 md:py-6 mt-10 md:mt-16">
+        <BoothMap />
         <SearchProvider>
           <div className="mt-4 md:mt-6">
             <Search />
@@ -19,7 +20,6 @@ export default async function HomePage() {
 
           <div className="mt-6 md:mt-8 space-y-8 md:space-y-10">
             <JobResultsWrapper />
-            <BoothMap />
             <FeaturedCompanies />
             <FeaturedJobs />
           </div>
