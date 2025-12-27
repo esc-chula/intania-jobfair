@@ -3,10 +3,22 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 
 const TAG_COLORS: Record<string, { bg: string; text: string }> = {
-  "Banking, Finance & Investment": { bg: "bg-[#FBF6DF]", text: "text-[#102E50]" },
-  "Computer systems, IT & Communications Technology": { bg: "bg-[#D9E3ED]", text: "text-[#102E50]" },
-  "Manufacturing, Logistics & Industrial": { bg: "bg-[#F9DD9E]", text: "text-[#102E50]" },
-  "Research, Academia & Government agencies": { bg: "bg-[#F5C45E]", text: "text-[#102E50]" },
+  "Banking, Finance & Investment": {
+    bg: "bg-[#FBF6DF]",
+    text: "text-[#102E50]",
+  },
+  "Computer systems, IT & Communications Technology": {
+    bg: "bg-[#D9E3ED]",
+    text: "text-[#102E50]",
+  },
+  "Manufacturing, Logistics & Industrial": {
+    bg: "bg-[#F9DD9E]",
+    text: "text-[#102E50]",
+  },
+  "Research, Academia & Government agencies": {
+    bg: "bg-[#F5C45E]",
+    text: "text-[#102E50]",
+  },
   "Mining & Geology": { bg: "bg-[#E88069]", text: "text-white" },
   "Energy & Sustainability": { bg: "bg-[#DB3D1F]", text: "text-white" },
   Construction: { bg: "bg-[#305379]", text: "text-white" },
@@ -18,7 +30,10 @@ const TAG_COLORS: Record<string, { bg: string; text: string }> = {
 
 export default function CompanyTags({ company }: { company: Company | Booth }) {
   const tag = company.businessFocus || "Others";
-  const colors = TAG_COLORS[tag] || { bg: "bg-gray-100", text: "text-gray-800" };
+  const colors = TAG_COLORS[tag] || {
+    bg: "bg-gray-100",
+    text: "text-gray-800",
+  };
 
   return (
     <div

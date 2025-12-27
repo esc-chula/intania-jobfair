@@ -57,7 +57,7 @@ export default function JobCardShort({
           <div className="absolute top-0 right-0 z-10">
             <BoothDisplay company={company} />
           </div>
-          
+
           <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2 pr-32 sm:pr-24">
             {job.jobTitle}
           </h3>

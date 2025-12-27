@@ -1,5 +1,10 @@
 "use client";
-import { SlidersHorizontal, Search as SearchIcon, X, RefreshCw } from "lucide-react";
+import {
+  SlidersHorizontal,
+  Search as SearchIcon,
+  X,
+  RefreshCw,
+} from "lucide-react";
 import { useSearch } from "../contexts/search-context";
 import { useState } from "react";
 import FilterSelector from "@/components/jobs/filter-select";
