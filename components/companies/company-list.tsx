@@ -8,6 +8,7 @@ import CompanyCard from "@/components/companies/company-card";
 import FilterSelector from "@/components/jobs/filter-select";
 import type { Job, Company } from "@/types/schema";
 import { BUSINESS_FOCUS_OPTIONS } from "@/types/schema";
+import { RefreshCw } from "lucide-react";
 
 export default function CompanyListClient({
   initialCompanies,
@@ -205,16 +206,18 @@ export default function CompanyListClient({
           />
 
           {/* Reset filters button */}
-          <button
-            onClick={() => {
-              setBusinessFocusFilter("");
-              setAvailabilityFilter("");
-              setPage(1);
-            }}
-            className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-          >
-            ล้างตัวกรอง
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => {
+                setBusinessFocusFilter("");
+                setAvailabilityFilter("");
+                setPage(1);
+              }}
+              className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"
+            >
+              <RefreshCw /> ล้างตัวกรอง
+            </button>
+          </div>
         </div>
       )}
 

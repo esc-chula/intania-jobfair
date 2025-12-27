@@ -14,6 +14,7 @@ import type {
 } from "@/types/schema";
 import FilterSelector from "./filter-select";
 import GroupedFilterSelector from "./group-filter-select";
+import { RefreshCw } from "lucide-react";
 
 // 👇 import options ที่เราแยกออกมา
 import {
@@ -167,18 +168,20 @@ export default function JobsListClient({
             placeholder="เลือกสาขาวิชา"
           />
           {/* Reset filters button */}
-          <button
-            onClick={() => {
-              setPositionTypeFilter("");
-              setJobTypeFilter("");
-              setEligibleYearFilter("");
-              setMajorFilter("");
-              setPage(1);
-            }}
-            className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-          >
-            ล้างตัวกรอง
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => {
+                setPositionTypeFilter("");
+                setJobTypeFilter("");
+                setEligibleYearFilter("");
+                setMajorFilter("");
+                setPage(1);
+              }}
+              className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"
+            >
+              <RefreshCw /> ล้างตัวกรอง
+            </button>
+          </div>
         </>
       )}
 
