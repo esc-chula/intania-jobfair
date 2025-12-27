@@ -2,7 +2,7 @@ import { Phone, Mail, Instagram } from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="flex justify-center items-start">
+    <div className="flex justify-center items-start min-h-[calc(100vh-80px)]">
       <div className="flex flex-col w-[320px] p-4 gap-4">
         {/* Contact Us Heading */}
         <h1 className="font-headEN font-bold text-[20px] leading-[100%] text-[#102E50]">

@@ -1,5 +1,10 @@
 "use client";
-import { SlidersHorizontal, Search as SearchIcon, X } from "lucide-react";
+import {
+  SlidersHorizontal,
+  Search as SearchIcon,
+  X,
+  RefreshCw,
+} from "lucide-react";
 import { useSearch } from "../contexts/search-context";
 import { useState } from "react";
 import FilterSelector from "@/components/jobs/filter-select";
@@ -100,17 +105,19 @@ export default function Search() {
             groupedOptions={groupedMajorOptions}
             placeholder="เลือกสาขาที่เปิดรับ"
           />
-          <button
-            onClick={() => {
-              setDateFilter("");
-              setJobTypeFilter("");
-              setEligibleYearFilter("");
-              setMajorFilter("");
-            }}
-            className="w-full h-9 shadow bg-primary-yellow hover:bg-gray-200 rounded-md text-sm font-bodyTH text-primary-blue transition"
-          >
-            ล้างตัวกรอง
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => {
+                setDateFilter("");
+                setJobTypeFilter("");
+                setEligibleYearFilter("");
+                setMajorFilter("");
+              }}
+              className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"
+            >
+              <RefreshCw /> ล้างตัวกรอง
+            </button>
+          </div>
         </div>
       )}
     </div>

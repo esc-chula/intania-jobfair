@@ -63,13 +63,14 @@ export default function CompanyCardShort({
             />
           </div>
 
-          <div className="flex flex-col gap-2 flex-1 min-w-0">
-            <div className="flex flex-row justify-between">
-              <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2">
-                {company?.companyName_th}
-              </h3>
+          <div className="flex flex-col gap-2 flex-1 min-w-0 relative">
+            <div className="absolute top-0 right-0 z-10">
               <BoothDisplay company={company} />
             </div>
+
+            <h3 className="body-th-1 font-bold text-primary-blue line-clamp-2 pr-32 sm:pr-24">
+              {company?.companyName_th}
+            </h3>
 
             <div className="flex gap-1 flex-wrap">
               <CompanyTags company={company}></CompanyTags>
