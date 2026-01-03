@@ -104,7 +104,7 @@ export default function BoothMap() {
                   </Button>
                 </Link>
                 <Link
-                  href="https://drive.google.com/file/d/175jZV02BvHK8-Jo0TJaIX4wC3i8odifo/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1GZSiC_0YDojoesSIU5JwUP2wLT332wJT/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full"
