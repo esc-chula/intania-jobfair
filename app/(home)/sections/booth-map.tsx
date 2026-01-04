@@ -64,14 +64,14 @@ export default function BoothMap() {
             {/* Navigation Arrows */}
             <button
               onClick={goToPrevious}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6 text-primary-blue" />
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
               aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6 text-primary-blue" />
