@@ -1,5 +1,6 @@
 import { fetchJobs, fetchCompanies } from "@/lib/data";
 import JobsListClient from "@/components/jobs/job-list";
+import { Suspense } from "react";
 
 export default async function JobsPage() {
   try {
@@ -11,7 +12,9 @@ export default async function JobsPage() {
     return (
       <div className="px-4 py-6">
         <div className="flex flex-col gap-4">
-          <JobsListClient initialJobs={jobs} initialCompanies={companies} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <JobsListClient initialJobs={jobs} initialCompanies={companies} />
+          </Suspense>
         </div>
       </div>
     );

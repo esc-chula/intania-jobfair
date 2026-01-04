@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import PaginationControls from "@/components/jobs/pagination";
 import SearchBar from "@/components/booths/search-bar";
 import BoothCard from "@/components/booths/booth-card";
@@ -16,13 +17,31 @@ export default function BoothListClient({
   initialBooths: Booth[];
   cardsPerPage?: number;
 }) {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Filter states
-  const [businessFocusFilter, setBusinessFocusFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+  // Read initial state from URL
+  const [page, setPage] = useState(() => {
+    const p = searchParams.get("page");
+    return p ? parseInt(p, 10) : 1;
+  });
+  const [query, setQuery] = useState(() => searchParams.get("query") || "");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [businessFocusFilter, setBusinessFocusFilter] = useState(
+    () => searchParams.get("businessFocus") || "",
+  );
+  const [dateFilter, setDateFilter] = useState(
+    () => searchParams.get("date") || "",
+  );
+  // Update URL when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (page > 1) params.set("page", String(page));
+    if (query) params.set("query", query);
+    if (businessFocusFilter) params.set("businessFocus", businessFocusFilter);
+    if (dateFilter) params.set("date", dateFilter);
+    router.replace("?" + params.toString(), { scroll: false });
+  }, [page, query, businessFocusFilter, dateFilter, router]);
 
   // Generate filter options
   const filterOptions = useMemo(() => {
@@ -123,7 +142,10 @@ export default function BoothListClient({
     <div className="flex flex-col gap-6">
       <SearchBar
         query={query}
-        setQuery={setQuery}
+        setQuery={(v) => {
+          setQuery(v);
+          setPage(1);
+        }}
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import PaginationControls from "@/components/jobs/pagination";
 import SearchBar from "@/components/companies/search-bar";
 import SortSelector from "@/components/companies/sort-select";
@@ -19,17 +20,53 @@ export default function CompanyListClient({
   initialJobs: Job[];
   cardsPerPage?: number;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [sortOption, setSortOption] = useState<
     "name" | "job-count" | "open-date" | "close-date"
-  >("name");
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  >(
+    () =>
+      (searchParams.get("sort") as
+        | "name"
+        | "job-count"
+        | "open-date"
+        | "close-date") || "name",
+  );
+  const [page, setPage] = useState(() => {
+    const p = searchParams.get("page");
+    return p ? parseInt(p, 10) : 1;
+  });
+  const [query, setQuery] = useState(() => searchParams.get("query") || "");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  // Filter states
-  const [businessFocusFilter, setBusinessFocusFilter] = useState("");
-  const [availabilityFilter, setAvailabilityFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+  const [businessFocusFilter, setBusinessFocusFilter] = useState(
+    () => searchParams.get("businessFocus") || "",
+  );
+  const [availabilityFilter, setAvailabilityFilter] = useState(
+    () => searchParams.get("availability") || "",
+  );
+  const [dateFilter, setDateFilter] = useState(
+    () => searchParams.get("date") || "",
+  );
+  // Update URL when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (sortOption && sortOption !== "name") params.set("sort", sortOption);
+    if (page > 1) params.set("page", String(page));
+    if (query) params.set("query", query);
+    if (businessFocusFilter) params.set("businessFocus", businessFocusFilter);
+    if (availabilityFilter) params.set("availability", availabilityFilter);
+    if (dateFilter) params.set("date", dateFilter);
+    router.replace("?" + params.toString(), { scroll: false });
+  }, [
+    sortOption,
+    page,
+    query,
+    businessFocusFilter,
+    availabilityFilter,
+    dateFilter,
+    router,
+  ]);
 
   // Generate filter options
   const filterOptions = useMemo(() => {
@@ -195,7 +232,10 @@ export default function CompanyListClient({
     <div className="flex flex-col gap-6">
       <SearchBar
         query={query}
-        setQuery={setQuery}
+        setQuery={(v) => {
+          setQuery(v);
+          setPage(1);
+        }}
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}
@@ -239,6 +279,7 @@ export default function CompanyListClient({
               onClick={() => {
                 setBusinessFocusFilter("");
                 setAvailabilityFilter("");
+                setDateFilter("");
                 setPage(1);
               }}
               className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"

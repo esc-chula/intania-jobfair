@@ -1,6 +1,7 @@
 import { fetchCompanies, fetchJobs } from "@/lib/data";
 import { Booth, Company } from "@/types/schema";
 import BoothListClient from "@/components/booths/booths-list";
+import { Suspense } from "react";
 import BoothMap from "@/components/booths/booth-map";
 
 const createBooths = (companies: Company[]): Booth[] => {
@@ -65,7 +66,9 @@ export default async function CompaniesPage() {
     <div className="px-4 py-6">
       <BoothMap></BoothMap>
       <div className="flex flex-col gap-4">
-        <BoothListClient initialBooths={booths} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <BoothListClient initialBooths={booths} />
+        </Suspense>
       </div>
     </div>
   );

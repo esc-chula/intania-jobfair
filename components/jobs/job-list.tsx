@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import PaginationControls from "./pagination";
 import SearchBar from "./search-bar";
 import SortSelector from "./sort-select";
@@ -34,17 +35,60 @@ export default function JobsListClient({
   initialCompanies: Company[];
   cardsPerPage?: number;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [sortOption, setSortOption] = useState<
     "position" | "open-date" | "close-date"
-  >("position");
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  >(
+    () =>
+      (searchParams.get("sort") as "position" | "open-date" | "close-date") ||
+      "position",
+  );
+  const [page, setPage] = useState(() => {
+    const p = searchParams.get("page");
+    return p ? parseInt(p, 10) : 1;
+  });
+  const [query, setQuery] = useState(() => searchParams.get("query") || "");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [positionTypeFilter, setPositionTypeFilter] = useState<string>("");
-  const [jobTypeFilter, setJobTypeFilter] = useState<string>("");
-  const [eligibleYearFilter, setEligibleYearFilter] = useState<string>("");
-  const [majorFilter, setMajorFilter] = useState<string>("");
-  const [dateFilter, setDateFilter] = useState("");
+  const [positionTypeFilter, setPositionTypeFilter] = useState(
+    () => searchParams.get("positionType") || "",
+  );
+  const [jobTypeFilter, setJobTypeFilter] = useState(
+    () => searchParams.get("jobType") || "",
+  );
+  const [eligibleYearFilter, setEligibleYearFilter] = useState(
+    () => searchParams.get("eligibleYear") || "",
+  );
+  const [majorFilter, setMajorFilter] = useState(
+    () => searchParams.get("major") || "",
+  );
+  const [dateFilter, setDateFilter] = useState(
+    () => searchParams.get("date") || "",
+  );
+  // Update URL when state changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (sortOption && sortOption !== "position") params.set("sort", sortOption);
+    if (page > 1) params.set("page", String(page));
+    if (query) params.set("query", query);
+    if (positionTypeFilter) params.set("positionType", positionTypeFilter);
+    if (jobTypeFilter) params.set("jobType", jobTypeFilter);
+    if (eligibleYearFilter) params.set("eligibleYear", eligibleYearFilter);
+    if (majorFilter) params.set("major", majorFilter);
+    if (dateFilter) params.set("date", dateFilter);
+    router.replace("?" + params.toString(), { scroll: false });
+  }, [
+    sortOption,
+    page,
+    query,
+    positionTypeFilter,
+    jobTypeFilter,
+    eligibleYearFilter,
+    majorFilter,
+    dateFilter,
+    router,
+  ]);
 
   const searchedJobs = useMemo(() => {
     return initialJobs.filter((job) => {
@@ -145,7 +189,10 @@ export default function JobsListClient({
     <div className="flex flex-col gap-6">
       <SearchBar
         query={query}
-        setQuery={setQuery}
+        setQuery={(v) => {
+          setQuery(v);
+          setPage(1);
+        }}
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         setPage={setPage}
@@ -164,26 +211,36 @@ export default function JobsListClient({
           <FilterSelector
             filterOption={positionTypeFilter}
             setFilterOption={(v) => {
-              (setPositionTypeFilter(v), setPage(1));
+              setPositionTypeFilter(v);
+              setPage(1);
             }}
             options={positionTypeOptions}
             placeholder="เลือกรูปแบบการทำงาน"
           />
           <FilterSelector
             filterOption={jobTypeFilter}
-            setFilterOption={setJobTypeFilter}
+            setFilterOption={(v) => {
+              setJobTypeFilter(v);
+              setPage(1);
+            }}
             options={jobTypeOptions}
             placeholder="เลือกสายงานของตำแหน่ง"
           />
           <FilterSelector
             filterOption={eligibleYearFilter}
-            setFilterOption={setEligibleYearFilter}
+            setFilterOption={(v) => {
+              setEligibleYearFilter(v);
+              setPage(1);
+            }}
             options={eligibleYearOptions}
             placeholder="เลือกระดับการศึกษา"
           />
           <GroupedFilterSelector
             filterOption={majorFilter}
-            setFilterOption={setMajorFilter}
+            setFilterOption={(v) => {
+              setMajorFilter(v);
+              setPage(1);
+            }}
             groupedOptions={groupedMajorOptions}
             placeholder="เลือกสาขาวิชา"
           />
@@ -195,6 +252,7 @@ export default function JobsListClient({
                 setJobTypeFilter("");
                 setEligibleYearFilter("");
                 setMajorFilter("");
+                setDateFilter("");
                 setPage(1);
               }}
               className="text-sm flex gap-2 font-bodyTH text-[#D9A94C]"
