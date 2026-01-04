@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Company } from "@/types/schema";
 import { LucideMapPin, LucideBriefcaseBusiness } from "lucide-react";
 import CompanyTags from "@/components/companies/company-tags";
+import { BoothDisplay } from "@/components/common/boothDisplay";
 import { useEffect, useState } from "react";
 
 export default function CompanyCard({

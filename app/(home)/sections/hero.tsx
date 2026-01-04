@@ -1,5 +1,7 @@
 import Image from "next/image";
 import bannerSvg from "@/src/banner-black-bow.png";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
@@ -33,7 +35,7 @@ export default function Hero() {
             >
               Engineering Your Future
             </p>
-          </div>
+
 
           <div className="flex flex-col items-center gap-3 sm:gap-6 mt-4 sm:mt-6">
             <div className="flex flex-col items-center gap-1">

@@ -3,6 +3,7 @@ import Search from "./sections/search";
 import JobResultsWrapper from "./sections/job-results-wrapper";
 import FeaturedCompanies from "./sections/featured-companies";
 import FeaturedJobs from "./sections/featured-jobs";
+import BoothMap from "./sections/booth-map";
 import { SearchProvider } from "./contexts/search-context";
 
 export default async function HomePage() {

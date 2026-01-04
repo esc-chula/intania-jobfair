@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Job, Company } from "@/types/schema";
 import { LucideClock, LucideCalendarRange, LucideMapPin } from "lucide-react";
 import { formatThaiDate } from "@/lib/helper";
+import { BoothDisplay } from "@/components/common/boothDisplay";
 import { useEffect, useState } from "react";
 
 export default function JobCardShort({
