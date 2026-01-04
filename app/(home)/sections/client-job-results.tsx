@@ -152,7 +152,10 @@ export default function ClientJobResults() {
           {shouldShowCompanies && (
             <div className="flex flex-col gap-4">
               <h3 className="text-primary-blue text-base font-headTH">
-                ผลการค้นหาบริษัท {filteredCompanies.length} รายการ
+                ผลการค้นหาบริษัท{" "}
+                <span className="text-sm font-normal text-[#4A5565]">
+                  {filteredCompanies.length} รายการ
+                </span>
               </h3>
               <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {filteredCompanies.map((company) => {
@@ -175,7 +178,10 @@ export default function ClientJobResults() {
           {filteredJobs.length > 0 && (
             <div className="flex flex-col gap-4">
               <h3 className="text-primary-blue text-base font-headTH">
-                ผลการค้นหาตำแหน่งงาน {filteredJobs.length} รายการ
+                ผลการค้นหาตำแหน่งงาน{" "}
+                <span className="text-sm font-normal text-[#4A5565]">
+                  {filteredJobs.length} รายการ
+                </span>
               </h3>
               <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {filteredJobs.map((job) => {
