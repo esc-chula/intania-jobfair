@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  lint-type-build:
+    name: Lint, Type Check & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm lint
+
+      - name: Check formatting
+        run: pnpm format
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Build project
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_GIST_RAW_BASE: https://gist.githubusercontent.com/tech-esc/411e78247ce49f590a2755d2a7e982fe/raw
+          LOGO_DEBUG: 1
+          NODE_ENV: production

@@ -8,6 +8,9 @@ export async function GET(request: Request) {
     const url = resolveLocalLogo(key);
     return NextResponse.json({ url });
   } catch (e) {
-    return NextResponse.json({ url: "/placeholder-company.svg" }, { status: 200 });
+    return NextResponse.json(
+      { url: "/placeholder-company.svg" },
+      { status: 200 },
+    );
   }
 }

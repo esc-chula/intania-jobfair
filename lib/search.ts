@@ -1,3 +1,5 @@
+import { getSynonyms } from "@/constants/search-synonyms";
+import { transliterate } from "@/lib/transliteration";
 import type { Job, Company } from "@/types/schema";
 
 // Search result with score for ranking
@@ -5,175 +7,258 @@ interface SearchResult {
   job: Job;
   company: Company | null;
   score: number;
-  matchType: 'location' | 'job' | 'company' | 'mixed';
-}
-
-// Detect search intent based on query
-function detectSearchIntent(query: string): 'location' | 'job' | 'company' | 'mixed' {
-  const searchTerm = query.toLowerCase().trim();
-  
-  // Common location keywords
-  const locationKeywords = [
-    'กรุงเทพ', 'bangkok', 'เชียงใหม่', 'chiang mai', 'ขอนแก่น', 'khon kaen',
-    'ระยอง', 'rayong', 'ชลบุรี', 'chonburi', 'นครราชสีมา', 'korat',
-    'ภูเก็ต', 'phuket', 'สงขลา', 'songkhla', 'อุดรธานี', 'udon thani',
-    'จังหวัด', 'province', 'อำเภอ', 'district', 'เขต', 'area'
-  ];
-  
-  // Common job keywords
-  const jobKeywords = [
-    'engineer', 'วิศวกร', 'developer', 'โปรแกรมเมอร์', 'programmer',
-    'analyst', 'นักวิเคราะห์', 'manager', 'ผู้จัดการ', 'intern', 'ฝึกงาน',
-    'software', 'ซอฟต์แวร์', 'data', 'ข้อมูล', 'marketing', 'การตลาด',
-    'sales', 'ขาย', 'hr', 'hrd', 'human resource', 'ทรัพยากรบุคคล'
-  ];
-  
-  // Common company keywords
-  const companyKeywords = [
-    'บริษัท', 'company', 'corp', 'corporation', 'ltd', 'limited',
-    'group', 'กรุ๊ป', 'holding', 'โฮลดิ้ง', 'international', 'อินเตอร์'
-  ];
-  
-  const hasLocation = locationKeywords.some(keyword => searchTerm.includes(keyword));
-  const hasJob = jobKeywords.some(keyword => searchTerm.includes(keyword));
-  const hasCompany = companyKeywords.some(keyword => searchTerm.includes(keyword));
-  
-  if (hasLocation && !hasJob && !hasCompany) return 'location';
-  if (hasJob && !hasLocation && !hasCompany) return 'job';
-  if (hasCompany && !hasLocation && !hasJob) return 'company';
-  return 'mixed';
-}
-
-// Calculate search score based on match priority and intent
-function calculateSearchScore(
-  query: string,
-  job: Job,
-  company: Company | null,
-  intent: string
-): number {
-  const searchTerm = query.toLowerCase().trim();
-  let score = 0;
-
-  if (!company) return 0;
-
-  // Location-based scoring (highest priority for location intent)
-  const locationScore = 
-    (company.officeLocation_province.toLowerCase().includes(searchTerm) ? 100 : 0) +
-    (company.officeLocation_district.toLowerCase().includes(searchTerm) ? 80 : 0) +
-    (company.officeLocation_full.toLowerCase().includes(searchTerm) ? 60 : 0);
-
-  // Job-based scoring
-  const jobScore = 
-    (job.jobTitle.toLowerCase().includes(searchTerm) ? 70 : 0) +
-    (job.field_of_work.toLowerCase().includes(searchTerm) ? 50 : 0);
-
-  // Company-based scoring
-  const companyScore = 
-    (company.companyName_th.toLowerCase().includes(searchTerm) ? 60 : 0) +
-    (company.companyName_en.toLowerCase().includes(searchTerm) ? 55 : 0) +
-    (company.businessFocus.toLowerCase().includes(searchTerm) ? 40 : 0);
-
-  // Intent-based scoring multiplier
-  let intentMultiplier = 1;
-  if (intent === 'location' && locationScore > 0) intentMultiplier = 2;
-  if (intent === 'job' && jobScore > 0) intentMultiplier = 1.8;
-  if (intent === 'company' && companyScore > 0) intentMultiplier = 1.5;
-
-  // Calculate final score
-  score = (locationScore + jobScore + companyScore) * intentMultiplier;
-
-  // Exact match bonus
-  if (company.officeLocation_province.toLowerCase() === searchTerm) score += 50;
-  if (company.officeLocation_district.toLowerCase() === searchTerm) score += 30;
-  if (job.jobTitle.toLowerCase() === searchTerm) score += 40;
-
-  return score;
+  matchType: "location" | "job" | "company" | "mixed";
 }
 
 // Smart search with intent detection and intelligent ranking
 export function searchJobsAndCompanies(
   query: string,
   jobs: Job[],
-  companies: Company[]
+  companies: Company[],
 ): { jobs: Job[]; companies: Company[] } {
   if (!query.trim()) {
     return { jobs: [], companies: [] };
   }
 
-  const searchTerm = query.toLowerCase().trim();
-  const intent = detectSearchIntent(query);
+  const rawSearchTerm = query.toLowerCase().trim();
+
+  // 1. Query Expansion
+  // Generate variations using transliteration and synonyms
+  const transliteratedTerms = transliterate(rawSearchTerm);
+  const searchTerms = new Set<string>();
+
+  transliteratedTerms.forEach((term) => {
+    searchTerms.add(term);
+    const synonyms = getSynonyms(term);
+    synonyms.forEach((syn) => searchTerms.add(syn));
+  });
+
+  const searchTokens = Array.from(searchTerms);
+
+  // Booth intent detection (e.g., "A1", "Hall 1", "Booth A")
+  const boothRegex = /([a-z])\s*(\d{1,3})/i;
+  const boothMatch = rawSearchTerm.match(boothRegex);
+  const isBoothSearch =
+    boothMatch ||
+    rawSearchTerm.includes("booth") ||
+    rawSearchTerm.includes("บูธ") ||
+    rawSearchTerm.includes("hall") ||
+    rawSearchTerm.includes("ฮอลล์");
+
   const results: SearchResult[] = [];
 
+  // Helper to parse booth codes into Comparable objects
+  // Supports: "A1", "A01", "A 1", "B3-B4", "B3, B4"
+  const parseBoothCodes = (text: string) => {
+    if (!text) return [];
+    // Normalize: remove generic words
+    const clean = text.toLowerCase().replace(/(booth|บูธ|hall|ฮอลล์)\s*/g, "");
+
+    // Find all patterns like "A1", "B-02" (unlikely), "C 03"
+    // Also handle ranges if connected by -?
+    // Simplest approach: extract all letter-number pairs
+    // But "B3-B4" might be split.
+
+    const codes: { zone: string; number: number }[] = [];
+
+    // Regex for "Letter + Number"
+    const singleBoothRegex = /([a-z])\s*(\d+)/gi;
+    let match;
+    while ((match = singleBoothRegex.exec(clean)) !== null) {
+      codes.push({
+        zone: match[1].toLowerCase(),
+        number: parseInt(match[2], 10),
+      });
+    }
+
+    return codes;
+  };
+
+  const queryBooths = parseBoothCodes(rawSearchTerm);
+
+  // Helper to check token matches
+  const checkMatch = (text: string, tokens: string[]) => {
+    if (!text) return false;
+    const lowerText = text.toLowerCase();
+    return tokens.some((token) => lowerText.includes(token));
+  };
+
+  const getMatchScore = (
+    text: string,
+    tokens: string[],
+    exactScore: number,
+    partialScore: number,
+  ) => {
+    if (!text) return 0;
+    const lowerText = text.toLowerCase();
+
+    // Exact match check (against any token)
+    if (tokens.some((token) => lowerText === token)) return exactScore;
+
+    // Partial match
+    if (tokens.some((token) => lowerText.includes(token))) return partialScore;
+
+    return 0;
+  };
+
+  // Helper to check precise booth match
+  const checkBoothMatch = (company: Company) => {
+    if (queryBooths.length === 0) return false; // No booth in query
+
+    const companyBooths = [
+      ...parseBoothCodes(company.boothDay1),
+      ...parseBoothCodes(company.boothDay2),
+    ];
+
+    // Check if ANY query booth matches ANY company booth
+    return queryBooths.some((q) =>
+      companyBooths.some((c) => c.zone === q.zone && c.number === q.number),
+    );
+  };
+
   // Search through all jobs and calculate scores
-  jobs.forEach(job => {
-    const company = companies.find(c => c[""] === job.companyId);
+  jobs.forEach((job) => {
+    const company = companies.find((c) => c[""] === job.companyId);
     if (!company) return;
 
-    // Check if any field matches
-    const hasMatch = (
-      job.jobTitle.toLowerCase().includes(searchTerm) ||
-      job.field_of_work.toLowerCase().includes(searchTerm) ||
-      company.companyName_th.toLowerCase().includes(searchTerm) ||
-      company.companyName_en.toLowerCase().includes(searchTerm) ||
-      company.businessFocus.toLowerCase().includes(searchTerm) ||
-      company.officeLocation_province.toLowerCase().includes(searchTerm) ||
-      company.officeLocation_district.toLowerCase().includes(searchTerm) ||
-      company.officeLocation_full.toLowerCase().includes(searchTerm)
-    );
+    let totalScore = 0;
 
-    if (hasMatch) {
-      const score = calculateSearchScore(searchTerm, job, company, intent);
-      const matchType = score > 100 ? 'location' : 
-                       score > 50 ? 'job' : 
-                       score > 30 ? 'company' : 'mixed';
-      
-      results.push({ job, company, score, matchType });
+    // Job Title Matches
+    totalScore += getMatchScore(job.jobTitle, searchTokens, 100, 80);
+
+    // Field of Work Matches
+    totalScore += getMatchScore(job.field_of_work, searchTokens, 60, 40);
+
+    // Company matches (for job)
+    const companyNameScore =
+      getMatchScore(company.companyName_th, searchTokens, 50, 30) +
+      getMatchScore(company.companyName_en, searchTokens, 50, 30);
+    totalScore += companyNameScore;
+
+    // Booth / Location Matches
+    let locationScore = 0;
+    if (
+      checkMatch(company.officeLocation_province, searchTokens) ||
+      checkMatch(company.officeLocation_district, searchTokens)
+    ) {
+      locationScore += 40;
+    }
+
+    if (isBoothSearch) {
+      // Strict booth check if we found a booth code in query
+      if (queryBooths.length > 0) {
+        if (checkBoothMatch(company)) {
+          locationScore += 200;
+        }
+      } else {
+        // Fallback loose check (e.g. for "Hall 1" if parser missed it)
+        // Only strip "booth" words, keep "hall" as it is significant
+        const cleanQuery = rawSearchTerm
+          .replace(/(booth|บูธ)\s*/g, "")
+          .replace(/\s+/g, "");
+        const booth1 = String(company.boothDay1 || "")
+          .toLowerCase()
+          .replace(/\s+/g, "");
+        const booth2 = String(company.boothDay2 || "")
+          .toLowerCase()
+          .replace(/\s+/g, "");
+
+        if (
+          cleanQuery.length > 0 &&
+          ((booth1 && booth1.includes(cleanQuery)) ||
+            (booth2 && booth2.includes(cleanQuery)))
+        ) {
+          locationScore += 50; // Lower score for partial/loose match
+        }
+      }
+    }
+
+    totalScore += locationScore;
+
+    if (totalScore > 0) {
+      const matchType =
+        locationScore > 100
+          ? "location"
+          : totalScore > 80 // High score implies good job/company match
+            ? "mixed"
+            : "mixed";
+
+      results.push({
+        job,
+        company,
+        score: totalScore,
+        matchType: matchType as "location" | "job" | "company" | "mixed",
+      });
     }
   });
 
   // Sort by score (highest first) and return jobs
-  const sortedResults = results
+  const sortedJobResults = results
     .sort((a, b) => b.score - a.score)
-    .map(result => result.job);
+    .map((result) => result.job);
 
   // Search companies with intelligent ranking
   const companyResults = companies
-    .filter(company => {
-      return (
-        company.companyName_th.toLowerCase().includes(searchTerm) ||
-        company.companyName_en.toLowerCase().includes(searchTerm) ||
-        company.businessFocus.toLowerCase().includes(searchTerm) ||
-        company.officeLocation_province.toLowerCase().includes(searchTerm) ||
-        company.officeLocation_district.toLowerCase().includes(searchTerm)
+    .map((company) => {
+      let score = 0;
+
+      // Name matches
+      score += getMatchScore(company.companyName_th, searchTokens, 100, 80);
+      score += getMatchScore(company.companyName_en, searchTokens, 100, 80);
+
+      // Business Focus
+      score += getMatchScore(company.businessFocus, searchTokens, 50, 30);
+
+      // Location
+      score += getMatchScore(
+        company.officeLocation_province,
+        searchTokens,
+        60,
+        40,
       );
+      score += getMatchScore(
+        company.officeLocation_district,
+        searchTokens,
+        50,
+        30,
+      );
+
+      // Booth Match
+      if (isBoothSearch) {
+        if (queryBooths.length > 0) {
+          if (checkBoothMatch(company)) {
+            score += 200;
+          }
+        } else {
+          // Fallback loose check
+          const cleanQuery = rawSearchTerm
+            .replace(/(booth|บูธ)\s*/g, "")
+            .replace(/\s+/g, "");
+          const booth1 = String(company.boothDay1 || "")
+            .toLowerCase()
+            .replace(/\s+/g, "");
+          const booth2 = String(company.boothDay2 || "")
+            .toLowerCase()
+            .replace(/\s+/g, "");
+
+          if (
+            cleanQuery.length > 0 &&
+            ((booth1 && booth1.includes(cleanQuery)) ||
+              (booth2 && booth2.includes(cleanQuery)))
+          ) {
+            score += 50;
+          }
+        }
+      }
+
+      return { company, score };
     })
-    .sort((a, b) => {
-      // Prioritize based on intent
-      if (intent === 'location') {
-        const aLocationMatch = a.officeLocation_province.toLowerCase().includes(searchTerm) ||
-                             a.officeLocation_district.toLowerCase().includes(searchTerm);
-        const bLocationMatch = b.officeLocation_province.toLowerCase().includes(searchTerm) ||
-                             b.officeLocation_district.toLowerCase().includes(searchTerm);
-        
-        if (aLocationMatch && !bLocationMatch) return -1;
-        if (!aLocationMatch && bLocationMatch) return 1;
-      }
-      
-      if (intent === 'company') {
-        const aNameMatch = a.companyName_th.toLowerCase().includes(searchTerm) ||
-                         a.companyName_en.toLowerCase().includes(searchTerm);
-        const bNameMatch = b.companyName_th.toLowerCase().includes(searchTerm) ||
-                         b.companyName_en.toLowerCase().includes(searchTerm);
-        
-        if (aNameMatch && !bNameMatch) return -1;
-        if (!aNameMatch && bNameMatch) return 1;
-      }
-      
-      return 0;
-    });
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map((item) => item.company);
 
   return {
-    jobs: sortedResults,
-    companies: companyResults
+    jobs: sortedJobResults,
+    companies: companyResults,
   };
 }

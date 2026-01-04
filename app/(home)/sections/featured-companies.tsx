@@ -3,7 +3,6 @@ import SkeletonCard from "@/components/common/skeleton-card";
 import CompanyCardShort from "@/components/companies/company-card-short";
 import { fetchCompanies, fetchJobs } from "@/lib/data";
 import { pickFeaturedCompanies } from "../services/home.service";
-import Link from "next/link";
 
 export default async function FeaturedCompanies() {
   try {
@@ -12,7 +11,7 @@ export default async function FeaturedCompanies() {
       fetchJobs(),
     ]);
 
-    const featuredCompanies = pickFeaturedCompanies(companies, 4);
+    const featuredCompanies = pickFeaturedCompanies(companies, 6);
 
     return (
       <Section
@@ -22,18 +21,15 @@ export default async function FeaturedCompanies() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {featuredCompanies.map((company) => {
-            const jobCount = jobs.filter(job => job.companyId === company[""]).length;
+            const jobCount = jobs.filter(
+              (job) => job.companyId === company[""],
+            ).length;
             return (
-              <Link
+              <CompanyCardShort
                 key={company[""]}
-                href={`/companies/${company[""]}`}
-                className="w-full"
-              >
-                <CompanyCardShort
-                  company={company}
-                  jobCount={jobCount}
-                />
-              </Link>
+                company={company}
+                jobCount={jobCount}
+              />
             );
           })}
         </div>
@@ -48,6 +44,8 @@ export default async function FeaturedCompanies() {
         actionHref="/companies"
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <SkeletonCard />
+          <SkeletonCard />
           <SkeletonCard />
           <SkeletonCard />
           <SkeletonCard />

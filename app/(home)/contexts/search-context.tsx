@@ -6,6 +6,8 @@ interface SearchContextType {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   isSearchActive: boolean;
+  dateFilter: string;
+  setDateFilter: (filter: string) => void;
   jobTypeFilter: string;
   setJobTypeFilter: (filter: string) => void;
   eligibleYearFilter: string;
@@ -18,24 +20,29 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
   const [jobTypeFilter, setJobTypeFilter] = useState("");
   const [eligibleYearFilter, setEligibleYearFilter] = useState("");
   const [majorFilter, setMajorFilter] = useState("");
-  
+
   const isSearchActive = searchQuery.trim().length > 0;
 
   return (
-    <SearchContext.Provider value={{ 
-      searchQuery, 
-      setSearchQuery, 
-      isSearchActive,
-      jobTypeFilter,
-      setJobTypeFilter,
-      eligibleYearFilter,
-      setEligibleYearFilter,
-      majorFilter,
-      setMajorFilter,
-    }}>
+    <SearchContext.Provider
+      value={{
+        searchQuery,
+        setSearchQuery,
+        isSearchActive,
+        dateFilter,
+        setDateFilter,
+        jobTypeFilter,
+        setJobTypeFilter,
+        eligibleYearFilter,
+        setEligibleYearFilter,
+        majorFilter,
+        setMajorFilter,
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );
