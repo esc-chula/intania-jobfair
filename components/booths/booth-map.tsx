@@ -15,21 +15,42 @@ import Link from "next/link";
 import Image from "next/image";
 import mapDay1Image from "@/src/map.jpg";
 import mapDay2Image from "@/src/map_day2.jpg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const mapImages = [
   { src: mapDay1Image, alt: "Booth Map Day 1", label: "Day 1" },
   { src: mapDay2Image, alt: "Booth Map Day 2", label: "Day 2" },
 ];
 
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
 export default function BoothMap() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? mapImages.length - 1 : prev - 1));
-  };
+  const imageIndex = Math.abs(page % mapImages.length);
 
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev === mapImages.length - 1 ? 0 : prev + 1));
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
   };
 
   return (
@@ -39,26 +60,55 @@ export default function BoothMap() {
           {/* Map Image Carousel */}
           <div className="w-full relative">
             <div className="relative aspect-[358/528] overflow-hidden">
-              <Image
-                src={mapImages[currentIndex].src}
-                alt={mapImages[currentIndex].alt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
+              <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                <motion.div
+                  key={page}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={1}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
+
+                    if (swipe < -swipeConfidenceThreshold) {
+                      paginate(1);
+                    } else if (swipe > swipeConfidenceThreshold) {
+                      paginate(-1);
+                    }
+                  }}
+                  className="absolute w-full h-full"
+                >
+                  <Image
+                    src={mapImages[imageIndex].src}
+                    alt={mapImages[imageIndex].alt}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* Navigation Arrows */}
             <button
-              onClick={goToPrevious}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
+              onClick={() => paginate(-1)}
+              className="z-10 absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6 text-primary-blue" />
             </button>
             <button
-              onClick={goToNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
+              onClick={() => paginate(1)}
+              className="z-10 absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#F5C45E80]/80 hover:bg-white shadow-md flex items-center justify-center transition-colors"
               aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6 text-primary-blue" />
