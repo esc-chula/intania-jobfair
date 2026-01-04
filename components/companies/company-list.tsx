@@ -29,6 +29,7 @@ export default function CompanyListClient({
   // Filter states
   const [businessFocusFilter, setBusinessFocusFilter] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
 
   // Generate filter options
   const filterOptions = useMemo(() => {
@@ -44,6 +45,11 @@ export default function CompanyListClient({
         { value: "All", label: "ทั้งหมด" },
         { value: "available", label: "เปิดรับสมัครอยู่" },
         { value: "closed", label: "ปิดรับสมัครแล้ว" },
+      ],
+      date: [
+        { value: "All", label: "ทั้งหมด" },
+        { value: "1", label: "7 ม.ค. 69" },
+        { value: "2", label: "8 ม.ค. 69" },
       ],
     };
   }, []);
@@ -86,7 +92,19 @@ export default function CompanyListClient({
         (availabilityFilter === "available" && hasOpen) ||
         (availabilityFilter === "closed" && !hasOpen);
 
-      return matchesQuery && matchesBusinessFocus && matchesAvailability;
+      // Apply booth date filter
+      const matchesDate =
+        dateFilter === "" ||
+        dateFilter === "All" ||
+        (dateFilter == "1" && company.boothDay1 != "") ||
+        (dateFilter == "2" && company.boothDay2 != "");
+
+      return (
+        matchesQuery &&
+        matchesBusinessFocus &&
+        matchesAvailability &&
+        matchesDate
+      );
     });
   }, [
     initialCompanies,
@@ -94,6 +112,7 @@ export default function CompanyListClient({
     businessFocusFilter,
     availabilityFilter,
     hasOpenJobs,
+    dateFilter,
   ]);
 
   // pre compute job dates by company (for sorting)
@@ -185,6 +204,15 @@ export default function CompanyListClient({
       {/* Filter Panel */}
       {isFilterOpen && (
         <div className="space-y-3">
+          <FilterSelector
+            filterOption={dateFilter}
+            setFilterOption={(v) => {
+              setDateFilter(v);
+              setPage(1);
+            }}
+            placeholder="เลือกวันที่เข้าร่วมงาน"
+            options={filterOptions.date}
+          />
           <FilterSelector
             filterOption={businessFocusFilter}
             setFilterOption={(v) => {

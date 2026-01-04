@@ -19,6 +19,7 @@ import { RefreshCw } from "lucide-react";
 // 👇 import options ที่เราแยกออกมา
 import {
   positionTypeOptions,
+  dateOptions,
   jobTypeOptions,
   eligibleYearOptions,
   groupedMajorOptions,
@@ -43,6 +44,7 @@ export default function JobsListClient({
   const [jobTypeFilter, setJobTypeFilter] = useState<string>("");
   const [eligibleYearFilter, setEligibleYearFilter] = useState<string>("");
   const [majorFilter, setMajorFilter] = useState<string>("");
+  const [dateFilter, setDateFilter] = useState("");
 
   const searchedJobs = useMemo(() => {
     return initialJobs.filter((job) => {
@@ -81,13 +83,21 @@ export default function JobsListClient({
         majorFilter === "All" ||
         job.major[majorFilter as string] === true;
 
+      // Apply booth date filter
+      const matchesDate =
+        dateFilter === "" ||
+        dateFilter === "All" ||
+        (dateFilter == "1" && company!.boothDay1 != "") ||
+        (dateFilter == "2" && company!.boothDay2 != "");
+
       // combine all
       return (
         matchesQuery &&
         matchesPositionType &&
         matchesJobType &&
         matchesEligibleYear &&
-        matchesMajor
+        matchesMajor &&
+        matchesDate
       );
     });
   }, [
@@ -98,6 +108,7 @@ export default function JobsListClient({
     jobTypeFilter,
     eligibleYearFilter,
     majorFilter,
+    dateFilter,
   ]);
 
   const sortedJobs = useMemo(() => {
@@ -141,6 +152,15 @@ export default function JobsListClient({
       />
       {isFilterOpen && (
         <>
+          <FilterSelector
+            filterOption={dateFilter}
+            setFilterOption={(v) => {
+              setDateFilter(v);
+              setPage(1);
+            }}
+            options={dateOptions}
+            placeholder="เลือกวันที่เข้าร่วมงาน"
+          />
           <FilterSelector
             filterOption={positionTypeFilter}
             setFilterOption={(v) => {

@@ -28,25 +28,42 @@ export const jobTypeOptions = [
     label: "งานวิจัย งานวิชาการ งานในองค์กรภาครัฐ",
   },
   { value: "งานเหมืองแร่ งานทรัพยากร", label: "งานเหมืองแร่ งานทรัพยากร" },
-  { value: "งานด้านพลังงาน งานอนุรักษ์", label: "งานด้านพลังงาน งานอนุรักษ์" },
+  {
+    value: "งานด้านพลังงาน งานอนุรักษ์",
+    label: "งานด้านพลังงาน งานอนุรักษ์",
+  },
   { value: "งานก่อสร้าง", label: "งานก่อสร้าง" },
   { value: "งานธุรกิจ", label: "งานธุรกิจ" },
   {
     value: "งานที่ปรึกษา งานวางแผนกลยุทธ์",
     label: "งานที่ปรึกษา งานวางแผนกลยุทธ์",
   },
-  { value: "งานกลุ่ม Startup งานบริหาร", label: "งานกลุ่ม Startup งานบริหาร" },
+  {
+    value: "งานกลุ่ม Startup งานบริหาร",
+    label: "งานกลุ่ม Startup งานบริหาร",
+  },
   { value: "อื่น ๆ", label: "อื่น ๆ" },
 ];
 
 export const eligibleYearOptions = [
   { value: "All", label: "ทั้งหมด" },
-  { value: "Bachelor’s Freshmen", label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 1" },
-  { value: "Bachelor's Sophmore", label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 2" },
+  {
+    value: "Bachelor’s Freshmen",
+    label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 1",
+  },
+  {
+    value: "Bachelor's Sophmore",
+    label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 2",
+  },
   { value: "Bachelor's Junior", label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 3" },
   { value: "Bachelor's Senior", label: "หลักสูตรปริญญาตรี ระดับชั้นปีที่ 4" },
   { value: "Master’s", label: "หลักสูตรปริญญาโท" },
   { value: "Doctorate", label: "หลักสูตรปริญญาเอก" },
+];
+export const dateOptions = [
+  { value: "All", label: "ทั้งหมด" },
+  { value: "1", label: "7 ม.ค. 69" },
+  { value: "2", label: "8 ม.ค. 69" },
 ];
 
 export const groupedMajorOptions = [
@@ -118,7 +135,10 @@ export const groupedMajorOptions = [
         value: "Automotive Design and Manufacturing - ตรีนานาชาติ",
         label: "Automotive Design and Manufacturing",
       },
-      { value: "Nano Engineering - ตรีนานาชาติ", label: "Nano Engineering" },
+      {
+        value: "Nano Engineering - ตรีนานาชาติ",
+        label: "Nano Engineering",
+      },
       {
         value: "Information and Communication Engineering - ตรีนานาชาติ",
         label: "Information and Communication Engineering",
@@ -144,7 +164,10 @@ export const groupedMajorOptions = [
   {
     label: "ปริญญาโท (หลักสูตรปกติ)",
     options: [
-      { value: "สาขาวิชาวิศวกรรมโยธา - โทปกติ", label: "สาขาวิชาวิศวกรรมโยธา" },
+      {
+        value: "สาขาวิชาวิศวกรรมโยธา - โทปกติ",
+        label: "สาขาวิชาวิศวกรรมโยธา",
+      },
       {
         value: "สาขาวิชาวิศวกรรมไฟฟ้า - โทปกติ",
         label: "สาขาวิชาวิศวกรรมไฟฟ้า",
@@ -161,7 +184,10 @@ export const groupedMajorOptions = [
         value: "สาขาวิชาวิศวกรรมอุตสาหการ - โทปกติ",
         label: "สาขาวิชาวิศวกรรมอุตสาหการ",
       },
-      { value: "สาขาวิชาวิศวกรรมเคมี - โทปกติ", label: "สาขาวิชาวิศวกรรมเคมี" },
+      {
+        value: "สาขาวิชาวิศวกรรมเคมี - โทปกติ",
+        label: "สาขาวิชาวิศวกรรมเคมี",
+      },
       {
         value: "สาขาวิชาวิศวกรรมสิ่งแวดล้อม - โทปกติ",
         label: "สาขาวิชาวิศวกรรมสิ่งแวดล้อม",
@@ -297,7 +323,10 @@ export const groupedMajorOptions = [
   {
     label: "ปริญญาเอก (หลักสูตรนานาชาติ)",
     options: [
-      { value: "Civil Engineering - เอกนานาชาติ", label: "Civil Engineering" },
+      {
+        value: "Civil Engineering - เอกนานาชาติ",
+        label: "Civil Engineering",
+      },
       {
         value: "Geological Resources and Petroleum Engineering - เอกนานาชาติ",
         label: "Geological Resources and Petroleum Engineering",
