@@ -12,7 +12,7 @@ export default async function FeaturedCompanies() {
       fetchJobs(),
     ]);
 
-    const featuredCompanies = pickFeaturedCompanies(companies, 4);
+    const featuredCompanies = pickFeaturedCompanies(companies, 6);
 
     return (
       <Section
@@ -50,6 +50,8 @@ export default async function FeaturedCompanies() {
         actionHref="/companies"
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <SkeletonCard />
+          <SkeletonCard />
           <SkeletonCard />
           <SkeletonCard />
           <SkeletonCard />
