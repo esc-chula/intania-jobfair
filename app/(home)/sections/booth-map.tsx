@@ -75,7 +75,11 @@ export default function BoothMap() {
           {/* Map Image Carousel */}
           <div className="w-full relative">
             <div className="relative aspect-[358/528] overflow-hidden">
-              <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              <AnimatePresence
+                initial={false}
+                custom={direction}
+                mode="popLayout"
+              >
                 <motion.div
                   key={page}
                   custom={direction}

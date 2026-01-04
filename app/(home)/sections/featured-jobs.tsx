@@ -11,9 +11,9 @@ export default async function FeaturedJobs() {
       fetchJobs(),
       fetchCompanies(),
     ]);
-    
+
     const featuredJobs = pickFeaturedJobs(jobs, 6);
-    
+
     return (
       <Section
         title="ตำแหน่งงานที่น่าสนใจ"

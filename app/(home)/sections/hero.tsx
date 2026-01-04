@@ -28,14 +28,13 @@ export default function Hero() {
             Intania Job Fair 2025
           </h1>
 
-            <p
-              className="font-bodyTH text-[16px] font-normal leading-[1.2]
+          <p
+            className="font-bodyTH text-[16px] font-normal leading-[1.2]
                            sm:text-[20px] md:text-[24px] lg:text-[28px]
                            text-primary-blue/85 whitespace-nowrap text-center"
-            >
-              Engineering Your Future
-            </p>
-
+          >
+            Engineering Your Future
+          </p>
 
           <div className="flex flex-col items-center gap-3 sm:gap-6 mt-4 sm:mt-6">
             <div className="flex flex-col items-center gap-1">
