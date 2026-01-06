@@ -13,7 +13,7 @@ import {
 import { Download, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import mapDay1Image from "@/src/map.jpg";
+import mapDay1Image from "@/src/map_new.jpg";
 import mapDay2Image from "@/src/map_day2.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
